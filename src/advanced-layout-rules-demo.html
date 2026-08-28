@@ -1,0 +1,1596 @@
+<style>
+#alr-demo {
+  --alr-page: light-dark(#f6f8fd, #0f172a);
+  --alr-surface: light-dark(#ffffff, #172033);
+  --alr-panel: light-dark(#f2f5ff, #202b42);
+  --alr-panel-strong: light-dark(#e9efff, #263451);
+  --alr-text: light-dark(#1f2a44, #e8eefc);
+  --alr-muted: light-dark(#77839d, #aeb9cf);
+  --alr-line: light-dark(#d8deeb, #3a4762);
+  --alr-primary: light-dark(#5368f5, #8290ff);
+  --alr-primary-strong: light-dark(#4055e7, #93a0ff);
+  --alr-primary-soft: light-dark(#edf0ff, #283559);
+  --alr-success: light-dark(#1f9d68, #5fd3a1);
+  --alr-warning: light-dark(#b66b14, #f5b85d);
+  --alr-warning-soft: light-dark(#fff7e9, #3e2f1d);
+  --alr-danger: light-dark(#d84d55, #ff858c);
+  --alr-danger-soft: light-dark(#fff0f1, #47272d);
+  --alr-overlay: light-dark(rgba(31, 42, 68, 0.42), rgba(3, 7, 18, 0.72));
+  --alr-shadow: light-dark(rgba(31, 42, 68, 0.18), rgba(0, 0, 0, 0.44));
+  color-scheme: light;
+  position: relative;
+  min-height: 930px;
+  width: 100%;
+  overflow: hidden;
+  color: var(--alr-text);
+  background: var(--alr-page);
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+#alr-demo * {
+  box-sizing: border-box;
+}
+
+#alr-demo button,
+#alr-demo input {
+  font: inherit;
+}
+
+#alr-demo button {
+  color: inherit;
+}
+
+#alr-demo .alr-shell {
+  min-height: 930px;
+  background: var(--alr-page);
+}
+
+#alr-demo .alr-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 24px;
+  background: var(--alr-surface);
+  border-bottom: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-breadcrumb strong {
+  color: var(--alr-text);
+  font-weight: 500;
+}
+
+#alr-demo .alr-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#alr-demo .alr-button,
+#alr-demo .alr-icon-button,
+#alr-demo .alr-segment,
+#alr-demo .alr-position-button,
+#alr-demo .alr-tree-row,
+#alr-demo .alr-rule-row {
+  appearance: none;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-surface);
+  cursor: pointer;
+}
+
+#alr-demo .alr-button {
+  min-height: 36px;
+  padding: 7px 16px;
+  border-radius: 7px;
+}
+
+#alr-demo .alr-button-primary {
+  color: light-dark(#ffffff, #10172a);
+  background: var(--alr-primary);
+  border-color: var(--alr-primary);
+}
+
+#alr-demo .alr-button-ghost {
+  background: transparent;
+}
+
+#alr-demo .alr-button-danger {
+  color: var(--alr-danger);
+  background: var(--alr-danger-soft);
+  border-color: var(--alr-danger);
+}
+
+#alr-demo .alr-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.95fr);
+  gap: 1px;
+  min-height: 840px;
+  background: var(--alr-line);
+}
+
+#alr-demo .alr-section {
+  min-width: 0;
+  padding: 22px;
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+#alr-demo .alr-section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-segments {
+  display: inline-flex;
+}
+
+#alr-demo .alr-segment {
+  min-height: 34px;
+  padding: 6px 14px;
+}
+
+#alr-demo .alr-segment:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+#alr-demo .alr-segment:last-child {
+  margin-left: -1px;
+  border-radius: 0 6px 6px 0;
+}
+
+#alr-demo .alr-segment[aria-pressed="true"] {
+  color: light-dark(#ffffff, #10172a);
+  background: var(--alr-primary);
+  border-color: var(--alr-primary);
+}
+
+#alr-demo .alr-component-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+#alr-demo .alr-component {
+  min-width: 0;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--alr-panel);
+  border: 1px solid transparent;
+}
+
+#alr-demo .alr-component:has(.alr-switch-input:checked) {
+  border-color: var(--alr-primary);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 7px 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-field-type {
+  color: var(--alr-muted);
+  white-space: nowrap;
+}
+
+#alr-demo .alr-field-value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-field-chevron {
+  margin-left: auto;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-advanced-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 35px;
+  padding-top: 3px;
+}
+
+#alr-demo .alr-advanced-label {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+#alr-demo .alr-switch-input {
+  width: 38px;
+  height: 22px;
+  margin: 0;
+  appearance: none;
+  border-radius: 11px;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-line);
+  cursor: pointer;
+}
+
+#alr-demo .alr-switch-input::after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 1px;
+  border-radius: 50%;
+  background: var(--alr-surface);
+  box-shadow: 0 1px 4px var(--alr-shadow);
+  transition: transform 160ms ease;
+}
+
+#alr-demo .alr-switch-input:checked {
+  background: var(--alr-primary);
+  border-color: var(--alr-primary);
+}
+
+#alr-demo .alr-switch-input:checked::after {
+  transform: translateX(16px);
+}
+
+#alr-demo .alr-config-summary {
+  min-width: 0;
+  color: var(--alr-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-config-summary.is-enabled {
+  color: var(--alr-primary-strong);
+}
+
+#alr-demo .alr-edit-link {
+  margin-left: auto;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--alr-primary-strong);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-add-component {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 14px;
+  border: 1px dashed var(--alr-line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--alr-text);
+  cursor: pointer;
+}
+
+#alr-demo .alr-reference-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#alr-demo .alr-reference-panel {
+  min-height: 710px;
+  padding: 16px;
+  border: 1px dashed var(--alr-primary);
+  border-radius: 8px;
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-reference-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  color: var(--alr-muted);
+  margin-bottom: 12px;
+}
+
+#alr-demo .alr-form-line {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+#alr-demo .alr-required::before {
+  content: "*";
+  color: var(--alr-danger);
+  margin-right: 5px;
+}
+
+#alr-demo .alr-faux-input {
+  min-height: 38px;
+  padding: 8px 11px;
+  border-radius: 6px;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-label-tree {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) 150px;
+  min-height: 310px;
+  margin-top: 12px;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-label-tree > div {
+  min-width: 0;
+  padding: 12px;
+  border-right: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-label-tree > div:last-child {
+  border-right: 0;
+}
+
+#alr-demo .alr-label-item {
+  padding: 8px 6px;
+  margin-bottom: 5px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-label-item.is-selected {
+  color: var(--alr-primary-strong);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-tag-cloud {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#alr-demo .alr-tag {
+  padding: 4px 7px;
+  border: 1px solid var(--alr-primary);
+  border-radius: 5px;
+  color: var(--alr-primary-strong);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 34px 20px;
+  background: var(--alr-overlay);
+}
+
+#alr-demo .alr-overlay.is-open {
+  display: flex;
+}
+
+#alr-demo .alr-modal {
+  width: min(1080px, 100%);
+  min-height: 780px;
+  border-radius: 12px;
+  background: var(--alr-surface);
+  box-shadow: 0 18px 60px var(--alr-shadow);
+}
+
+#alr-demo .alr-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-modal-title {
+  margin: 0 0 5px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-modal-subtitle {
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-icon-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+}
+
+#alr-demo .alr-modal-body {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  min-height: 650px;
+}
+
+#alr-demo .alr-rules-pane {
+  padding: 18px;
+  border-right: 1px solid var(--alr-line);
+  background: var(--alr-panel);
+}
+
+#alr-demo .alr-pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+#alr-demo .alr-pane-title {
+  font-weight: 500;
+}
+
+#alr-demo .alr-rule-list {
+  display: grid;
+  gap: 9px;
+}
+
+#alr-demo .alr-rule-row {
+  width: 100%;
+  padding: 11px;
+  border-radius: 7px;
+  text-align: left;
+}
+
+#alr-demo .alr-rule-row.is-active {
+  border-color: var(--alr-primary);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-rule-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-rule-summary {
+  margin-top: 6px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-rule-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 9px;
+}
+
+#alr-demo .alr-rule-action {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--alr-primary-strong);
+  cursor: pointer;
+}
+
+#alr-demo .alr-rule-action.is-danger {
+  color: var(--alr-danger);
+}
+
+#alr-demo .alr-editor-pane {
+  min-width: 0;
+  padding: 18px 22px;
+}
+
+#alr-demo .alr-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+#alr-demo .alr-editor-title {
+  font-weight: 500;
+}
+
+#alr-demo .alr-editor-hint {
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-editor-section {
+  margin-bottom: 18px;
+}
+
+#alr-demo .alr-editor-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 9px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-snapshot-note {
+  color: var(--alr-muted);
+  font-weight: 400;
+}
+
+#alr-demo .alr-position-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+#alr-demo .alr-position-button {
+  position: relative;
+  min-height: 58px;
+  padding: 8px 7px;
+  border-radius: 7px;
+  text-align: center;
+}
+
+#alr-demo .alr-position-button::before {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 5px;
+  margin: 0 auto 7px;
+  border-radius: 3px;
+  background: var(--alr-line);
+}
+
+#alr-demo .alr-position-button[aria-pressed="true"] {
+  color: var(--alr-primary-strong);
+  background: var(--alr-primary-soft);
+  border-color: var(--alr-primary);
+}
+
+#alr-demo .alr-position-button[aria-pressed="true"]::before {
+  background: var(--alr-primary);
+}
+
+#alr-demo .alr-task-picker {
+  border: 1px solid var(--alr-line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-task-search {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-search-input {
+  min-width: 0;
+  flex: 1;
+  min-height: 36px;
+  padding: 7px 10px;
+  border: 1px solid var(--alr-line);
+  border-radius: 6px;
+  color: var(--alr-text);
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-task-columns {
+  display: grid;
+  grid-template-columns: 0.82fr 0.72fr 1.6fr;
+  min-height: 260px;
+}
+
+#alr-demo .alr-task-column {
+  min-width: 0;
+  padding: 8px;
+  border-right: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-task-column:last-child {
+  border-right: 0;
+}
+
+#alr-demo .alr-column-title {
+  padding: 4px 5px 7px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-tree-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 35px;
+  padding: 6px;
+  margin-bottom: 3px;
+  border-color: transparent;
+  border-radius: 5px;
+  text-align: left;
+}
+
+#alr-demo .alr-tree-row.is-active {
+  color: var(--alr-primary-strong);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-tree-row:hover {
+  background: var(--alr-panel);
+}
+
+#alr-demo .alr-tree-checkbox {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  accent-color: var(--alr-primary);
+}
+
+#alr-demo .alr-tree-label {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-task-label {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+#alr-demo .alr-task-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: var(--alr-muted);
+  font-size: 12px;
+}
+
+#alr-demo .alr-type-machine {
+  color: var(--alr-primary-strong);
+}
+
+#alr-demo .alr-type-human {
+  color: var(--alr-success);
+}
+
+#alr-demo .alr-status-paused {
+  color: var(--alr-warning);
+}
+
+#alr-demo .alr-selected-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--alr-line);
+  background: var(--alr-panel);
+}
+
+#alr-demo .alr-selected-preview {
+  min-width: 0;
+  color: var(--alr-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-inline-action {
+  border: 0;
+  padding: 4px 0;
+  background: transparent;
+  color: var(--alr-primary-strong);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-validation {
+  min-height: 22px;
+  margin-top: 8px;
+  color: var(--alr-danger);
+}
+
+#alr-demo .alr-editor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+#alr-demo .alr-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-footer-note {
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-footer-actions {
+  display: flex;
+  gap: 10px;
+}
+
+#alr-demo .alr-subdialog-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 70;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--alr-overlay);
+}
+
+#alr-demo .alr-subdialog-layer.is-open {
+  display: flex;
+}
+
+#alr-demo .alr-subdialog {
+  width: min(460px, 100%);
+  padding: 22px;
+  border-radius: 10px;
+  background: var(--alr-surface);
+  box-shadow: 0 12px 40px var(--alr-shadow);
+}
+
+#alr-demo .alr-subdialog h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-subdialog p {
+  margin: 0 0 18px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-subdialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+#alr-demo .alr-toast {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 90;
+  display: none;
+  max-width: min(420px, calc(100% - 36px));
+  padding: 11px 15px;
+  border-radius: 7px;
+  color: light-dark(#ffffff, #10172a);
+  background: var(--alr-success);
+  box-shadow: 0 8px 24px var(--alr-shadow);
+}
+
+#alr-demo .alr-toast.is-visible {
+  display: block;
+}
+
+#alr-demo .alr-empty {
+  padding: 18px 8px;
+  color: var(--alr-muted);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  #alr-demo .alr-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  #alr-demo .alr-reference-section {
+    display: none;
+  }
+
+  #alr-demo .alr-modal {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  #alr-demo {
+    min-height: 1500px;
+  }
+
+  #alr-demo .alr-component-grid,
+  #alr-demo .alr-modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  #alr-demo .alr-rules-pane {
+    border-right: 0;
+    border-bottom: 1px solid var(--alr-line);
+  }
+
+  #alr-demo .alr-rule-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #alr-demo .alr-task-columns {
+    grid-template-columns: 1fr;
+  }
+
+  #alr-demo .alr-task-column {
+    border-right: 0;
+    border-bottom: 1px solid var(--alr-line);
+  }
+
+  #alr-demo .alr-modal-footer,
+  #alr-demo .alr-editor-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #alr-demo .alr-footer-actions,
+  #alr-demo .alr-editor-actions {
+    width: 100%;
+  }
+
+  #alr-demo .alr-footer-actions .alr-button,
+  #alr-demo .alr-editor-actions .alr-button {
+    flex: 1;
+  }
+}
+</style>
+
+<div id="alr-demo">
+  <div class="alr-shell">
+    <header class="alr-topbar">
+      <div class="alr-breadcrumb"><span>审核模板</span><span>/</span><strong>内容展示配置</strong></div>
+      <div class="alr-top-actions">
+        <button type="button" class="alr-button alr-button-ghost">预览</button>
+        <button type="button" class="alr-button alr-button-primary">保存模板</button>
+      </div>
+    </header>
+
+    <main class="alr-workspace">
+      <section class="alr-section">
+        <div class="alr-section-head">
+          <h2 class="alr-section-title">内容展示配置</h2>
+          <div class="alr-segments" aria-label="布局列数">
+            <button type="button" class="alr-segment" aria-pressed="false">单列</button>
+            <button type="button" class="alr-segment" aria-pressed="true">双列</button>
+          </div>
+        </div>
+
+        <div class="alr-component-grid" id="alr-component-grid">
+          <article class="alr-component" data-component-id="item_title">
+            <div class="alr-field-row"><span class="alr-field-type">数据</span><span class="alr-field-value">商品标题(item_title)</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-field-row"><span class="alr-field-type">容器</span><span class="alr-field-value">文本-全部展开</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-advanced-row">
+              <span class="alr-advanced-label">高级布局</span>
+              <label class="alr-switch" aria-label="启用商品标题高级布局"><input class="alr-switch-input" type="checkbox" data-component-toggle="item_title"></label>
+              <span class="alr-config-summary" data-component-summary="item_title">未配置</span>
+              <button type="button" class="alr-edit-link" data-edit-rules="item_title">配置</button>
+            </div>
+          </article>
+
+          <article class="alr-component" data-component-id="video_cover">
+            <div class="alr-field-row"><span class="alr-field-type">数据</span><span class="alr-field-value">视频封面(video_cover)</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-field-row"><span class="alr-field-type">容器</span><span class="alr-field-value">封面预览</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-advanced-row">
+              <span class="alr-advanced-label">高级布局</span>
+              <label class="alr-switch" aria-label="启用视频封面高级布局"><input class="alr-switch-input" type="checkbox" data-component-toggle="video_cover"></label>
+              <span class="alr-config-summary" data-component-summary="video_cover">未配置</span>
+              <button type="button" class="alr-edit-link" data-edit-rules="video_cover">配置</button>
+            </div>
+          </article>
+
+          <article class="alr-component" data-component-id="title">
+            <div class="alr-field-row"><span class="alr-field-type">数据</span><span class="alr-field-value">内容标题(title)</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-field-row"><span class="alr-field-type">容器</span><span class="alr-field-value">文本-全部展开</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-advanced-row">
+              <span class="alr-advanced-label">高级布局</span>
+              <label class="alr-switch" aria-label="启用内容标题高级布局"><input class="alr-switch-input" type="checkbox" data-component-toggle="title"></label>
+              <span class="alr-config-summary" data-component-summary="title">未配置</span>
+              <button type="button" class="alr-edit-link" data-edit-rules="title">配置</button>
+            </div>
+          </article>
+
+          <article class="alr-component" data-component-id="items">
+            <div class="alr-field-row"><span class="alr-field-type">数据</span><span class="alr-field-value">商品信息(items)</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-field-row"><span class="alr-field-type">容器</span><span class="alr-field-value">有序商品列表</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-advanced-row">
+              <span class="alr-advanced-label">高级布局</span>
+              <label class="alr-switch" aria-label="启用商品信息高级布局"><input class="alr-switch-input" type="checkbox" data-component-toggle="items"></label>
+              <span class="alr-config-summary" data-component-summary="items">未配置</span>
+              <button type="button" class="alr-edit-link" data-edit-rules="items">配置</button>
+            </div>
+          </article>
+
+          <article class="alr-component" data-component-id="show_summary">
+            <div class="alr-field-row"><span class="alr-field-type">数据</span><span class="alr-field-value">展示摘要(show_summary)</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-field-row"><span class="alr-field-type">容器</span><span class="alr-field-value">文本-全部展开</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-advanced-row">
+              <span class="alr-advanced-label">高级布局</span>
+              <label class="alr-switch" aria-label="启用展示摘要高级布局"><input class="alr-switch-input" type="checkbox" data-component-toggle="show_summary"></label>
+              <span class="alr-config-summary" data-component-summary="show_summary">未配置</span>
+              <button type="button" class="alr-edit-link" data-edit-rules="show_summary">配置</button>
+            </div>
+          </article>
+
+          <article class="alr-component" data-component-id="body_video">
+            <div class="alr-field-row"><span class="alr-field-type">数据</span><span class="alr-field-value">视频(body_body_video)</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-field-row"><span class="alr-field-type">容器</span><span class="alr-field-value">视频预览</span><span class="alr-field-chevron">⌄</span></div>
+            <div class="alr-advanced-row">
+              <span class="alr-advanced-label">高级布局</span>
+              <label class="alr-switch" aria-label="启用视频高级布局"><input class="alr-switch-input" type="checkbox" data-component-toggle="body_video"></label>
+              <span class="alr-config-summary" data-component-summary="body_video">未配置</span>
+              <button type="button" class="alr-edit-link" data-edit-rules="body_video">配置</button>
+            </div>
+          </article>
+        </div>
+
+        <button type="button" class="alr-add-component">＋ 新增组件</button>
+      </section>
+
+      <section class="alr-section alr-reference-section">
+        <div class="alr-section-head">
+          <h2 class="alr-section-title">参考信息</h2>
+          <div class="alr-reference-tools"><span>Live图</span><label class="alr-switch"><input class="alr-switch-input" type="checkbox"></label></div>
+        </div>
+        <div class="alr-reference-panel">
+          <div class="alr-reference-head"><span>⌄</span><span>复制</span><span>删除</span></div>
+          <div class="alr-form-line"><span class="alr-required">题目1</span><div class="alr-faux-input">封面图</div></div>
+          <div class="alr-form-line"><span class="alr-required">是否必选</span><div>○ 是　 <span style="color:var(--alr-primary)">●</span> 否</div></div>
+          <div class="alr-form-line"><span class="alr-required">构建方式</span><div class="alr-faux-input">各级节点向上回溯</div></div>
+          <div class="alr-form-line"><span class="alr-required">标注数据</span><div class="alr-faux-input">标签类型　信息流质量标签树</div></div>
+          <div class="alr-label-tree" aria-label="标签选择示例">
+            <div><div class="alr-label-item is-selected">☑ 图片　›</div><div class="alr-label-item">□ 标题　›</div><div class="alr-label-item">□ 商品　›</div><div class="alr-label-item">□ 视频　›</div><div class="alr-label-item">□ 摘要　›</div></div>
+            <div></div>
+            <div><div style="margin-bottom:10px;color:var(--alr-muted)">已选 8 个</div><div class="alr-tag-cloud"><span class="alr-tag">图片 ×</span><span class="alr-tag">夸张文案 ×</span><span class="alr-tag">低俗色情 ×</span><span class="alr-tag">情趣用品 ×</span><span class="alr-tag">封面质量 ×</span></div></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="alr-overlay" id="alr-overlay" aria-hidden="true">
+    <section class="alr-modal" role="dialog" aria-modal="true" aria-labelledby="alr-modal-title">
+      <header class="alr-modal-head">
+        <div>
+          <h2 class="alr-modal-title" id="alr-modal-title">高级布局配置</h2>
+          <div class="alr-modal-subtitle">为不同审核任务设置组件展示位置</div>
+        </div>
+        <button type="button" class="alr-icon-button" id="alr-close-modal" aria-label="关闭">×</button>
+      </header>
+
+      <div class="alr-modal-body">
+        <aside class="alr-rules-pane">
+          <div class="alr-pane-head"><span class="alr-pane-title">位置规则</span><span id="alr-rule-count">0 条</span></div>
+          <button type="button" class="alr-button alr-button-primary" id="alr-new-rule" style="width:100%;margin-bottom:12px">＋ 新增规则</button>
+          <div class="alr-rule-list" id="alr-rule-list"></div>
+        </aside>
+
+        <section class="alr-editor-pane">
+          <div class="alr-editor-toolbar">
+            <div><span class="alr-editor-title" id="alr-editor-title">新增规则</span><span class="alr-editor-hint">　一组任务对应一个固定位置</span></div>
+            <div class="alr-editor-actions">
+              <button type="button" class="alr-button" id="alr-copy-rule">复制规则</button>
+              <button type="button" class="alr-button alr-button-primary" id="alr-save-rule">保存本条规则</button>
+            </div>
+          </div>
+
+          <div class="alr-editor-section">
+            <div class="alr-editor-label"><span>固定位置</span><span class="alr-snapshot-note">相对于审核页面三栏区域</span></div>
+            <div class="alr-position-grid" id="alr-position-grid">
+              <button type="button" class="alr-position-button" data-position="left-top" aria-pressed="false">左侧最上部</button>
+              <button type="button" class="alr-position-button" data-position="center-top" aria-pressed="false">中间最上部</button>
+              <button type="button" class="alr-position-button" data-position="right-top" aria-pressed="false">右侧最上部</button>
+              <button type="button" class="alr-position-button" data-position="left-bottom" aria-pressed="false">左侧最下部</button>
+              <button type="button" class="alr-position-button" data-position="center-bottom" aria-pressed="false">中间最下部</button>
+              <button type="button" class="alr-position-button" data-position="right-bottom" aria-pressed="false">右侧最下部</button>
+            </div>
+          </div>
+
+          <div class="alr-editor-section">
+            <div class="alr-editor-label"><span>生效任务</span><span class="alr-snapshot-note">按当前任务 ID 保存，未来新增任务不会自动加入</span></div>
+            <div class="alr-task-picker">
+              <div class="alr-task-search"><input class="alr-search-input" id="alr-task-search" type="search" placeholder="搜索任务名称或任务 ID"><button type="button" class="alr-button" id="alr-clear-search">清空</button></div>
+              <div class="alr-task-columns">
+                <div class="alr-task-column"><div class="alr-column-title">流程</div><div id="alr-flow-list"></div></div>
+                <div class="alr-task-column"><div class="alr-column-title">分组</div><div id="alr-group-list"></div></div>
+                <div class="alr-task-column"><div class="alr-column-title">机审任务 / 人审任务</div><div id="alr-task-list"></div></div>
+              </div>
+              <div class="alr-selected-bar">
+                <div><strong id="alr-selected-count">已选 0 个</strong><span class="alr-selected-preview" id="alr-selected-preview"></span></div>
+                <button type="button" class="alr-inline-action" id="alr-clear-selection">清空选择</button>
+              </div>
+            </div>
+            <div class="alr-validation" id="alr-validation" role="alert"></div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="alr-modal-footer">
+        <div class="alr-footer-note">不同组件落在同一位置时，按左侧组件顺序排列</div>
+        <div class="alr-footer-actions"><button type="button" class="alr-button" id="alr-cancel-config">取消</button><button type="button" class="alr-button alr-button-primary" id="alr-finish-config">完成配置</button></div>
+      </footer>
+
+      <div class="alr-subdialog-layer" id="alr-conflict-dialog">
+        <div class="alr-subdialog" role="alertdialog" aria-labelledby="alr-conflict-title">
+          <h3 id="alr-conflict-title">任务位置冲突</h3>
+          <p id="alr-conflict-text"></p>
+          <div class="alr-subdialog-actions"><button type="button" class="alr-button" id="alr-cancel-move">取消选择</button><button type="button" class="alr-button alr-button-primary" id="alr-confirm-move">移动到当前规则</button></div>
+        </div>
+      </div>
+
+      <div class="alr-subdialog-layer" id="alr-discard-dialog">
+        <div class="alr-subdialog" role="alertdialog" aria-labelledby="alr-discard-title">
+          <h3 id="alr-discard-title">放弃未保存修改？</h3>
+          <p>本次高级布局配置还没有完成保存，关闭后这些修改不会保留。</p>
+          <div class="alr-subdialog-actions"><button type="button" class="alr-button" id="alr-keep-editing">继续编辑</button><button type="button" class="alr-button alr-button-danger" id="alr-confirm-discard">放弃修改</button></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="alr-toast" id="alr-toast" aria-live="polite"></div>
+</div>
+
+<script>
+(() => {
+  const root = document.getElementById('alr-demo');
+  if (!root) return;
+
+  const positionNames = {
+    'left-top': '左侧最上部',
+    'center-top': '中间最上部',
+    'right-top': '右侧最上部',
+    'left-bottom': '左侧最下部',
+    'center-bottom': '中间最下部',
+    'right-bottom': '右侧最下部'
+  };
+
+  const componentNames = {
+    item_title: '商品标题(item_title)',
+    video_cover: '视频封面(video_cover)',
+    title: '内容标题(title)',
+    items: '商品信息(items)',
+    show_summary: '展示摘要(show_summary)',
+    body_video: '视频(body_body_video)'
+  };
+
+  const flows = [
+    {
+      id: '111630',
+      name: '内容一审（未挂品）流程',
+      groups: [
+        {
+          id: '80002620',
+          name: '一审',
+          tasks: [
+            { id: '2082981', name: '未挂品素材-图文存量回刷-一次性', type: '机审', status: '暂停' },
+            { id: '2072025', name: '未挂品素材-图文机审任务', type: '机审', status: '已上线' },
+            { id: '2072026', name: '未挂品素材-视频机审任务', type: '机审', status: '已上线' },
+            { id: '2072023', name: '未挂品素材-图文人审任务', type: '人审', status: '已上线' },
+            { id: '2072024', name: '未挂品素材-视频人审任务', type: '人审', status: '已上线' }
+          ]
+        }
+      ]
+    },
+    {
+      id: '117171',
+      name: '0730一审测试流程',
+      groups: [
+        {
+          id: '80002620-test',
+          name: '一审',
+          tasks: [
+            { id: '2089506', name: '0730一审图文机审任务', type: '机审', status: '已上线' },
+            { id: '2089508', name: '0730一审视频机审任务', type: '机审', status: '已上线' },
+            { id: '2089535', name: '0730一审测试任务', type: '人审', status: '已上线' }
+          ]
+        }
+      ]
+    }
+  ];
+
+  const allTasks = flows.flatMap(flow => flow.groups.flatMap(group => group.tasks.map(task => ({ ...task, flowId: flow.id, flowName: flow.name, groupId: group.id, groupName: group.name }))));
+  const taskById = Object.fromEntries(allTasks.map(task => [task.id, task]));
+
+  const defaultConfigs = {
+    item_title: { enabled: false, rules: [] },
+    video_cover: {
+      enabled: true,
+      rules: [
+        { id: 'rule-1', name: '规则 1', position: 'right-top', taskIds: ['2072025', '2072026', '2072023', '2072024'] },
+        { id: 'rule-2', name: '规则 2', position: 'center-bottom', taskIds: ['2089506', '2089535'] }
+      ]
+    },
+    title: { enabled: false, rules: [] },
+    items: { enabled: false, rules: [] },
+    show_summary: { enabled: false, rules: [] },
+    body_video: { enabled: false, rules: [] }
+  };
+
+  const storageKey = 'auditbiz-advanced-layout-demo-v1';
+  let componentConfigs = loadConfigs();
+  let currentComponentId = null;
+  let draftRules = [];
+  let activeRuleId = null;
+  let editorTaskIds = new Set();
+  let editorPosition = '';
+  let activeFlowId = flows[0].id;
+  let activeGroupId = flows[0].groups[0].id;
+  let modalDirty = false;
+  let editorDirty = false;
+  let openedFromDisabled = false;
+  let pendingAddIds = [];
+  let pendingConflicts = [];
+  let toastTimer = null;
+
+  const overlay = root.querySelector('#alr-overlay');
+  const modalTitle = root.querySelector('#alr-modal-title');
+  const ruleList = root.querySelector('#alr-rule-list');
+  const ruleCount = root.querySelector('#alr-rule-count');
+  const editorTitle = root.querySelector('#alr-editor-title');
+  const flowList = root.querySelector('#alr-flow-list');
+  const groupList = root.querySelector('#alr-group-list');
+  const taskList = root.querySelector('#alr-task-list');
+  const searchInput = root.querySelector('#alr-task-search');
+  const validation = root.querySelector('#alr-validation');
+  const selectedCount = root.querySelector('#alr-selected-count');
+  const selectedPreview = root.querySelector('#alr-selected-preview');
+  const conflictDialog = root.querySelector('#alr-conflict-dialog');
+  const conflictText = root.querySelector('#alr-conflict-text');
+  const discardDialog = root.querySelector('#alr-discard-dialog');
+  const toast = root.querySelector('#alr-toast');
+
+  function clone(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function loadConfigs() {
+    try {
+      const stored = localStorage.getItem(storageKey);
+      if (stored) return { ...clone(defaultConfigs), ...JSON.parse(stored) };
+    } catch (error) {
+      return clone(defaultConfigs);
+    }
+    return clone(defaultConfigs);
+  }
+
+  function persistConfigs() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(componentConfigs));
+    } catch (error) {
+      return;
+    }
+  }
+
+  function uniqueTaskCount(rules) {
+    return new Set(rules.flatMap(rule => rule.taskIds)).size;
+  }
+
+  function renderComponentRows() {
+    Object.entries(componentConfigs).forEach(([componentId, config]) => {
+      const toggle = root.querySelector(`[data-component-toggle="${componentId}"]`);
+      const summary = root.querySelector(`[data-component-summary="${componentId}"]`);
+      const edit = root.querySelector(`[data-edit-rules="${componentId}"]`);
+      if (!toggle || !summary || !edit) return;
+      toggle.checked = Boolean(config.enabled);
+      const taskCount = uniqueTaskCount(config.rules);
+      if (!config.rules.length) {
+        summary.textContent = '未配置';
+        summary.classList.remove('is-enabled');
+        edit.textContent = '配置';
+      } else if (config.enabled) {
+        summary.textContent = `已启用 · ${config.rules.length} 条 / ${taskCount} 个任务`;
+        summary.classList.add('is-enabled');
+        edit.textContent = '编辑';
+      } else {
+        summary.textContent = `已停用 · 保留 ${config.rules.length} 条`;
+        summary.classList.remove('is-enabled');
+        edit.textContent = '编辑';
+      }
+    });
+  }
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2600);
+  }
+
+  function openModal(componentId, fromDisabled) {
+    currentComponentId = componentId;
+    draftRules = clone(componentConfigs[componentId].rules || []);
+    openedFromDisabled = Boolean(fromDisabled);
+    modalDirty = false;
+    editorDirty = false;
+    modalTitle.textContent = `高级布局配置 · ${componentNames[componentId]}`;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    searchInput.value = '';
+    if (draftRules.length) loadRule(draftRules[0].id);
+    else startNewRule();
+    renderRuleList();
+    renderTaskPicker();
+  }
+
+  function closeModal(commit) {
+    if (commit) {
+      componentConfigs[currentComponentId].rules = clone(draftRules);
+      componentConfigs[currentComponentId].enabled = draftRules.length > 0;
+      persistConfigs();
+      renderComponentRows();
+      showToast(`已保存 ${draftRules.length} 条高级布局规则`);
+    } else if (openedFromDisabled) {
+      componentConfigs[currentComponentId].enabled = false;
+      renderComponentRows();
+    }
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    currentComponentId = null;
+  }
+
+  function requestClose() {
+    if (modalDirty || editorDirty) {
+      discardDialog.classList.add('is-open');
+      return;
+    }
+    closeModal(false);
+  }
+
+  function startNewRule(prefillPosition = '', prefillTaskIds = []) {
+    activeRuleId = null;
+    editorTaskIds = new Set(prefillTaskIds);
+    editorPosition = prefillPosition;
+    editorDirty = false;
+    validation.textContent = '';
+    editorTitle.textContent = '新增规则';
+    renderPositions();
+    renderSelectedSummary();
+    renderRuleList();
+    renderTaskPicker();
+  }
+
+  function loadRule(ruleId) {
+    const rule = draftRules.find(item => item.id === ruleId);
+    if (!rule) return;
+    activeRuleId = rule.id;
+    editorTaskIds = new Set(rule.taskIds);
+    editorPosition = rule.position;
+    editorDirty = false;
+    validation.textContent = '';
+    editorTitle.textContent = rule.name;
+    renderPositions();
+    renderSelectedSummary();
+    renderRuleList();
+    renderTaskPicker();
+  }
+
+  function renderRuleList() {
+    ruleCount.textContent = `${draftRules.length} 条`;
+    if (!draftRules.length) {
+      ruleList.innerHTML = '<div class="alr-empty">暂无规则<br>点击上方新增</div>';
+      return;
+    }
+    ruleList.innerHTML = draftRules.map(rule => `
+      <div class="alr-rule-row ${activeRuleId === rule.id ? 'is-active' : ''}" data-rule-select="${rule.id}">
+        <div class="alr-rule-name"><span>${rule.name}</span><span>${positionNames[rule.position]}</span></div>
+        <div class="alr-rule-summary">${rule.taskIds.length} 个任务 · ${rule.taskIds.slice(0, 2).join('、')}${rule.taskIds.length > 2 ? '…' : ''}</div>
+        <div class="alr-rule-actions">
+          <button type="button" class="alr-rule-action" data-rule-edit="${rule.id}">编辑</button>
+          <button type="button" class="alr-rule-action" data-rule-copy="${rule.id}">复制</button>
+          <button type="button" class="alr-rule-action is-danger" data-rule-delete="${rule.id}">删除</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderPositions() {
+    root.querySelectorAll('[data-position]').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.position === editorPosition));
+    });
+  }
+
+  function allTaskIdsForFlow(flowId) {
+    const flow = flows.find(item => item.id === flowId);
+    return flow ? flow.groups.flatMap(group => group.tasks.map(task => task.id)) : [];
+  }
+
+  function allTaskIdsForGroup(groupId) {
+    for (const flow of flows) {
+      const group = flow.groups.find(item => item.id === groupId);
+      if (group) return group.tasks.map(task => task.id);
+    }
+    return [];
+  }
+
+  function checkState(ids) {
+    const selected = ids.filter(id => editorTaskIds.has(id)).length;
+    return { checked: selected === ids.length && ids.length > 0, indeterminate: selected > 0 && selected < ids.length };
+  }
+
+  function checkboxMarkup(kind, id, ids) {
+    const state = checkState(ids);
+    return `<input type="checkbox" class="alr-tree-checkbox" data-check-kind="${kind}" data-check-id="${id}" ${state.checked ? 'checked' : ''}>`;
+  }
+
+  function renderTaskPicker() {
+    const query = searchInput.value.trim().toLowerCase();
+    flowList.innerHTML = flows.map(flow => {
+      const ids = allTaskIdsForFlow(flow.id);
+      return `<div class="alr-tree-row ${activeFlowId === flow.id ? 'is-active' : ''}" data-open-flow="${flow.id}">${checkboxMarkup('flow', flow.id, ids)}<span class="alr-tree-label">${flow.name}</span><span>›</span></div>`;
+    }).join('');
+
+    const activeFlow = flows.find(flow => flow.id === activeFlowId) || flows[0];
+    if (!activeFlow.groups.some(group => group.id === activeGroupId)) activeGroupId = activeFlow.groups[0].id;
+    groupList.innerHTML = activeFlow.groups.map(group => {
+      const ids = allTaskIdsForGroup(group.id);
+      return `<div class="alr-tree-row ${activeGroupId === group.id ? 'is-active' : ''}" data-open-group="${group.id}">${checkboxMarkup('group', group.id, ids)}<span class="alr-tree-label">${group.name}</span><span>›</span></div>`;
+    }).join('');
+
+    let visibleTasks;
+    if (query) {
+      visibleTasks = allTasks.filter(task => task.id.toLowerCase().includes(query) || task.name.toLowerCase().includes(query));
+    } else {
+      const activeGroup = activeFlow.groups.find(group => group.id === activeGroupId) || activeFlow.groups[0];
+      visibleTasks = activeGroup.tasks.map(task => ({ ...task, flowId: activeFlow.id, flowName: activeFlow.name, groupId: activeGroup.id, groupName: activeGroup.name }));
+    }
+
+    taskList.innerHTML = visibleTasks.length ? visibleTasks.map(task => `
+      <label class="alr-tree-row">
+        <input type="checkbox" class="alr-tree-checkbox" data-check-kind="task" data-check-id="${task.id}" ${editorTaskIds.has(task.id) ? 'checked' : ''}>
+        <span class="alr-task-label">
+          <span class="alr-task-name">${task.name}</span>
+          <span class="alr-task-meta"><span class="${task.type === '机审' ? 'alr-type-machine' : 'alr-type-human'}">${task.type}</span><span>ID ${task.id}</span><span class="${task.status === '暂停' ? 'alr-status-paused' : ''}">${task.status}</span>${query ? `<span>${task.flowName} / ${task.groupName}</span>` : ''}</span>
+        </span>
+      </label>
+    `).join('') : '<div class="alr-empty">未找到匹配任务</div>';
+
+    root.querySelectorAll('[data-check-kind="flow"], [data-check-kind="group"]').forEach(input => {
+      const ids = input.dataset.checkKind === 'flow' ? allTaskIdsForFlow(input.dataset.checkId) : allTaskIdsForGroup(input.dataset.checkId);
+      input.indeterminate = checkState(ids).indeterminate;
+    });
+    renderSelectedSummary();
+  }
+
+  function renderSelectedSummary() {
+    const selected = [...editorTaskIds].map(id => taskById[id]).filter(Boolean);
+    const machineCount = selected.filter(task => task.type === '机审').length;
+    const humanCount = selected.filter(task => task.type === '人审').length;
+    selectedCount.textContent = `已选 ${selected.length} 个（机审 ${machineCount} / 人审 ${humanCount}）`;
+    selectedPreview.textContent = selected.length ? `　${selected.slice(0, 3).map(task => task.id).join('、')}${selected.length > 3 ? ` 等 ${selected.length} 个` : ''}` : '';
+  }
+
+  function findConflicts(ids) {
+    const conflicts = [];
+    draftRules.forEach(rule => {
+      if (rule.id === activeRuleId) return;
+      ids.forEach(id => {
+        if (rule.taskIds.includes(id)) conflicts.push({ taskId: id, ruleId: rule.id, ruleName: rule.name, position: rule.position });
+      });
+    });
+    return conflicts;
+  }
+
+  function attemptAdd(ids) {
+    const newIds = ids.filter(id => !editorTaskIds.has(id));
+    if (!newIds.length) return;
+    const conflicts = findConflicts(newIds);
+    if (conflicts.length) {
+      pendingAddIds = newIds;
+      pendingConflicts = conflicts;
+      const first = conflicts[0];
+      conflictText.textContent = conflicts.length === 1
+        ? `任务 ${first.taskId} 已在“${first.ruleName} / ${positionNames[first.position]}”中。移动后将从原规则移除。`
+        : `${conflicts.length} 个任务已存在于其他位置规则。移动后将从原规则移除，并加入当前规则。`;
+      conflictDialog.classList.add('is-open');
+      return;
+    }
+    newIds.forEach(id => editorTaskIds.add(id));
+    editorDirty = true;
+    renderTaskPicker();
+  }
+
+  function removeIds(ids) {
+    ids.forEach(id => editorTaskIds.delete(id));
+    editorDirty = true;
+    renderTaskPicker();
+  }
+
+  function saveRule() {
+    const messages = [];
+    if (!editorPosition) messages.push('请选择一个固定位置');
+    if (!editorTaskIds.size) messages.push('请至少选择一个生效任务');
+    if (messages.length) {
+      validation.textContent = messages.join('；');
+      return;
+    }
+
+    if (activeRuleId) {
+      const index = draftRules.findIndex(rule => rule.id === activeRuleId);
+      draftRules[index] = { ...draftRules[index], position: editorPosition, taskIds: [...editorTaskIds] };
+    } else {
+      const nextNumber = draftRules.reduce((max, rule) => Math.max(max, Number((rule.name.match(/\d+/) || ['0'])[0])), 0) + 1;
+      activeRuleId = `rule-${Date.now()}`;
+      draftRules.push({ id: activeRuleId, name: `规则 ${nextNumber}`, position: editorPosition, taskIds: [...editorTaskIds] });
+    }
+    modalDirty = true;
+    editorDirty = false;
+    validation.textContent = '本条规则已保存，点击“完成配置”后生效。';
+    editorTitle.textContent = draftRules.find(rule => rule.id === activeRuleId).name;
+    renderRuleList();
+  }
+
+  root.querySelectorAll('[data-component-toggle]').forEach(toggle => {
+    toggle.addEventListener('change', event => {
+      const componentId = event.currentTarget.dataset.componentToggle;
+      const config = componentConfigs[componentId];
+      if (event.currentTarget.checked) {
+        const wasDisabled = !config.enabled;
+        config.enabled = true;
+        renderComponentRows();
+        openModal(componentId, wasDisabled);
+      } else {
+        config.enabled = false;
+        persistConfigs();
+        renderComponentRows();
+        showToast(config.rules.length ? '高级布局已停用，规则仍保留' : '高级布局已关闭');
+      }
+    });
+  });
+
+  root.querySelectorAll('[data-edit-rules]').forEach(button => {
+    button.addEventListener('click', () => openModal(button.dataset.editRules, false));
+  });
+
+  root.querySelectorAll('[data-position]').forEach(button => {
+    button.addEventListener('click', () => {
+      editorPosition = button.dataset.position;
+      editorDirty = true;
+      validation.textContent = '';
+      renderPositions();
+    });
+  });
+
+  ruleList.addEventListener('click', event => {
+    const editButton = event.target.closest('[data-rule-edit]');
+    const copyButton = event.target.closest('[data-rule-copy]');
+    const deleteButton = event.target.closest('[data-rule-delete]');
+    const row = event.target.closest('[data-rule-select]');
+    if (editButton) {
+      event.stopPropagation();
+      loadRule(editButton.dataset.ruleEdit);
+    } else if (copyButton) {
+      event.stopPropagation();
+      const source = draftRules.find(rule => rule.id === copyButton.dataset.ruleCopy);
+      startNewRule(source ? source.position : '', []);
+      validation.textContent = '已复制位置，请选择另一批任务后保存。';
+    } else if (deleteButton) {
+      event.stopPropagation();
+      const deletingId = deleteButton.dataset.ruleDelete;
+      draftRules = draftRules.filter(rule => rule.id !== deletingId);
+      modalDirty = true;
+      if (activeRuleId === deletingId) startNewRule();
+      renderRuleList();
+    } else if (row) {
+      loadRule(row.dataset.ruleSelect);
+    }
+  });
+
+  root.querySelector('#alr-new-rule').addEventListener('click', () => startNewRule());
+  root.querySelector('#alr-save-rule').addEventListener('click', saveRule);
+  root.querySelector('#alr-copy-rule').addEventListener('click', () => startNewRule(editorPosition, []));
+
+  root.querySelector('.alr-task-columns').addEventListener('click', event => {
+    const flowRow = event.target.closest('[data-open-flow]');
+    const groupRow = event.target.closest('[data-open-group]');
+    if (flowRow && !event.target.matches('input')) {
+      activeFlowId = flowRow.dataset.openFlow;
+      const flow = flows.find(item => item.id === activeFlowId);
+      activeGroupId = flow.groups[0].id;
+      renderTaskPicker();
+    } else if (groupRow && !event.target.matches('input')) {
+      activeGroupId = groupRow.dataset.openGroup;
+      renderTaskPicker();
+    }
+  });
+
+  root.querySelector('.alr-task-columns').addEventListener('change', event => {
+    const input = event.target.closest('[data-check-kind]');
+    if (!input) return;
+    const kind = input.dataset.checkKind;
+    const id = input.dataset.checkId;
+    const ids = kind === 'flow' ? allTaskIdsForFlow(id) : kind === 'group' ? allTaskIdsForGroup(id) : [id];
+    if (input.checked) attemptAdd(ids);
+    else removeIds(ids);
+  });
+
+  searchInput.addEventListener('input', renderTaskPicker);
+  root.querySelector('#alr-clear-search').addEventListener('click', () => { searchInput.value = ''; renderTaskPicker(); searchInput.focus(); });
+  root.querySelector('#alr-clear-selection').addEventListener('click', () => { editorTaskIds.clear(); editorDirty = true; renderTaskPicker(); });
+
+  root.querySelector('#alr-confirm-move').addEventListener('click', () => {
+    pendingConflicts.forEach(conflict => {
+      const rule = draftRules.find(item => item.id === conflict.ruleId);
+      if (rule) rule.taskIds = rule.taskIds.filter(id => id !== conflict.taskId);
+    });
+    pendingAddIds.forEach(id => editorTaskIds.add(id));
+    modalDirty = true;
+    editorDirty = true;
+    pendingAddIds = [];
+    pendingConflicts = [];
+    conflictDialog.classList.remove('is-open');
+    renderRuleList();
+    renderTaskPicker();
+  });
+
+  root.querySelector('#alr-cancel-move').addEventListener('click', () => {
+    pendingAddIds = [];
+    pendingConflicts = [];
+    conflictDialog.classList.remove('is-open');
+    renderTaskPicker();
+  });
+
+  root.querySelector('#alr-finish-config').addEventListener('click', () => {
+    if (editorDirty) {
+      validation.textContent = '当前规则还有未保存修改，请先保存本条规则。';
+      return;
+    }
+    if (!draftRules.length) {
+      validation.textContent = '高级布局至少需要一条完整规则。';
+      return;
+    }
+    closeModal(true);
+  });
+
+  root.querySelector('#alr-close-modal').addEventListener('click', requestClose);
+  root.querySelector('#alr-cancel-config').addEventListener('click', requestClose);
+  root.querySelector('#alr-keep-editing').addEventListener('click', () => discardDialog.classList.remove('is-open'));
+  root.querySelector('#alr-confirm-discard').addEventListener('click', () => { discardDialog.classList.remove('is-open'); closeModal(false); });
+
+  root.querySelectorAll('.alr-segment').forEach(button => {
+    button.addEventListener('click', () => {
+      root.querySelectorAll('.alr-segment').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    });
+  });
+
+  renderComponentRows();
+})();
+</script>

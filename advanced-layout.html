@@ -1,0 +1,2875 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Advanced Layout Rules Demo</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Advanced Layout Rules Demo" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Advanced Layout Rules Demo&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: var(--border-radius-lg, 12.5px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: superellipse(1.5);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress {
+  display: flex;
+  height: 6px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 6px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: superellipse(1.5);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  .btn,
+  .form-control,
+  .form-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: max(16px, var(--font-size-normal));
+  }
+
+  .form-control[type=&quot;file&quot;]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type=&quot;color&quot;] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type=&quot;date&quot;],
+    [type=&quot;datetime-local&quot;],
+    [type=&quot;month&quot;],
+    [type=&quot;time&quot;],
+    [type=&quot;week&quot;]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: &quot;&quot;;
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+
+  .form-range::-webkit-slider-runnable-track {
+    height: 44px;
+  }
+
+  .form-range::-moz-range-track {
+    height: 44px;
+  }
+
+  .form-range::-webkit-slider-thumb {
+    margin-top: 12px;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: 16px !important;
+  height: 16px !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;style&gt;
+#alr-demo {
+  --alr-page: light-dark(#f6f8fd, #0f172a);
+  --alr-surface: light-dark(#ffffff, #172033);
+  --alr-panel: light-dark(#f2f5ff, #202b42);
+  --alr-panel-strong: light-dark(#e9efff, #263451);
+  --alr-text: light-dark(#1f2a44, #e8eefc);
+  --alr-muted: light-dark(#77839d, #aeb9cf);
+  --alr-line: light-dark(#d8deeb, #3a4762);
+  --alr-primary: light-dark(#5368f5, #8290ff);
+  --alr-primary-strong: light-dark(#4055e7, #93a0ff);
+  --alr-primary-soft: light-dark(#edf0ff, #283559);
+  --alr-success: light-dark(#1f9d68, #5fd3a1);
+  --alr-warning: light-dark(#b66b14, #f5b85d);
+  --alr-warning-soft: light-dark(#fff7e9, #3e2f1d);
+  --alr-danger: light-dark(#d84d55, #ff858c);
+  --alr-danger-soft: light-dark(#fff0f1, #47272d);
+  --alr-overlay: light-dark(rgba(31, 42, 68, 0.42), rgba(3, 7, 18, 0.72));
+  --alr-shadow: light-dark(rgba(31, 42, 68, 0.18), rgba(0, 0, 0, 0.44));
+  color-scheme: light;
+  position: relative;
+  min-height: 930px;
+  width: 100%;
+  overflow: hidden;
+  color: var(--alr-text);
+  background: var(--alr-page);
+  font-family: Inter, &quot;PingFang SC&quot;, &quot;Microsoft YaHei&quot;, sans-serif;
+}
+
+#alr-demo * {
+  box-sizing: border-box;
+}
+
+#alr-demo button,
+#alr-demo input {
+  font: inherit;
+}
+
+#alr-demo button {
+  color: inherit;
+}
+
+#alr-demo .alr-shell {
+  min-height: 930px;
+  background: var(--alr-page);
+}
+
+#alr-demo .alr-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 24px;
+  background: var(--alr-surface);
+  border-bottom: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-breadcrumb strong {
+  color: var(--alr-text);
+  font-weight: 500;
+}
+
+#alr-demo .alr-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#alr-demo .alr-button,
+#alr-demo .alr-icon-button,
+#alr-demo .alr-segment,
+#alr-demo .alr-position-button,
+#alr-demo .alr-tree-row,
+#alr-demo .alr-rule-row {
+  appearance: none;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-surface);
+  cursor: pointer;
+}
+
+#alr-demo .alr-button {
+  min-height: 36px;
+  padding: 7px 16px;
+  border-radius: 7px;
+}
+
+#alr-demo .alr-button-primary {
+  color: light-dark(#ffffff, #10172a);
+  background: var(--alr-primary);
+  border-color: var(--alr-primary);
+}
+
+#alr-demo .alr-button-ghost {
+  background: transparent;
+}
+
+#alr-demo .alr-button-danger {
+  color: var(--alr-danger);
+  background: var(--alr-danger-soft);
+  border-color: var(--alr-danger);
+}
+
+#alr-demo .alr-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.95fr);
+  gap: 1px;
+  min-height: 840px;
+  background: var(--alr-line);
+}
+
+#alr-demo .alr-section {
+  min-width: 0;
+  padding: 22px;
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+#alr-demo .alr-section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-segments {
+  display: inline-flex;
+}
+
+#alr-demo .alr-segment {
+  min-height: 34px;
+  padding: 6px 14px;
+}
+
+#alr-demo .alr-segment:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+#alr-demo .alr-segment:last-child {
+  margin-left: -1px;
+  border-radius: 0 6px 6px 0;
+}
+
+#alr-demo .alr-segment[aria-pressed=&quot;true&quot;] {
+  color: light-dark(#ffffff, #10172a);
+  background: var(--alr-primary);
+  border-color: var(--alr-primary);
+}
+
+#alr-demo .alr-component-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+#alr-demo .alr-component {
+  min-width: 0;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--alr-panel);
+  border: 1px solid transparent;
+}
+
+#alr-demo .alr-component:has(.alr-switch-input:checked) {
+  border-color: var(--alr-primary);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 7px 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-field-type {
+  color: var(--alr-muted);
+  white-space: nowrap;
+}
+
+#alr-demo .alr-field-value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-field-chevron {
+  margin-left: auto;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-advanced-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 35px;
+  padding-top: 3px;
+}
+
+#alr-demo .alr-advanced-label {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+#alr-demo .alr-switch-input {
+  width: 38px;
+  height: 22px;
+  margin: 0;
+  appearance: none;
+  border-radius: 11px;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-line);
+  cursor: pointer;
+}
+
+#alr-demo .alr-switch-input::after {
+  content: &quot;&quot;;
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 1px;
+  border-radius: 50%;
+  background: var(--alr-surface);
+  box-shadow: 0 1px 4px var(--alr-shadow);
+  transition: transform 160ms ease;
+}
+
+#alr-demo .alr-switch-input:checked {
+  background: var(--alr-primary);
+  border-color: var(--alr-primary);
+}
+
+#alr-demo .alr-switch-input:checked::after {
+  transform: translateX(16px);
+}
+
+#alr-demo .alr-config-summary {
+  min-width: 0;
+  color: var(--alr-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-config-summary.is-enabled {
+  color: var(--alr-primary-strong);
+}
+
+#alr-demo .alr-edit-link {
+  margin-left: auto;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--alr-primary-strong);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-add-component {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 14px;
+  border: 1px dashed var(--alr-line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--alr-text);
+  cursor: pointer;
+}
+
+#alr-demo .alr-reference-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#alr-demo .alr-reference-panel {
+  min-height: 710px;
+  padding: 16px;
+  border: 1px dashed var(--alr-primary);
+  border-radius: 8px;
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-reference-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  color: var(--alr-muted);
+  margin-bottom: 12px;
+}
+
+#alr-demo .alr-form-line {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+#alr-demo .alr-required::before {
+  content: &quot;*&quot;;
+  color: var(--alr-danger);
+  margin-right: 5px;
+}
+
+#alr-demo .alr-faux-input {
+  min-height: 38px;
+  padding: 8px 11px;
+  border-radius: 6px;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-label-tree {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) 150px;
+  min-height: 310px;
+  margin-top: 12px;
+  border: 1px solid var(--alr-line);
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-label-tree &gt; div {
+  min-width: 0;
+  padding: 12px;
+  border-right: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-label-tree &gt; div:last-child {
+  border-right: 0;
+}
+
+#alr-demo .alr-label-item {
+  padding: 8px 6px;
+  margin-bottom: 5px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-label-item.is-selected {
+  color: var(--alr-primary-strong);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-tag-cloud {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#alr-demo .alr-tag {
+  padding: 4px 7px;
+  border: 1px solid var(--alr-primary);
+  border-radius: 5px;
+  color: var(--alr-primary-strong);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 34px 20px;
+  background: var(--alr-overlay);
+}
+
+#alr-demo .alr-overlay.is-open {
+  display: flex;
+}
+
+#alr-demo .alr-modal {
+  width: min(1080px, 100%);
+  min-height: 780px;
+  border-radius: 12px;
+  background: var(--alr-surface);
+  box-shadow: 0 18px 60px var(--alr-shadow);
+}
+
+#alr-demo .alr-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-modal-title {
+  margin: 0 0 5px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-modal-subtitle {
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-icon-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+}
+
+#alr-demo .alr-modal-body {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  min-height: 650px;
+}
+
+#alr-demo .alr-rules-pane {
+  padding: 18px;
+  border-right: 1px solid var(--alr-line);
+  background: var(--alr-panel);
+}
+
+#alr-demo .alr-pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+#alr-demo .alr-pane-title {
+  font-weight: 500;
+}
+
+#alr-demo .alr-rule-list {
+  display: grid;
+  gap: 9px;
+}
+
+#alr-demo .alr-rule-row {
+  width: 100%;
+  padding: 11px;
+  border-radius: 7px;
+  text-align: left;
+}
+
+#alr-demo .alr-rule-row.is-active {
+  border-color: var(--alr-primary);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-rule-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-rule-summary {
+  margin-top: 6px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-rule-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 9px;
+}
+
+#alr-demo .alr-rule-action {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--alr-primary-strong);
+  cursor: pointer;
+}
+
+#alr-demo .alr-rule-action.is-danger {
+  color: var(--alr-danger);
+}
+
+#alr-demo .alr-editor-pane {
+  min-width: 0;
+  padding: 18px 22px;
+}
+
+#alr-demo .alr-editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+#alr-demo .alr-editor-title {
+  font-weight: 500;
+}
+
+#alr-demo .alr-editor-hint {
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-editor-section {
+  margin-bottom: 18px;
+}
+
+#alr-demo .alr-editor-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 9px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-snapshot-note {
+  color: var(--alr-muted);
+  font-weight: 400;
+}
+
+#alr-demo .alr-position-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+#alr-demo .alr-position-button {
+  position: relative;
+  min-height: 58px;
+  padding: 8px 7px;
+  border-radius: 7px;
+  text-align: center;
+}
+
+#alr-demo .alr-position-button::before {
+  content: &quot;&quot;;
+  display: block;
+  width: 18px;
+  height: 5px;
+  margin: 0 auto 7px;
+  border-radius: 3px;
+  background: var(--alr-line);
+}
+
+#alr-demo .alr-position-button[aria-pressed=&quot;true&quot;] {
+  color: var(--alr-primary-strong);
+  background: var(--alr-primary-soft);
+  border-color: var(--alr-primary);
+}
+
+#alr-demo .alr-position-button[aria-pressed=&quot;true&quot;]::before {
+  background: var(--alr-primary);
+}
+
+#alr-demo .alr-task-picker {
+  border: 1px solid var(--alr-line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-task-search {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-search-input {
+  min-width: 0;
+  flex: 1;
+  min-height: 36px;
+  padding: 7px 10px;
+  border: 1px solid var(--alr-line);
+  border-radius: 6px;
+  color: var(--alr-text);
+  background: var(--alr-surface);
+}
+
+#alr-demo .alr-task-columns {
+  display: grid;
+  grid-template-columns: 0.82fr 0.72fr 1.6fr;
+  min-height: 260px;
+}
+
+#alr-demo .alr-task-column {
+  min-width: 0;
+  padding: 8px;
+  border-right: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-task-column:last-child {
+  border-right: 0;
+}
+
+#alr-demo .alr-column-title {
+  padding: 4px 5px 7px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-tree-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 35px;
+  padding: 6px;
+  margin-bottom: 3px;
+  border-color: transparent;
+  border-radius: 5px;
+  text-align: left;
+}
+
+#alr-demo .alr-tree-row.is-active {
+  color: var(--alr-primary-strong);
+  background: var(--alr-primary-soft);
+}
+
+#alr-demo .alr-tree-row:hover {
+  background: var(--alr-panel);
+}
+
+#alr-demo .alr-tree-checkbox {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  accent-color: var(--alr-primary);
+}
+
+#alr-demo .alr-tree-label {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-task-label {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+#alr-demo .alr-task-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: var(--alr-muted);
+  font-size: 12px;
+}
+
+#alr-demo .alr-type-machine {
+  color: var(--alr-primary-strong);
+}
+
+#alr-demo .alr-type-human {
+  color: var(--alr-success);
+}
+
+#alr-demo .alr-status-paused {
+  color: var(--alr-warning);
+}
+
+#alr-demo .alr-selected-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--alr-line);
+  background: var(--alr-panel);
+}
+
+#alr-demo .alr-selected-preview {
+  min-width: 0;
+  color: var(--alr-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-inline-action {
+  border: 0;
+  padding: 4px 0;
+  background: transparent;
+  color: var(--alr-primary-strong);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#alr-demo .alr-validation {
+  min-height: 22px;
+  margin-top: 8px;
+  color: var(--alr-danger);
+}
+
+#alr-demo .alr-editor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+#alr-demo .alr-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--alr-line);
+}
+
+#alr-demo .alr-footer-note {
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-footer-actions {
+  display: flex;
+  gap: 10px;
+}
+
+#alr-demo .alr-subdialog-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 70;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--alr-overlay);
+}
+
+#alr-demo .alr-subdialog-layer.is-open {
+  display: flex;
+}
+
+#alr-demo .alr-subdialog {
+  width: min(460px, 100%);
+  padding: 22px;
+  border-radius: 10px;
+  background: var(--alr-surface);
+  box-shadow: 0 12px 40px var(--alr-shadow);
+}
+
+#alr-demo .alr-subdialog h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#alr-demo .alr-subdialog p {
+  margin: 0 0 18px;
+  color: var(--alr-muted);
+}
+
+#alr-demo .alr-subdialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+#alr-demo .alr-toast {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 90;
+  display: none;
+  max-width: min(420px, calc(100% - 36px));
+  padding: 11px 15px;
+  border-radius: 7px;
+  color: light-dark(#ffffff, #10172a);
+  background: var(--alr-success);
+  box-shadow: 0 8px 24px var(--alr-shadow);
+}
+
+#alr-demo .alr-toast.is-visible {
+  display: block;
+}
+
+#alr-demo .alr-empty {
+  padding: 18px 8px;
+  color: var(--alr-muted);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  #alr-demo .alr-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  #alr-demo .alr-reference-section {
+    display: none;
+  }
+
+  #alr-demo .alr-modal {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  #alr-demo {
+    min-height: 1500px;
+  }
+
+  #alr-demo .alr-component-grid,
+  #alr-demo .alr-modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  #alr-demo .alr-rules-pane {
+    border-right: 0;
+    border-bottom: 1px solid var(--alr-line);
+  }
+
+  #alr-demo .alr-rule-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #alr-demo .alr-task-columns {
+    grid-template-columns: 1fr;
+  }
+
+  #alr-demo .alr-task-column {
+    border-right: 0;
+    border-bottom: 1px solid var(--alr-line);
+  }
+
+  #alr-demo .alr-modal-footer,
+  #alr-demo .alr-editor-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #alr-demo .alr-footer-actions,
+  #alr-demo .alr-editor-actions {
+    width: 100%;
+  }
+
+  #alr-demo .alr-footer-actions .alr-button,
+  #alr-demo .alr-editor-actions .alr-button {
+    flex: 1;
+  }
+}
+&lt;/style&gt;
+
+&lt;div id=&quot;alr-demo&quot;&gt;
+  &lt;div class=&quot;alr-shell&quot;&gt;
+    &lt;header class=&quot;alr-topbar&quot;&gt;
+      &lt;div class=&quot;alr-breadcrumb&quot;&gt;&lt;span&gt;审核模板&lt;/span&gt;&lt;span&gt;/&lt;/span&gt;&lt;strong&gt;内容展示配置&lt;/strong&gt;&lt;/div&gt;
+      &lt;div class=&quot;alr-top-actions&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;alr-button alr-button-ghost&quot;&gt;预览&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;alr-button alr-button-primary&quot;&gt;保存模板&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;main class=&quot;alr-workspace&quot;&gt;
+      &lt;section class=&quot;alr-section&quot;&gt;
+        &lt;div class=&quot;alr-section-head&quot;&gt;
+          &lt;h2 class=&quot;alr-section-title&quot;&gt;内容展示配置&lt;/h2&gt;
+          &lt;div class=&quot;alr-segments&quot; aria-label=&quot;布局列数&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;alr-segment&quot; aria-pressed=&quot;false&quot;&gt;单列&lt;/button&gt;
+            &lt;button type=&quot;button&quot; class=&quot;alr-segment&quot; aria-pressed=&quot;true&quot;&gt;双列&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;alr-component-grid&quot; id=&quot;alr-component-grid&quot;&gt;
+          &lt;article class=&quot;alr-component&quot; data-component-id=&quot;item_title&quot;&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;数据&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;商品标题(item_title)&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;容器&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;文本-全部展开&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-advanced-row&quot;&gt;
+              &lt;span class=&quot;alr-advanced-label&quot;&gt;高级布局&lt;/span&gt;
+              &lt;label class=&quot;alr-switch&quot; aria-label=&quot;启用商品标题高级布局&quot;&gt;&lt;input class=&quot;alr-switch-input&quot; type=&quot;checkbox&quot; data-component-toggle=&quot;item_title&quot;&gt;&lt;/label&gt;
+              &lt;span class=&quot;alr-config-summary&quot; data-component-summary=&quot;item_title&quot;&gt;未配置&lt;/span&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-edit-link&quot; data-edit-rules=&quot;item_title&quot;&gt;配置&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/article&gt;
+
+          &lt;article class=&quot;alr-component&quot; data-component-id=&quot;video_cover&quot;&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;数据&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;视频封面(video_cover)&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;容器&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;封面预览&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-advanced-row&quot;&gt;
+              &lt;span class=&quot;alr-advanced-label&quot;&gt;高级布局&lt;/span&gt;
+              &lt;label class=&quot;alr-switch&quot; aria-label=&quot;启用视频封面高级布局&quot;&gt;&lt;input class=&quot;alr-switch-input&quot; type=&quot;checkbox&quot; data-component-toggle=&quot;video_cover&quot;&gt;&lt;/label&gt;
+              &lt;span class=&quot;alr-config-summary&quot; data-component-summary=&quot;video_cover&quot;&gt;未配置&lt;/span&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-edit-link&quot; data-edit-rules=&quot;video_cover&quot;&gt;配置&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/article&gt;
+
+          &lt;article class=&quot;alr-component&quot; data-component-id=&quot;title&quot;&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;数据&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;内容标题(title)&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;容器&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;文本-全部展开&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-advanced-row&quot;&gt;
+              &lt;span class=&quot;alr-advanced-label&quot;&gt;高级布局&lt;/span&gt;
+              &lt;label class=&quot;alr-switch&quot; aria-label=&quot;启用内容标题高级布局&quot;&gt;&lt;input class=&quot;alr-switch-input&quot; type=&quot;checkbox&quot; data-component-toggle=&quot;title&quot;&gt;&lt;/label&gt;
+              &lt;span class=&quot;alr-config-summary&quot; data-component-summary=&quot;title&quot;&gt;未配置&lt;/span&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-edit-link&quot; data-edit-rules=&quot;title&quot;&gt;配置&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/article&gt;
+
+          &lt;article class=&quot;alr-component&quot; data-component-id=&quot;items&quot;&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;数据&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;商品信息(items)&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;容器&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;有序商品列表&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-advanced-row&quot;&gt;
+              &lt;span class=&quot;alr-advanced-label&quot;&gt;高级布局&lt;/span&gt;
+              &lt;label class=&quot;alr-switch&quot; aria-label=&quot;启用商品信息高级布局&quot;&gt;&lt;input class=&quot;alr-switch-input&quot; type=&quot;checkbox&quot; data-component-toggle=&quot;items&quot;&gt;&lt;/label&gt;
+              &lt;span class=&quot;alr-config-summary&quot; data-component-summary=&quot;items&quot;&gt;未配置&lt;/span&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-edit-link&quot; data-edit-rules=&quot;items&quot;&gt;配置&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/article&gt;
+
+          &lt;article class=&quot;alr-component&quot; data-component-id=&quot;show_summary&quot;&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;数据&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;展示摘要(show_summary)&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;容器&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;文本-全部展开&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-advanced-row&quot;&gt;
+              &lt;span class=&quot;alr-advanced-label&quot;&gt;高级布局&lt;/span&gt;
+              &lt;label class=&quot;alr-switch&quot; aria-label=&quot;启用展示摘要高级布局&quot;&gt;&lt;input class=&quot;alr-switch-input&quot; type=&quot;checkbox&quot; data-component-toggle=&quot;show_summary&quot;&gt;&lt;/label&gt;
+              &lt;span class=&quot;alr-config-summary&quot; data-component-summary=&quot;show_summary&quot;&gt;未配置&lt;/span&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-edit-link&quot; data-edit-rules=&quot;show_summary&quot;&gt;配置&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/article&gt;
+
+          &lt;article class=&quot;alr-component&quot; data-component-id=&quot;body_video&quot;&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;数据&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;视频(body_body_video)&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-field-row&quot;&gt;&lt;span class=&quot;alr-field-type&quot;&gt;容器&lt;/span&gt;&lt;span class=&quot;alr-field-value&quot;&gt;视频预览&lt;/span&gt;&lt;span class=&quot;alr-field-chevron&quot;&gt;⌄&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-advanced-row&quot;&gt;
+              &lt;span class=&quot;alr-advanced-label&quot;&gt;高级布局&lt;/span&gt;
+              &lt;label class=&quot;alr-switch&quot; aria-label=&quot;启用视频高级布局&quot;&gt;&lt;input class=&quot;alr-switch-input&quot; type=&quot;checkbox&quot; data-component-toggle=&quot;body_video&quot;&gt;&lt;/label&gt;
+              &lt;span class=&quot;alr-config-summary&quot; data-component-summary=&quot;body_video&quot;&gt;未配置&lt;/span&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-edit-link&quot; data-edit-rules=&quot;body_video&quot;&gt;配置&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/article&gt;
+        &lt;/div&gt;
+
+        &lt;button type=&quot;button&quot; class=&quot;alr-add-component&quot;&gt;＋ 新增组件&lt;/button&gt;
+      &lt;/section&gt;
+
+      &lt;section class=&quot;alr-section alr-reference-section&quot;&gt;
+        &lt;div class=&quot;alr-section-head&quot;&gt;
+          &lt;h2 class=&quot;alr-section-title&quot;&gt;参考信息&lt;/h2&gt;
+          &lt;div class=&quot;alr-reference-tools&quot;&gt;&lt;span&gt;Live图&lt;/span&gt;&lt;label class=&quot;alr-switch&quot;&gt;&lt;input class=&quot;alr-switch-input&quot; type=&quot;checkbox&quot;&gt;&lt;/label&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;alr-reference-panel&quot;&gt;
+          &lt;div class=&quot;alr-reference-head&quot;&gt;&lt;span&gt;⌄&lt;/span&gt;&lt;span&gt;复制&lt;/span&gt;&lt;span&gt;删除&lt;/span&gt;&lt;/div&gt;
+          &lt;div class=&quot;alr-form-line&quot;&gt;&lt;span class=&quot;alr-required&quot;&gt;题目1&lt;/span&gt;&lt;div class=&quot;alr-faux-input&quot;&gt;封面图&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;alr-form-line&quot;&gt;&lt;span class=&quot;alr-required&quot;&gt;是否必选&lt;/span&gt;&lt;div&gt;○ 是　 &lt;span style=&quot;color:var(--alr-primary)&quot;&gt;●&lt;/span&gt; 否&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;alr-form-line&quot;&gt;&lt;span class=&quot;alr-required&quot;&gt;构建方式&lt;/span&gt;&lt;div class=&quot;alr-faux-input&quot;&gt;各级节点向上回溯&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;alr-form-line&quot;&gt;&lt;span class=&quot;alr-required&quot;&gt;标注数据&lt;/span&gt;&lt;div class=&quot;alr-faux-input&quot;&gt;标签类型　信息流质量标签树&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;alr-label-tree&quot; aria-label=&quot;标签选择示例&quot;&gt;
+            &lt;div&gt;&lt;div class=&quot;alr-label-item is-selected&quot;&gt;☑ 图片　›&lt;/div&gt;&lt;div class=&quot;alr-label-item&quot;&gt;□ 标题　›&lt;/div&gt;&lt;div class=&quot;alr-label-item&quot;&gt;□ 商品　›&lt;/div&gt;&lt;div class=&quot;alr-label-item&quot;&gt;□ 视频　›&lt;/div&gt;&lt;div class=&quot;alr-label-item&quot;&gt;□ 摘要　›&lt;/div&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;div style=&quot;margin-bottom:10px;color:var(--alr-muted)&quot;&gt;已选 8 个&lt;/div&gt;&lt;div class=&quot;alr-tag-cloud&quot;&gt;&lt;span class=&quot;alr-tag&quot;&gt;图片 ×&lt;/span&gt;&lt;span class=&quot;alr-tag&quot;&gt;夸张文案 ×&lt;/span&gt;&lt;span class=&quot;alr-tag&quot;&gt;低俗色情 ×&lt;/span&gt;&lt;span class=&quot;alr-tag&quot;&gt;情趣用品 ×&lt;/span&gt;&lt;span class=&quot;alr-tag&quot;&gt;封面质量 ×&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+    &lt;/main&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;alr-overlay&quot; id=&quot;alr-overlay&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;section class=&quot;alr-modal&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;alr-modal-title&quot;&gt;
+      &lt;header class=&quot;alr-modal-head&quot;&gt;
+        &lt;div&gt;
+          &lt;h2 class=&quot;alr-modal-title&quot; id=&quot;alr-modal-title&quot;&gt;高级布局配置&lt;/h2&gt;
+          &lt;div class=&quot;alr-modal-subtitle&quot;&gt;为不同审核任务设置组件展示位置&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;button type=&quot;button&quot; class=&quot;alr-icon-button&quot; id=&quot;alr-close-modal&quot; aria-label=&quot;关闭&quot;&gt;×&lt;/button&gt;
+      &lt;/header&gt;
+
+      &lt;div class=&quot;alr-modal-body&quot;&gt;
+        &lt;aside class=&quot;alr-rules-pane&quot;&gt;
+          &lt;div class=&quot;alr-pane-head&quot;&gt;&lt;span class=&quot;alr-pane-title&quot;&gt;位置规则&lt;/span&gt;&lt;span id=&quot;alr-rule-count&quot;&gt;0 条&lt;/span&gt;&lt;/div&gt;
+          &lt;button type=&quot;button&quot; class=&quot;alr-button alr-button-primary&quot; id=&quot;alr-new-rule&quot; style=&quot;width:100%;margin-bottom:12px&quot;&gt;＋ 新增规则&lt;/button&gt;
+          &lt;div class=&quot;alr-rule-list&quot; id=&quot;alr-rule-list&quot;&gt;&lt;/div&gt;
+        &lt;/aside&gt;
+
+        &lt;section class=&quot;alr-editor-pane&quot;&gt;
+          &lt;div class=&quot;alr-editor-toolbar&quot;&gt;
+            &lt;div&gt;&lt;span class=&quot;alr-editor-title&quot; id=&quot;alr-editor-title&quot;&gt;新增规则&lt;/span&gt;&lt;span class=&quot;alr-editor-hint&quot;&gt;　一组任务对应一个固定位置&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-editor-actions&quot;&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-button&quot; id=&quot;alr-copy-rule&quot;&gt;复制规则&lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-button alr-button-primary&quot; id=&quot;alr-save-rule&quot;&gt;保存本条规则&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;alr-editor-section&quot;&gt;
+            &lt;div class=&quot;alr-editor-label&quot;&gt;&lt;span&gt;固定位置&lt;/span&gt;&lt;span class=&quot;alr-snapshot-note&quot;&gt;相对于审核页面三栏区域&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-position-grid&quot; id=&quot;alr-position-grid&quot;&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-position-button&quot; data-position=&quot;left-top&quot; aria-pressed=&quot;false&quot;&gt;左侧最上部&lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-position-button&quot; data-position=&quot;center-top&quot; aria-pressed=&quot;false&quot;&gt;中间最上部&lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-position-button&quot; data-position=&quot;right-top&quot; aria-pressed=&quot;false&quot;&gt;右侧最上部&lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-position-button&quot; data-position=&quot;left-bottom&quot; aria-pressed=&quot;false&quot;&gt;左侧最下部&lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-position-button&quot; data-position=&quot;center-bottom&quot; aria-pressed=&quot;false&quot;&gt;中间最下部&lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;alr-position-button&quot; data-position=&quot;right-bottom&quot; aria-pressed=&quot;false&quot;&gt;右侧最下部&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;alr-editor-section&quot;&gt;
+            &lt;div class=&quot;alr-editor-label&quot;&gt;&lt;span&gt;生效任务&lt;/span&gt;&lt;span class=&quot;alr-snapshot-note&quot;&gt;按当前任务 ID 保存，未来新增任务不会自动加入&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;alr-task-picker&quot;&gt;
+              &lt;div class=&quot;alr-task-search&quot;&gt;&lt;input class=&quot;alr-search-input&quot; id=&quot;alr-task-search&quot; type=&quot;search&quot; placeholder=&quot;搜索任务名称或任务 ID&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;alr-button&quot; id=&quot;alr-clear-search&quot;&gt;清空&lt;/button&gt;&lt;/div&gt;
+              &lt;div class=&quot;alr-task-columns&quot;&gt;
+                &lt;div class=&quot;alr-task-column&quot;&gt;&lt;div class=&quot;alr-column-title&quot;&gt;流程&lt;/div&gt;&lt;div id=&quot;alr-flow-list&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+                &lt;div class=&quot;alr-task-column&quot;&gt;&lt;div class=&quot;alr-column-title&quot;&gt;分组&lt;/div&gt;&lt;div id=&quot;alr-group-list&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+                &lt;div class=&quot;alr-task-column&quot;&gt;&lt;div class=&quot;alr-column-title&quot;&gt;机审任务 / 人审任务&lt;/div&gt;&lt;div id=&quot;alr-task-list&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;alr-selected-bar&quot;&gt;
+                &lt;div&gt;&lt;strong id=&quot;alr-selected-count&quot;&gt;已选 0 个&lt;/strong&gt;&lt;span class=&quot;alr-selected-preview&quot; id=&quot;alr-selected-preview&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+                &lt;button type=&quot;button&quot; class=&quot;alr-inline-action&quot; id=&quot;alr-clear-selection&quot;&gt;清空选择&lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;alr-validation&quot; id=&quot;alr-validation&quot; role=&quot;alert&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/section&gt;
+      &lt;/div&gt;
+
+      &lt;footer class=&quot;alr-modal-footer&quot;&gt;
+        &lt;div class=&quot;alr-footer-note&quot;&gt;不同组件落在同一位置时，按左侧组件顺序排列&lt;/div&gt;
+        &lt;div class=&quot;alr-footer-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;alr-button&quot; id=&quot;alr-cancel-config&quot;&gt;取消&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;alr-button alr-button-primary&quot; id=&quot;alr-finish-config&quot;&gt;完成配置&lt;/button&gt;&lt;/div&gt;
+      &lt;/footer&gt;
+
+      &lt;div class=&quot;alr-subdialog-layer&quot; id=&quot;alr-conflict-dialog&quot;&gt;
+        &lt;div class=&quot;alr-subdialog&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;alr-conflict-title&quot;&gt;
+          &lt;h3 id=&quot;alr-conflict-title&quot;&gt;任务位置冲突&lt;/h3&gt;
+          &lt;p id=&quot;alr-conflict-text&quot;&gt;&lt;/p&gt;
+          &lt;div class=&quot;alr-subdialog-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;alr-button&quot; id=&quot;alr-cancel-move&quot;&gt;取消选择&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;alr-button alr-button-primary&quot; id=&quot;alr-confirm-move&quot;&gt;移动到当前规则&lt;/button&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;alr-subdialog-layer&quot; id=&quot;alr-discard-dialog&quot;&gt;
+        &lt;div class=&quot;alr-subdialog&quot; role=&quot;alertdialog&quot; aria-labelledby=&quot;alr-discard-title&quot;&gt;
+          &lt;h3 id=&quot;alr-discard-title&quot;&gt;放弃未保存修改？&lt;/h3&gt;
+          &lt;p&gt;本次高级布局配置还没有完成保存，关闭后这些修改不会保留。&lt;/p&gt;
+          &lt;div class=&quot;alr-subdialog-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;alr-button&quot; id=&quot;alr-keep-editing&quot;&gt;继续编辑&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;alr-button alr-button-danger&quot; id=&quot;alr-confirm-discard&quot;&gt;放弃修改&lt;/button&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;alr-toast&quot; id=&quot;alr-toast&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(() =&gt; {
+  const root = document.getElementById(&#x27;alr-demo&#x27;);
+  if (!root) return;
+
+  const positionNames = {
+    &#x27;left-top&#x27;: &#x27;左侧最上部&#x27;,
+    &#x27;center-top&#x27;: &#x27;中间最上部&#x27;,
+    &#x27;right-top&#x27;: &#x27;右侧最上部&#x27;,
+    &#x27;left-bottom&#x27;: &#x27;左侧最下部&#x27;,
+    &#x27;center-bottom&#x27;: &#x27;中间最下部&#x27;,
+    &#x27;right-bottom&#x27;: &#x27;右侧最下部&#x27;
+  };
+
+  const componentNames = {
+    item_title: &#x27;商品标题(item_title)&#x27;,
+    video_cover: &#x27;视频封面(video_cover)&#x27;,
+    title: &#x27;内容标题(title)&#x27;,
+    items: &#x27;商品信息(items)&#x27;,
+    show_summary: &#x27;展示摘要(show_summary)&#x27;,
+    body_video: &#x27;视频(body_body_video)&#x27;
+  };
+
+  const flows = [
+    {
+      id: &#x27;111630&#x27;,
+      name: &#x27;内容一审（未挂品）流程&#x27;,
+      groups: [
+        {
+          id: &#x27;80002620&#x27;,
+          name: &#x27;一审&#x27;,
+          tasks: [
+            { id: &#x27;2082981&#x27;, name: &#x27;未挂品素材-图文存量回刷-一次性&#x27;, type: &#x27;机审&#x27;, status: &#x27;暂停&#x27; },
+            { id: &#x27;2072025&#x27;, name: &#x27;未挂品素材-图文机审任务&#x27;, type: &#x27;机审&#x27;, status: &#x27;已上线&#x27; },
+            { id: &#x27;2072026&#x27;, name: &#x27;未挂品素材-视频机审任务&#x27;, type: &#x27;机审&#x27;, status: &#x27;已上线&#x27; },
+            { id: &#x27;2072023&#x27;, name: &#x27;未挂品素材-图文人审任务&#x27;, type: &#x27;人审&#x27;, status: &#x27;已上线&#x27; },
+            { id: &#x27;2072024&#x27;, name: &#x27;未挂品素材-视频人审任务&#x27;, type: &#x27;人审&#x27;, status: &#x27;已上线&#x27; }
+          ]
+        }
+      ]
+    },
+    {
+      id: &#x27;117171&#x27;,
+      name: &#x27;0730一审测试流程&#x27;,
+      groups: [
+        {
+          id: &#x27;80002620-test&#x27;,
+          name: &#x27;一审&#x27;,
+          tasks: [
+            { id: &#x27;2089506&#x27;, name: &#x27;0730一审图文机审任务&#x27;, type: &#x27;机审&#x27;, status: &#x27;已上线&#x27; },
+            { id: &#x27;2089508&#x27;, name: &#x27;0730一审视频机审任务&#x27;, type: &#x27;机审&#x27;, status: &#x27;已上线&#x27; },
+            { id: &#x27;2089535&#x27;, name: &#x27;0730一审测试任务&#x27;, type: &#x27;人审&#x27;, status: &#x27;已上线&#x27; }
+          ]
+        }
+      ]
+    }
+  ];
+
+  const allTasks = flows.flatMap(flow =&gt; flow.groups.flatMap(group =&gt; group.tasks.map(task =&gt; ({ ...task, flowId: flow.id, flowName: flow.name, groupId: group.id, groupName: group.name }))));
+  const taskById = Object.fromEntries(allTasks.map(task =&gt; [task.id, task]));
+
+  const defaultConfigs = {
+    item_title: { enabled: false, rules: [] },
+    video_cover: {
+      enabled: true,
+      rules: [
+        { id: &#x27;rule-1&#x27;, name: &#x27;规则 1&#x27;, position: &#x27;right-top&#x27;, taskIds: [&#x27;2072025&#x27;, &#x27;2072026&#x27;, &#x27;2072023&#x27;, &#x27;2072024&#x27;] },
+        { id: &#x27;rule-2&#x27;, name: &#x27;规则 2&#x27;, position: &#x27;center-bottom&#x27;, taskIds: [&#x27;2089506&#x27;, &#x27;2089535&#x27;] }
+      ]
+    },
+    title: { enabled: false, rules: [] },
+    items: { enabled: false, rules: [] },
+    show_summary: { enabled: false, rules: [] },
+    body_video: { enabled: false, rules: [] }
+  };
+
+  const storageKey = &#x27;auditbiz-advanced-layout-demo-v1&#x27;;
+  let componentConfigs = loadConfigs();
+  let currentComponentId = null;
+  let draftRules = [];
+  let activeRuleId = null;
+  let editorTaskIds = new Set();
+  let editorPosition = &#x27;&#x27;;
+  let activeFlowId = flows[0].id;
+  let activeGroupId = flows[0].groups[0].id;
+  let modalDirty = false;
+  let editorDirty = false;
+  let openedFromDisabled = false;
+  let pendingAddIds = [];
+  let pendingConflicts = [];
+  let toastTimer = null;
+
+  const overlay = root.querySelector(&#x27;#alr-overlay&#x27;);
+  const modalTitle = root.querySelector(&#x27;#alr-modal-title&#x27;);
+  const ruleList = root.querySelector(&#x27;#alr-rule-list&#x27;);
+  const ruleCount = root.querySelector(&#x27;#alr-rule-count&#x27;);
+  const editorTitle = root.querySelector(&#x27;#alr-editor-title&#x27;);
+  const flowList = root.querySelector(&#x27;#alr-flow-list&#x27;);
+  const groupList = root.querySelector(&#x27;#alr-group-list&#x27;);
+  const taskList = root.querySelector(&#x27;#alr-task-list&#x27;);
+  const searchInput = root.querySelector(&#x27;#alr-task-search&#x27;);
+  const validation = root.querySelector(&#x27;#alr-validation&#x27;);
+  const selectedCount = root.querySelector(&#x27;#alr-selected-count&#x27;);
+  const selectedPreview = root.querySelector(&#x27;#alr-selected-preview&#x27;);
+  const conflictDialog = root.querySelector(&#x27;#alr-conflict-dialog&#x27;);
+  const conflictText = root.querySelector(&#x27;#alr-conflict-text&#x27;);
+  const discardDialog = root.querySelector(&#x27;#alr-discard-dialog&#x27;);
+  const toast = root.querySelector(&#x27;#alr-toast&#x27;);
+
+  function clone(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function loadConfigs() {
+    try {
+      const stored = localStorage.getItem(storageKey);
+      if (stored) return { ...clone(defaultConfigs), ...JSON.parse(stored) };
+    } catch (error) {
+      return clone(defaultConfigs);
+    }
+    return clone(defaultConfigs);
+  }
+
+  function persistConfigs() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(componentConfigs));
+    } catch (error) {
+      return;
+    }
+  }
+
+  function uniqueTaskCount(rules) {
+    return new Set(rules.flatMap(rule =&gt; rule.taskIds)).size;
+  }
+
+  function renderComponentRows() {
+    Object.entries(componentConfigs).forEach(([componentId, config]) =&gt; {
+      const toggle = root.querySelector(`[data-component-toggle=&quot;${componentId}&quot;]`);
+      const summary = root.querySelector(`[data-component-summary=&quot;${componentId}&quot;]`);
+      const edit = root.querySelector(`[data-edit-rules=&quot;${componentId}&quot;]`);
+      if (!toggle || !summary || !edit) return;
+      toggle.checked = Boolean(config.enabled);
+      const taskCount = uniqueTaskCount(config.rules);
+      if (!config.rules.length) {
+        summary.textContent = &#x27;未配置&#x27;;
+        summary.classList.remove(&#x27;is-enabled&#x27;);
+        edit.textContent = &#x27;配置&#x27;;
+      } else if (config.enabled) {
+        summary.textContent = `已启用 · ${config.rules.length} 条 / ${taskCount} 个任务`;
+        summary.classList.add(&#x27;is-enabled&#x27;);
+        edit.textContent = &#x27;编辑&#x27;;
+      } else {
+        summary.textContent = `已停用 · 保留 ${config.rules.length} 条`;
+        summary.classList.remove(&#x27;is-enabled&#x27;);
+        edit.textContent = &#x27;编辑&#x27;;
+      }
+    });
+  }
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add(&#x27;is-visible&#x27;);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() =&gt; toast.classList.remove(&#x27;is-visible&#x27;), 2600);
+  }
+
+  function openModal(componentId, fromDisabled) {
+    currentComponentId = componentId;
+    draftRules = clone(componentConfigs[componentId].rules || []);
+    openedFromDisabled = Boolean(fromDisabled);
+    modalDirty = false;
+    editorDirty = false;
+    modalTitle.textContent = `高级布局配置 · ${componentNames[componentId]}`;
+    overlay.classList.add(&#x27;is-open&#x27;);
+    overlay.setAttribute(&#x27;aria-hidden&#x27;, &#x27;false&#x27;);
+    searchInput.value = &#x27;&#x27;;
+    if (draftRules.length) loadRule(draftRules[0].id);
+    else startNewRule();
+    renderRuleList();
+    renderTaskPicker();
+  }
+
+  function closeModal(commit) {
+    if (commit) {
+      componentConfigs[currentComponentId].rules = clone(draftRules);
+      componentConfigs[currentComponentId].enabled = draftRules.length &gt; 0;
+      persistConfigs();
+      renderComponentRows();
+      showToast(`已保存 ${draftRules.length} 条高级布局规则`);
+    } else if (openedFromDisabled) {
+      componentConfigs[currentComponentId].enabled = false;
+      renderComponentRows();
+    }
+    overlay.classList.remove(&#x27;is-open&#x27;);
+    overlay.setAttribute(&#x27;aria-hidden&#x27;, &#x27;true&#x27;);
+    currentComponentId = null;
+  }
+
+  function requestClose() {
+    if (modalDirty || editorDirty) {
+      discardDialog.classList.add(&#x27;is-open&#x27;);
+      return;
+    }
+    closeModal(false);
+  }
+
+  function startNewRule(prefillPosition = &#x27;&#x27;, prefillTaskIds = []) {
+    activeRuleId = null;
+    editorTaskIds = new Set(prefillTaskIds);
+    editorPosition = prefillPosition;
+    editorDirty = false;
+    validation.textContent = &#x27;&#x27;;
+    editorTitle.textContent = &#x27;新增规则&#x27;;
+    renderPositions();
+    renderSelectedSummary();
+    renderRuleList();
+    renderTaskPicker();
+  }
+
+  function loadRule(ruleId) {
+    const rule = draftRules.find(item =&gt; item.id === ruleId);
+    if (!rule) return;
+    activeRuleId = rule.id;
+    editorTaskIds = new Set(rule.taskIds);
+    editorPosition = rule.position;
+    editorDirty = false;
+    validation.textContent = &#x27;&#x27;;
+    editorTitle.textContent = rule.name;
+    renderPositions();
+    renderSelectedSummary();
+    renderRuleList();
+    renderTaskPicker();
+  }
+
+  function renderRuleList() {
+    ruleCount.textContent = `${draftRules.length} 条`;
+    if (!draftRules.length) {
+      ruleList.innerHTML = &#x27;&lt;div class=&quot;alr-empty&quot;&gt;暂无规则&lt;br&gt;点击上方新增&lt;/div&gt;&#x27;;
+      return;
+    }
+    ruleList.innerHTML = draftRules.map(rule =&gt; `
+      &lt;div class=&quot;alr-rule-row ${activeRuleId === rule.id ? &#x27;is-active&#x27; : &#x27;&#x27;}&quot; data-rule-select=&quot;${rule.id}&quot;&gt;
+        &lt;div class=&quot;alr-rule-name&quot;&gt;&lt;span&gt;${rule.name}&lt;/span&gt;&lt;span&gt;${positionNames[rule.position]}&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;alr-rule-summary&quot;&gt;${rule.taskIds.length} 个任务 · ${rule.taskIds.slice(0, 2).join(&#x27;、&#x27;)}${rule.taskIds.length &gt; 2 ? &#x27;…&#x27; : &#x27;&#x27;}&lt;/div&gt;
+        &lt;div class=&quot;alr-rule-actions&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;alr-rule-action&quot; data-rule-edit=&quot;${rule.id}&quot;&gt;编辑&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;alr-rule-action&quot; data-rule-copy=&quot;${rule.id}&quot;&gt;复制&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;alr-rule-action is-danger&quot; data-rule-delete=&quot;${rule.id}&quot;&gt;删除&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    `).join(&#x27;&#x27;);
+  }
+
+  function renderPositions() {
+    root.querySelectorAll(&#x27;[data-position]&#x27;).forEach(button =&gt; {
+      button.setAttribute(&#x27;aria-pressed&#x27;, String(button.dataset.position === editorPosition));
+    });
+  }
+
+  function allTaskIdsForFlow(flowId) {
+    const flow = flows.find(item =&gt; item.id === flowId);
+    return flow ? flow.groups.flatMap(group =&gt; group.tasks.map(task =&gt; task.id)) : [];
+  }
+
+  function allTaskIdsForGroup(groupId) {
+    for (const flow of flows) {
+      const group = flow.groups.find(item =&gt; item.id === groupId);
+      if (group) return group.tasks.map(task =&gt; task.id);
+    }
+    return [];
+  }
+
+  function checkState(ids) {
+    const selected = ids.filter(id =&gt; editorTaskIds.has(id)).length;
+    return { checked: selected === ids.length &amp;&amp; ids.length &gt; 0, indeterminate: selected &gt; 0 &amp;&amp; selected &lt; ids.length };
+  }
+
+  function checkboxMarkup(kind, id, ids) {
+    const state = checkState(ids);
+    return `&lt;input type=&quot;checkbox&quot; class=&quot;alr-tree-checkbox&quot; data-check-kind=&quot;${kind}&quot; data-check-id=&quot;${id}&quot; ${state.checked ? &#x27;checked&#x27; : &#x27;&#x27;}&gt;`;
+  }
+
+  function renderTaskPicker() {
+    const query = searchInput.value.trim().toLowerCase();
+    flowList.innerHTML = flows.map(flow =&gt; {
+      const ids = allTaskIdsForFlow(flow.id);
+      return `&lt;div class=&quot;alr-tree-row ${activeFlowId === flow.id ? &#x27;is-active&#x27; : &#x27;&#x27;}&quot; data-open-flow=&quot;${flow.id}&quot;&gt;${checkboxMarkup(&#x27;flow&#x27;, flow.id, ids)}&lt;span class=&quot;alr-tree-label&quot;&gt;${flow.name}&lt;/span&gt;&lt;span&gt;›&lt;/span&gt;&lt;/div&gt;`;
+    }).join(&#x27;&#x27;);
+
+    const activeFlow = flows.find(flow =&gt; flow.id === activeFlowId) || flows[0];
+    if (!activeFlow.groups.some(group =&gt; group.id === activeGroupId)) activeGroupId = activeFlow.groups[0].id;
+    groupList.innerHTML = activeFlow.groups.map(group =&gt; {
+      const ids = allTaskIdsForGroup(group.id);
+      return `&lt;div class=&quot;alr-tree-row ${activeGroupId === group.id ? &#x27;is-active&#x27; : &#x27;&#x27;}&quot; data-open-group=&quot;${group.id}&quot;&gt;${checkboxMarkup(&#x27;group&#x27;, group.id, ids)}&lt;span class=&quot;alr-tree-label&quot;&gt;${group.name}&lt;/span&gt;&lt;span&gt;›&lt;/span&gt;&lt;/div&gt;`;
+    }).join(&#x27;&#x27;);
+
+    let visibleTasks;
+    if (query) {
+      visibleTasks = allTasks.filter(task =&gt; task.id.toLowerCase().includes(query) || task.name.toLowerCase().includes(query));
+    } else {
+      const activeGroup = activeFlow.groups.find(group =&gt; group.id === activeGroupId) || activeFlow.groups[0];
+      visibleTasks = activeGroup.tasks.map(task =&gt; ({ ...task, flowId: activeFlow.id, flowName: activeFlow.name, groupId: activeGroup.id, groupName: activeGroup.name }));
+    }
+
+    taskList.innerHTML = visibleTasks.length ? visibleTasks.map(task =&gt; `
+      &lt;label class=&quot;alr-tree-row&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; class=&quot;alr-tree-checkbox&quot; data-check-kind=&quot;task&quot; data-check-id=&quot;${task.id}&quot; ${editorTaskIds.has(task.id) ? &#x27;checked&#x27; : &#x27;&#x27;}&gt;
+        &lt;span class=&quot;alr-task-label&quot;&gt;
+          &lt;span class=&quot;alr-task-name&quot;&gt;${task.name}&lt;/span&gt;
+          &lt;span class=&quot;alr-task-meta&quot;&gt;&lt;span class=&quot;${task.type === &#x27;机审&#x27; ? &#x27;alr-type-machine&#x27; : &#x27;alr-type-human&#x27;}&quot;&gt;${task.type}&lt;/span&gt;&lt;span&gt;ID ${task.id}&lt;/span&gt;&lt;span class=&quot;${task.status === &#x27;暂停&#x27; ? &#x27;alr-status-paused&#x27; : &#x27;&#x27;}&quot;&gt;${task.status}&lt;/span&gt;${query ? `&lt;span&gt;${task.flowName} / ${task.groupName}&lt;/span&gt;` : &#x27;&#x27;}&lt;/span&gt;
+        &lt;/span&gt;
+      &lt;/label&gt;
+    `).join(&#x27;&#x27;) : &#x27;&lt;div class=&quot;alr-empty&quot;&gt;未找到匹配任务&lt;/div&gt;&#x27;;
+
+    root.querySelectorAll(&#x27;[data-check-kind=&quot;flow&quot;], [data-check-kind=&quot;group&quot;]&#x27;).forEach(input =&gt; {
+      const ids = input.dataset.checkKind === &#x27;flow&#x27; ? allTaskIdsForFlow(input.dataset.checkId) : allTaskIdsForGroup(input.dataset.checkId);
+      input.indeterminate = checkState(ids).indeterminate;
+    });
+    renderSelectedSummary();
+  }
+
+  function renderSelectedSummary() {
+    const selected = [...editorTaskIds].map(id =&gt; taskById[id]).filter(Boolean);
+    const machineCount = selected.filter(task =&gt; task.type === &#x27;机审&#x27;).length;
+    const humanCount = selected.filter(task =&gt; task.type === &#x27;人审&#x27;).length;
+    selectedCount.textContent = `已选 ${selected.length} 个（机审 ${machineCount} / 人审 ${humanCount}）`;
+    selectedPreview.textContent = selected.length ? `　${selected.slice(0, 3).map(task =&gt; task.id).join(&#x27;、&#x27;)}${selected.length &gt; 3 ? ` 等 ${selected.length} 个` : &#x27;&#x27;}` : &#x27;&#x27;;
+  }
+
+  function findConflicts(ids) {
+    const conflicts = [];
+    draftRules.forEach(rule =&gt; {
+      if (rule.id === activeRuleId) return;
+      ids.forEach(id =&gt; {
+        if (rule.taskIds.includes(id)) conflicts.push({ taskId: id, ruleId: rule.id, ruleName: rule.name, position: rule.position });
+      });
+    });
+    return conflicts;
+  }
+
+  function attemptAdd(ids) {
+    const newIds = ids.filter(id =&gt; !editorTaskIds.has(id));
+    if (!newIds.length) return;
+    const conflicts = findConflicts(newIds);
+    if (conflicts.length) {
+      pendingAddIds = newIds;
+      pendingConflicts = conflicts;
+      const first = conflicts[0];
+      conflictText.textContent = conflicts.length === 1
+        ? `任务 ${first.taskId} 已在“${first.ruleName} / ${positionNames[first.position]}”中。移动后将从原规则移除。`
+        : `${conflicts.length} 个任务已存在于其他位置规则。移动后将从原规则移除，并加入当前规则。`;
+      conflictDialog.classList.add(&#x27;is-open&#x27;);
+      return;
+    }
+    newIds.forEach(id =&gt; editorTaskIds.add(id));
+    editorDirty = true;
+    renderTaskPicker();
+  }
+
+  function removeIds(ids) {
+    ids.forEach(id =&gt; editorTaskIds.delete(id));
+    editorDirty = true;
+    renderTaskPicker();
+  }
+
+  function saveRule() {
+    const messages = [];
+    if (!editorPosition) messages.push(&#x27;请选择一个固定位置&#x27;);
+    if (!editorTaskIds.size) messages.push(&#x27;请至少选择一个生效任务&#x27;);
+    if (messages.length) {
+      validation.textContent = messages.join(&#x27;；&#x27;);
+      return;
+    }
+
+    if (activeRuleId) {
+      const index = draftRules.findIndex(rule =&gt; rule.id === activeRuleId);
+      draftRules[index] = { ...draftRules[index], position: editorPosition, taskIds: [...editorTaskIds] };
+    } else {
+      const nextNumber = draftRules.reduce((max, rule) =&gt; Math.max(max, Number((rule.name.match(/\d+/) || [&#x27;0&#x27;])[0])), 0) + 1;
+      activeRuleId = `rule-${Date.now()}`;
+      draftRules.push({ id: activeRuleId, name: `规则 ${nextNumber}`, position: editorPosition, taskIds: [...editorTaskIds] });
+    }
+    modalDirty = true;
+    editorDirty = false;
+    validation.textContent = &#x27;本条规则已保存，点击“完成配置”后生效。&#x27;;
+    editorTitle.textContent = draftRules.find(rule =&gt; rule.id === activeRuleId).name;
+    renderRuleList();
+  }
+
+  root.querySelectorAll(&#x27;[data-component-toggle]&#x27;).forEach(toggle =&gt; {
+    toggle.addEventListener(&#x27;change&#x27;, event =&gt; {
+      const componentId = event.currentTarget.dataset.componentToggle;
+      const config = componentConfigs[componentId];
+      if (event.currentTarget.checked) {
+        const wasDisabled = !config.enabled;
+        config.enabled = true;
+        renderComponentRows();
+        openModal(componentId, wasDisabled);
+      } else {
+        config.enabled = false;
+        persistConfigs();
+        renderComponentRows();
+        showToast(config.rules.length ? &#x27;高级布局已停用，规则仍保留&#x27; : &#x27;高级布局已关闭&#x27;);
+      }
+    });
+  });
+
+  root.querySelectorAll(&#x27;[data-edit-rules]&#x27;).forEach(button =&gt; {
+    button.addEventListener(&#x27;click&#x27;, () =&gt; openModal(button.dataset.editRules, false));
+  });
+
+  root.querySelectorAll(&#x27;[data-position]&#x27;).forEach(button =&gt; {
+    button.addEventListener(&#x27;click&#x27;, () =&gt; {
+      editorPosition = button.dataset.position;
+      editorDirty = true;
+      validation.textContent = &#x27;&#x27;;
+      renderPositions();
+    });
+  });
+
+  ruleList.addEventListener(&#x27;click&#x27;, event =&gt; {
+    const editButton = event.target.closest(&#x27;[data-rule-edit]&#x27;);
+    const copyButton = event.target.closest(&#x27;[data-rule-copy]&#x27;);
+    const deleteButton = event.target.closest(&#x27;[data-rule-delete]&#x27;);
+    const row = event.target.closest(&#x27;[data-rule-select]&#x27;);
+    if (editButton) {
+      event.stopPropagation();
+      loadRule(editButton.dataset.ruleEdit);
+    } else if (copyButton) {
+      event.stopPropagation();
+      const source = draftRules.find(rule =&gt; rule.id === copyButton.dataset.ruleCopy);
+      startNewRule(source ? source.position : &#x27;&#x27;, []);
+      validation.textContent = &#x27;已复制位置，请选择另一批任务后保存。&#x27;;
+    } else if (deleteButton) {
+      event.stopPropagation();
+      const deletingId = deleteButton.dataset.ruleDelete;
+      draftRules = draftRules.filter(rule =&gt; rule.id !== deletingId);
+      modalDirty = true;
+      if (activeRuleId === deletingId) startNewRule();
+      renderRuleList();
+    } else if (row) {
+      loadRule(row.dataset.ruleSelect);
+    }
+  });
+
+  root.querySelector(&#x27;#alr-new-rule&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; startNewRule());
+  root.querySelector(&#x27;#alr-save-rule&#x27;).addEventListener(&#x27;click&#x27;, saveRule);
+  root.querySelector(&#x27;#alr-copy-rule&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; startNewRule(editorPosition, []));
+
+  root.querySelector(&#x27;.alr-task-columns&#x27;).addEventListener(&#x27;click&#x27;, event =&gt; {
+    const flowRow = event.target.closest(&#x27;[data-open-flow]&#x27;);
+    const groupRow = event.target.closest(&#x27;[data-open-group]&#x27;);
+    if (flowRow &amp;&amp; !event.target.matches(&#x27;input&#x27;)) {
+      activeFlowId = flowRow.dataset.openFlow;
+      const flow = flows.find(item =&gt; item.id === activeFlowId);
+      activeGroupId = flow.groups[0].id;
+      renderTaskPicker();
+    } else if (groupRow &amp;&amp; !event.target.matches(&#x27;input&#x27;)) {
+      activeGroupId = groupRow.dataset.openGroup;
+      renderTaskPicker();
+    }
+  });
+
+  root.querySelector(&#x27;.alr-task-columns&#x27;).addEventListener(&#x27;change&#x27;, event =&gt; {
+    const input = event.target.closest(&#x27;[data-check-kind]&#x27;);
+    if (!input) return;
+    const kind = input.dataset.checkKind;
+    const id = input.dataset.checkId;
+    const ids = kind === &#x27;flow&#x27; ? allTaskIdsForFlow(id) : kind === &#x27;group&#x27; ? allTaskIdsForGroup(id) : [id];
+    if (input.checked) attemptAdd(ids);
+    else removeIds(ids);
+  });
+
+  searchInput.addEventListener(&#x27;input&#x27;, renderTaskPicker);
+  root.querySelector(&#x27;#alr-clear-search&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; { searchInput.value = &#x27;&#x27;; renderTaskPicker(); searchInput.focus(); });
+  root.querySelector(&#x27;#alr-clear-selection&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; { editorTaskIds.clear(); editorDirty = true; renderTaskPicker(); });
+
+  root.querySelector(&#x27;#alr-confirm-move&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+    pendingConflicts.forEach(conflict =&gt; {
+      const rule = draftRules.find(item =&gt; item.id === conflict.ruleId);
+      if (rule) rule.taskIds = rule.taskIds.filter(id =&gt; id !== conflict.taskId);
+    });
+    pendingAddIds.forEach(id =&gt; editorTaskIds.add(id));
+    modalDirty = true;
+    editorDirty = true;
+    pendingAddIds = [];
+    pendingConflicts = [];
+    conflictDialog.classList.remove(&#x27;is-open&#x27;);
+    renderRuleList();
+    renderTaskPicker();
+  });
+
+  root.querySelector(&#x27;#alr-cancel-move&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+    pendingAddIds = [];
+    pendingConflicts = [];
+    conflictDialog.classList.remove(&#x27;is-open&#x27;);
+    renderTaskPicker();
+  });
+
+  root.querySelector(&#x27;#alr-finish-config&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+    if (editorDirty) {
+      validation.textContent = &#x27;当前规则还有未保存修改，请先保存本条规则。&#x27;;
+      return;
+    }
+    if (!draftRules.length) {
+      validation.textContent = &#x27;高级布局至少需要一条完整规则。&#x27;;
+      return;
+    }
+    closeModal(true);
+  });
+
+  root.querySelector(&#x27;#alr-close-modal&#x27;).addEventListener(&#x27;click&#x27;, requestClose);
+  root.querySelector(&#x27;#alr-cancel-config&#x27;).addEventListener(&#x27;click&#x27;, requestClose);
+  root.querySelector(&#x27;#alr-keep-editing&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; discardDialog.classList.remove(&#x27;is-open&#x27;));
+  root.querySelector(&#x27;#alr-confirm-discard&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; { discardDialog.classList.remove(&#x27;is-open&#x27;); closeModal(false); });
+
+  root.querySelectorAll(&#x27;.alr-segment&#x27;).forEach(button =&gt; {
+    button.addEventListener(&#x27;click&#x27;, () =&gt; {
+      root.querySelectorAll(&#x27;.alr-segment&#x27;).forEach(item =&gt; item.setAttribute(&#x27;aria-pressed&#x27;, String(item === button)));
+    });
+  });
+
+  renderComponentRows();
+})();
+&lt;/script&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+  let lastPointerWasTouch = false;
+  let pinnedByTouch = false;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    pinnedByTouch = false;
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handlePointer = (event) =&gt; {
+    lastPointerWasTouch =
+      event.type === &quot;pointerdown&quot; &amp;&amp; event.pointerType === &quot;touch&quot;;
+  };
+  const handleTouchClick = (event) =&gt; {
+    const isTouch = event.pointerType === &quot;touch&quot; || lastPointerWasTouch;
+    lastPointerWasTouch = false;
+    if (!isTouch || event.detail === 0) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (
+      trigger == null ||
+      !trigger.isConnected ||
+      getContent(trigger).length === 0 ||
+      (pinnedByTouch &amp;&amp; activeTrigger === trigger)
+    ) {
+      if (pinnedByTouch) {
+        closeTooltip();
+      }
+      return;
+    }
+    openTooltip(trigger);
+    pinnedByTouch = activeTrigger === trigger;
+    window.setTimeout(() =&gt; {
+      if (activeTrigger === trigger &amp;&amp; !trigger.isConnected) {
+        closeTooltip(false);
+      }
+    }, 0);
+  };
+  const handleLeave = (event) =&gt; {
+    if (pinnedByTouch) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    lastPointerWasTouch = false;
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    lastPointerWasTouch = false;
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerdown&quot;, handlePointer);
+    document.removeEventListener(&quot;pointercancel&quot;, handlePointer);
+    document.removeEventListener(&quot;click&quot;, handleTouchClick);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerdown&quot;, handlePointer);
+  document.addEventListener(&quot;pointercancel&quot;, handlePointer);
+  document.addEventListener(&quot;click&quot;, handleTouchClick);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>
