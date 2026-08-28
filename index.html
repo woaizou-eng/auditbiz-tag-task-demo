@@ -1,0 +1,420 @@
+<div id="tag-task-tree-demo" aria-label="标签覆盖任务三级树选择演示">
+  <style>
+    #tag-task-tree-demo {
+      color-scheme: light;
+      position: relative;
+      min-height: 860px;
+      overflow: hidden;
+      background: #f5f7fa;
+      color: #17213a;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    #tag-task-tree-demo * { box-sizing: border-box; }
+    #tag-task-tree-demo button,
+    #tag-task-tree-demo input { font: inherit; }
+    #tag-task-tree-demo button { cursor: pointer; }
+    #tag-task-tree-demo .ttd-page { min-height: 860px; padding: 26px 32px 48px; }
+    #tag-task-tree-demo .ttd-breadcrumb { margin-bottom: 24px; color: #65728f; font-size: 15px; }
+    #tag-task-tree-demo .ttd-breadcrumb strong { color: #263451; }
+    #tag-task-tree-demo .ttd-page-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    #tag-task-tree-demo .ttd-page-top h2 { margin: 0; font-size: 22px; }
+    #tag-task-tree-demo .ttd-sync-state { color: #7b879d; font-size: 13px; }
+    #tag-task-tree-demo .ttd-page-form {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 30px 36px;
+      border: 1px solid #e7ebf2;
+      border-radius: 12px;
+      background: #ffffff;
+    }
+    #tag-task-tree-demo .ttd-page-row { display: grid; grid-template-columns: 108px minmax(0, 1fr); gap: 14px; align-items: start; margin-bottom: 20px; }
+    #tag-task-tree-demo .ttd-page-label { padding-top: 10px; color: #65728f; text-align: right; font-size: 15px; }
+    #tag-task-tree-demo .ttd-required { color: #f04438; }
+    #tag-task-tree-demo .ttd-control {
+      width: 100%;
+      min-height: 42px;
+      padding: 9px 12px;
+      border: 1px solid #cbd4e6;
+      border-radius: 7px;
+      background: #ffffff;
+      color: #17213a;
+      outline: none;
+    }
+    #tag-task-tree-demo .ttd-control:focus { border-color: #5365ef; box-shadow: 0 0 0 2px rgba(83,101,239,.12); }
+    #tag-task-tree-demo .ttd-control[disabled] { background: #f5f7fb; color: #91a0bd; }
+    #tag-task-tree-demo .ttd-help { margin-top: 5px; color: #6f7b91; }
+    #tag-task-tree-demo .ttd-admins { min-height: 58px; display: flex; flex-wrap: wrap; gap: 7px; padding: 8px 10px; border: 1px solid #cbd4e6; border-radius: 7px; }
+    #tag-task-tree-demo .ttd-admin { height: 28px; display: inline-flex; align-items: center; padding: 0 9px; border-radius: 5px; background: #f0f2fb; }
+    #tag-task-tree-demo .ttd-source { display: flex; flex-wrap: wrap; gap: 22px; padding-top: 8px; color: #71809b; }
+    #tag-task-tree-demo .ttd-source label { display: inline-flex; align-items: center; gap: 7px; }
+    #tag-task-tree-demo input[type="checkbox"],
+    #tag-task-tree-demo input[type="radio"] { width: 18px; height: 18px; accent-color: #4f5cf2; }
+    #tag-task-tree-demo .ttd-add { padding: 9px 16px; border: 1px solid #4f5cf2; border-radius: 7px; background: transparent; color: #4f5cf2; }
+    #tag-task-tree-demo .ttd-tag-columns { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 14px; overflow: hidden; border: 1px solid #d8deea; border-radius: 8px; }
+    #tag-task-tree-demo .ttd-tag-column { min-height: 286px; border-right: 1px solid #dfe4ee; }
+    #tag-task-tree-demo .ttd-tag-column:last-child { border-right: 0; }
+    #tag-task-tree-demo .ttd-tag-row { min-height: 48px; display: grid; grid-template-columns: 22px 22px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 0 12px; }
+    #tag-task-tree-demo .ttd-tag-row.ttd-tag-level { background: #eef0ff; }
+    #tag-task-tree-demo .ttd-drag { color: #66728c; }
+    #tag-task-tree-demo .ttd-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff7b00; }
+    #tag-task-tree-demo .ttd-edit-icon { width: 28px; height: 28px; border: 0; border-radius: 4px; background: transparent; color: #63708a; font-size: 17px; }
+    #tag-task-tree-demo .ttd-edit-icon:hover { background: #e7e9f1; }
+
+    #tag-task-tree-demo .ttd-shade {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(25, 34, 50, .42);
+      backdrop-filter: blur(1px);
+    }
+    #tag-task-tree-demo .ttd-shade[hidden],
+    #tag-task-tree-demo .ttd-popconfirm[hidden],
+    #tag-task-tree-demo .ttd-toast[hidden] { display: none; }
+    #tag-task-tree-demo .ttd-modal {
+      width: min(980px, calc(100% - 12px));
+      max-height: 824px;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 24px 70px rgba(17,24,39,.24);
+    }
+    #tag-task-tree-demo .ttd-modal-head { min-height: 74px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; border-bottom: 1px solid #e7ebf3; }
+    #tag-task-tree-demo .ttd-modal-head h3 { margin: 0; font-size: 21px; font-weight: 650; }
+    #tag-task-tree-demo .ttd-close { width: 38px; height: 38px; border: 0; background: transparent; color: #adbad1; font-size: 30px; line-height: 1; }
+    #tag-task-tree-demo .ttd-modal-body { max-height: 666px; overflow: auto; padding: 24px 34px 18px; }
+    #tag-task-tree-demo .ttd-edit-grid { display: grid; grid-template-columns: 136px minmax(0, 1fr); gap: 18px 16px; align-items: center; }
+    #tag-task-tree-demo .ttd-edit-label { color: #60708e; text-align: right; font-size: 16px; }
+    #tag-task-tree-demo .ttd-edit-label.ttd-cover-label { align-self: start; padding-top: 10px; }
+    #tag-task-tree-demo .ttd-options { display: flex; flex-wrap: wrap; gap: 24px; }
+    #tag-task-tree-demo .ttd-options label { display: inline-flex; align-items: center; gap: 7px; font-size: 16px; }
+    #tag-task-tree-demo .ttd-select-line { position: relative; min-width: 0; }
+    #tag-task-tree-demo .ttd-select-display {
+      width: 100%;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 12px;
+      border: 1px solid #cbd4e6;
+      border-radius: 7px;
+      background: #ffffff;
+      color: #17213a;
+      text-align: left;
+    }
+    #tag-task-tree-demo .ttd-select-display[aria-expanded="true"] { border-color: #5365ef; box-shadow: 0 0 0 2px rgba(83,101,239,.1); }
+    #tag-task-tree-demo .ttd-selected-value.ttd-placeholder { color: #9aa6ba; }
+    #tag-task-tree-demo .ttd-chevron { color: #a9b4c9; transition: transform .15s ease; }
+    #tag-task-tree-demo .ttd-select-display[aria-expanded="true"] .ttd-chevron { transform: rotate(180deg); }
+    #tag-task-tree-demo .ttd-field-note { margin-top: 7px; color: #7a879c; font-size: 13px; }
+    #tag-task-tree-demo .ttd-tree-popover {
+      margin-top: 8px;
+      overflow: hidden;
+      border: 1px solid #d7deeb;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 12px 34px rgba(28,39,64,.14);
+    }
+    #tag-task-tree-demo .ttd-tree-popover[hidden] { display: none; }
+    #tag-task-tree-demo .ttd-tree-toolbar { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #edf0f5; background: #fafbfe; }
+    #tag-task-tree-demo .ttd-search { flex: 1; min-height: 34px; padding: 6px 10px; border: 1px solid #d6ddea; border-radius: 6px; outline: none; }
+    #tag-task-tree-demo .ttd-search:focus { border-color: #5365ef; }
+    #tag-task-tree-demo .ttd-tree-scroll { max-height: 322px; overflow: auto; padding: 6px 0; }
+    #tag-task-tree-demo .ttd-node { min-height: 38px; display: flex; align-items: center; gap: 8px; padding: 5px 12px; }
+    #tag-task-tree-demo .ttd-node:hover { background: #f7f8fd; }
+    #tag-task-tree-demo .ttd-node.ttd-flow { font-weight: 650; }
+    #tag-task-tree-demo .ttd-node.ttd-group { padding-left: 40px; font-weight: 600; }
+    #tag-task-tree-demo .ttd-node.ttd-task { padding-left: 72px; }
+    #tag-task-tree-demo .ttd-expand {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      border: 0;
+      background: transparent;
+      color: #748198;
+      transition: transform .15s ease;
+    }
+    #tag-task-tree-demo .ttd-expand[aria-expanded="false"] { transform: rotate(-90deg); }
+    #tag-task-tree-demo .ttd-node-label { min-width: 0; flex: 1; }
+    #tag-task-tree-demo .ttd-node-label small { margin-left: 8px; color: #8b97ab; font-weight: 400; }
+    #tag-task-tree-demo .ttd-type {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      margin-right: 8px;
+      padding: 0 6px;
+      border-radius: 4px;
+      background: #eef0ff;
+      color: #4f5cf2;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    #tag-task-tree-demo .ttd-type.ttd-human { background: #ecf8f2; color: #28865b; }
+    #tag-task-tree-demo .ttd-status { margin-left: auto; white-space: nowrap; font-size: 12px; }
+    #tag-task-tree-demo .ttd-online { color: #248656; }
+    #tag-task-tree-demo .ttd-paused { color: #d46b08; }
+    #tag-task-tree-demo .ttd-hidden-by-tree,
+    #tag-task-tree-demo .ttd-hidden-by-search { display: none; }
+    #tag-task-tree-demo .ttd-tree-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; border-top: 1px solid #edf0f5; background: #fafbfe; color: #637089; font-size: 13px; }
+    #tag-task-tree-demo .ttd-clear { border: 0; background: transparent; color: #4f5cf2; }
+    #tag-task-tree-demo .ttd-increment-note { margin-top: 8px; padding: 8px 10px; border: 1px solid #dfe4ff; border-radius: 6px; background: #f7f8ff; color: #5c6882; font-size: 13px; }
+    #tag-task-tree-demo .ttd-modal-foot { min-height: 70px; display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding: 12px 30px; border-top: 1px solid #edf0f5; }
+    #tag-task-tree-demo .ttd-secondary,
+    #tag-task-tree-demo .ttd-primary { min-height: 40px; padding: 0 19px; border-radius: 22px; }
+    #tag-task-tree-demo .ttd-secondary { border: 1px solid #c8d1e1; background: #ffffff; color: #26334f; }
+    #tag-task-tree-demo .ttd-primary { border: 1px solid #4e58ed; background: linear-gradient(135deg,#5465f2,#443eea); color: #ffffff; }
+
+    #tag-task-tree-demo .ttd-popconfirm {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(25,34,50,.38);
+    }
+    #tag-task-tree-demo .ttd-confirm-box { width: min(520px,100%); overflow: hidden; border-radius: 12px; background: #ffffff; box-shadow: 0 18px 60px rgba(17,24,39,.28); }
+    #tag-task-tree-demo .ttd-confirm-content { padding: 24px 26px 14px; }
+    #tag-task-tree-demo .ttd-confirm-content h4 { margin: 0 0 14px; font-size: 20px; }
+    #tag-task-tree-demo .ttd-confirm-lines { display: grid; gap: 8px; color: #55627a; }
+    #tag-task-tree-demo .ttd-confirm-warning { margin-top: 14px; padding: 10px 12px; border-radius: 6px; background: #fff7e8; color: #9c5a08; }
+    #tag-task-tree-demo .ttd-toast { position: absolute; z-index: 60; top: 22px; right: 24px; max-width: min(520px,calc(100% - 48px)); padding: 13px 16px; border: 1px solid #bce4cb; border-radius: 8px; background: #f1fbf5; color: #196b3a; box-shadow: 0 10px 30px rgba(17,24,39,.15); font-weight: 600; }
+
+    @media (max-width: 760px) {
+      #tag-task-tree-demo { min-height: 980px; }
+      #tag-task-tree-demo .ttd-page { min-height: 980px; padding: 16px 12px 34px; }
+      #tag-task-tree-demo .ttd-page-form { padding: 20px 14px 28px; }
+      #tag-task-tree-demo .ttd-page-row { grid-template-columns: 1fr; gap: 7px; }
+      #tag-task-tree-demo .ttd-page-label { padding-top: 0; text-align: left; }
+      #tag-task-tree-demo .ttd-tag-columns { grid-template-columns: 1fr; }
+      #tag-task-tree-demo .ttd-tag-column { min-height: 0; border-right: 0; border-bottom: 1px solid #dfe4ee; }
+      #tag-task-tree-demo .ttd-shade { align-items: flex-start; padding: 8px; }
+      #tag-task-tree-demo .ttd-modal { width: 100%; max-height: 964px; border-radius: 10px; }
+      #tag-task-tree-demo .ttd-modal-head { min-height: 62px; padding: 0 17px; }
+      #tag-task-tree-demo .ttd-modal-head h3 { font-size: 17px; }
+      #tag-task-tree-demo .ttd-modal-body { max-height: 820px; padding: 18px 16px 14px; }
+      #tag-task-tree-demo .ttd-edit-grid { grid-template-columns: 1fr; gap: 7px; }
+      #tag-task-tree-demo .ttd-edit-label { margin-top: 6px; text-align: left; }
+      #tag-task-tree-demo .ttd-options { gap: 14px; }
+      #tag-task-tree-demo .ttd-node.ttd-group { padding-left: 24px; }
+      #tag-task-tree-demo .ttd-node.ttd-task { align-items: flex-start; padding-left: 46px; }
+      #tag-task-tree-demo .ttd-node-label small { display: block; margin: 2px 0 0; }
+      #tag-task-tree-demo .ttd-status { padding-top: 2px; }
+      #tag-task-tree-demo .ttd-modal-foot { padding: 10px 14px; }
+    }
+  </style>
+
+  <div class="ttd-page">
+    <div class="ttd-breadcrumb">主页&nbsp;&nbsp;/&nbsp;&nbsp;注册标签&nbsp;&nbsp;/&nbsp;&nbsp;<strong>标签配置</strong></div>
+    <div class="ttd-page-top"><h2>编辑注册标签</h2><span class="ttd-sync-state" id="ttd-sync-state">尚未同步任务</span></div>
+    <section class="ttd-page-form" aria-label="信息流质量标签树">
+      <div class="ttd-page-row"><div class="ttd-page-label"><span class="ttd-required">*</span> 名称</div><input class="ttd-control" value="信息流质量标签树" aria-label="名称"></div>
+      <div class="ttd-page-row"><div class="ttd-page-label"><span class="ttd-required">*</span> code</div><div><input class="ttd-control" value="quality_tag_tree" disabled aria-label="code"><div class="ttd-help">code 只能包含英文（小写）、数字和下划线，且不能为空</div></div></div>
+      <div class="ttd-page-row"><div class="ttd-page-label"><span class="ttd-required">*</span> 管理员</div><div class="ttd-admins"><span class="ttd-admin">白文俊(168411) ×</span><span class="ttd-admin">吴异(323710) ×</span><span class="ttd-admin">熊超(432290) ×</span><span class="ttd-admin">安瑾(15252) ×</span><span class="ttd-admin">全来(445316) ×</span><span class="ttd-admin">唐诗慧(146589) ×</span></div></div>
+      <div class="ttd-page-row"><div class="ttd-page-label"><span class="ttd-required">*</span> 标签来源</div><div class="ttd-source"><label><input type="radio" name="ttd-source" disabled>标签中心</label><label><input type="radio" name="ttd-source" checked>手工维护</label><label><input type="radio" name="ttd-source">Excel</label><label><input type="radio" name="ttd-source">JSON</label></div></div>
+      <div class="ttd-page-row">
+        <div class="ttd-page-label">标签管理</div>
+        <div>
+          <button class="ttd-add" type="button">+添加一级标签</button>
+          <div class="ttd-tag-columns">
+            <div class="ttd-tag-column"><div class="ttd-tag-row ttd-tag-level"><span class="ttd-drag">☷</span><input type="checkbox"><strong>图片</strong><span class="ttd-dot"></span></div><div class="ttd-tag-row"><span class="ttd-drag">☷</span><input type="checkbox"><span>标题</span><span class="ttd-dot"></span></div><div class="ttd-tag-row"><span class="ttd-drag">☷</span><input type="checkbox"><span>商品</span><span class="ttd-dot"></span></div><div class="ttd-tag-row"><span class="ttd-drag">☷</span><input type="checkbox"><span>视频</span><span class="ttd-dot"></span></div></div>
+            <div class="ttd-tag-column"><div class="ttd-tag-row ttd-tag-level"><span class="ttd-drag">☷</span><input type="checkbox"><strong>质量分</strong><span class="ttd-dot"></span></div><div class="ttd-tag-row"><span class="ttd-drag">☷</span><input type="checkbox"><span>虚假夸大宣传</span><span class="ttd-dot"></span></div><div class="ttd-tag-row"><span class="ttd-drag">☷</span><input type="checkbox"><strong id="ttd-background-label">低俗色情</strong><button class="ttd-edit-icon" id="ttd-reopen" type="button" aria-label="编辑低俗色情">▣</button></div><div class="ttd-tag-row"><span class="ttd-drag">☷</span><input type="checkbox"><span>敏感词</span><span class="ttd-dot"></span></div></div>
+            <div class="ttd-tag-column"><div class="ttd-tag-row ttd-tag-level"><span class="ttd-drag">☷</span><input type="checkbox"><strong>质量分低</strong><span class="ttd-dot"></span></div><div class="ttd-tag-row"><span class="ttd-drag">☷</span><input type="checkbox"><span>疑似质量分低</span><span class="ttd-dot"></span></div><div class="ttd-tag-row"><span class="ttd-drag">☷</span><input type="checkbox"><span>封面图质量分低</span><span class="ttd-dot"></span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="ttd-shade" id="ttd-shade">
+    <section class="ttd-modal" aria-label="编辑二级标签">
+      <header class="ttd-modal-head"><h3>编辑二级标签 低俗色情</h3><button class="ttd-close" id="ttd-close" type="button" aria-label="关闭">×</button></header>
+      <div class="ttd-modal-body">
+        <div class="ttd-edit-grid">
+          <div class="ttd-edit-label"><span class="ttd-required">*</span> 名称</div><input class="ttd-control" id="ttd-label-name" value="疑似低俗色情" aria-label="标签名称">
+          <div class="ttd-edit-label">使用场景</div><div class="ttd-options"><label><input type="checkbox">免机审</label><label><input type="checkbox" checked>机审</label><label><input type="checkbox">免人审</label><label><input type="checkbox" checked>人审</label></div>
+          <div class="ttd-edit-label">质量类型</div><div class="ttd-options"><label><input type="radio" name="ttd-quality">低质</label><label><input type="radio" name="ttd-quality" checked>劣质</label></div>
+          <div class="ttd-edit-label">审核理由</div><input class="ttd-control" value="100702" aria-label="审核理由">
+          <div class="ttd-edit-label">审核理由新</div><div class="ttd-options"><label><input type="radio" name="ttd-reason">新建理由</label><label><input type="radio" name="ttd-reason" checked>使用已有理由</label></div>
+          <div class="ttd-edit-label"></div><button class="ttd-select-display" type="button" aria-label="审核理由选择"><span>100702</span><span class="ttd-chevron">⌄</span></button>
+          <div class="ttd-edit-label">Itype</div><button class="ttd-select-display" type="button" aria-label="Itype选择"><span>图片</span><span class="ttd-chevron">⌄</span></button>
+          <div class="ttd-edit-label ttd-cover-label">覆盖任务选取</div>
+          <div class="ttd-select-line">
+            <button class="ttd-select-display" id="ttd-tree-trigger" type="button" aria-expanded="true"><span class="ttd-selected-value ttd-placeholder" id="ttd-selected-value">请选择需要同步的审核任务</span><span class="ttd-chevron">⌄</span></button>
+            <div class="ttd-field-note">仅同步本次标签增量，不覆盖任务其他配置；不选择时仅保存标签定义。</div>
+            <div class="ttd-tree-popover" id="ttd-tree-popover">
+              <div class="ttd-tree-toolbar"><input class="ttd-search" id="ttd-task-search" placeholder="搜索流程、分组、任务名称或 ID" aria-label="搜索覆盖任务"></div>
+              <div class="ttd-tree-scroll">
+                <div class="ttd-node ttd-flow" data-flow-row="111630"><button class="ttd-expand" type="button" data-expand-flow="111630" aria-expanded="true">⌄</button><input type="checkbox" data-flow-master="111630"><span class="ttd-node-label">内容一审（未挂品）流程 <small>111630</small></span></div>
+                <div data-flow-content="111630">
+                  <div class="ttd-node ttd-group" data-search-row data-search-text="内容一审 未挂品 一审 80002620"><button class="ttd-expand" type="button" data-expand-group="111630-g1" aria-expanded="true">⌄</button><input type="checkbox" data-group-master="111630-g1"><span class="ttd-node-label">一审 <small>80002620</small></span></div>
+                  <div data-group-content="111630-g1">
+                    <label class="ttd-node ttd-task" data-search-row data-search-text="未挂品素材 图文存量回刷 一次性 2082981 机审"><span style="width:22px"></span><input type="checkbox" data-task-id="2082981" data-flow="111630" data-group="111630-g1" data-type="machine" data-status="paused"><span class="ttd-node-label"><span class="ttd-type">机审</span>未挂品素材-图文存量回刷-一次性 <small>2082981</small></span><span class="ttd-status ttd-paused">暂停</span></label>
+                    <label class="ttd-node ttd-task" data-search-row data-search-text="未挂品素材 图文机审任务 2072025 机审"><span style="width:22px"></span><input type="checkbox" data-task-id="2072025" data-flow="111630" data-group="111630-g1" data-type="machine" data-status="online"><span class="ttd-node-label"><span class="ttd-type">机审</span>未挂品素材-图文机审任务 <small>2072025</small></span><span class="ttd-status ttd-online">已上线</span></label>
+                    <label class="ttd-node ttd-task" data-search-row data-search-text="未挂品素材 视频机审任务 2072026 机审"><span style="width:22px"></span><input type="checkbox" data-task-id="2072026" data-flow="111630" data-group="111630-g1" data-type="machine" data-status="online"><span class="ttd-node-label"><span class="ttd-type">机审</span>未挂品素材-视频机审任务 <small>2072026</small></span><span class="ttd-status ttd-online">已上线</span></label>
+                    <label class="ttd-node ttd-task" data-search-row data-search-text="未挂品素材 图文人审任务 2072023 人审"><span style="width:22px"></span><input type="checkbox" data-task-id="2072023" data-flow="111630" data-group="111630-g1" data-type="human" data-status="online"><span class="ttd-node-label"><span class="ttd-type ttd-human">人审</span>未挂品素材-图文人审任务 <small>2072023</small></span><span class="ttd-status ttd-online">已上线</span></label>
+                    <label class="ttd-node ttd-task" data-search-row data-search-text="未挂品素材 视频人审任务 2072024 人审"><span style="width:22px"></span><input type="checkbox" data-task-id="2072024" data-flow="111630" data-group="111630-g1" data-type="human" data-status="online"><span class="ttd-node-label"><span class="ttd-type ttd-human">人审</span>未挂品素材-视频人审任务 <small>2072024</small></span><span class="ttd-status ttd-online">已上线</span></label>
+                  </div>
+                </div>
+
+                <div class="ttd-node ttd-flow" data-flow-row="117171"><button class="ttd-expand" type="button" data-expand-flow="117171" aria-expanded="false">⌄</button><input type="checkbox" data-flow-master="117171"><span class="ttd-node-label">0730一审测试流程 <small>117171</small></span></div>
+                <div data-flow-content="117171" class="ttd-hidden-by-tree">
+                  <div class="ttd-node ttd-group" data-search-row data-search-text="0730 一审测试流程 一审 80002620"><button class="ttd-expand" type="button" data-expand-group="117171-g1" aria-expanded="true">⌄</button><input type="checkbox" data-group-master="117171-g1"><span class="ttd-node-label">一审 <small>80002620</small></span></div>
+                  <div data-group-content="117171-g1">
+                    <label class="ttd-node ttd-task" data-search-row data-search-text="0730 一审图文机审任务 2089506 机审"><span style="width:22px"></span><input type="checkbox" data-task-id="2089506" data-flow="117171" data-group="117171-g1" data-type="machine" data-status="online"><span class="ttd-node-label"><span class="ttd-type">机审</span>0730一审图文机审任务 <small>2089506</small></span><span class="ttd-status ttd-online">已上线</span></label>
+                    <label class="ttd-node ttd-task" data-search-row data-search-text="0730 一审视频机审任务 2089508 机审"><span style="width:22px"></span><input type="checkbox" data-task-id="2089508" data-flow="117171" data-group="117171-g1" data-type="machine" data-status="online"><span class="ttd-node-label"><span class="ttd-type">机审</span>0730一审视频机审任务 <small>2089508</small></span><span class="ttd-status ttd-online">已上线</span></label>
+                    <label class="ttd-node ttd-task" data-search-row data-search-text="0730 一审测试任务 2089535 人审"><span style="width:22px"></span><input type="checkbox" data-task-id="2089535" data-flow="117171" data-group="117171-g1" data-type="human" data-status="online"><span class="ttd-node-label"><span class="ttd-type ttd-human">人审</span>0730一审测试任务 <small>2089535</small></span><span class="ttd-status ttd-online">已上线</span></label>
+                  </div>
+                </div>
+              </div>
+              <div class="ttd-tree-foot"><span id="ttd-tree-count">已选择 0 个任务</span><button class="ttd-clear" id="ttd-clear" type="button">清空</button></div>
+            </div>
+            <div class="ttd-increment-note" id="ttd-increment-note">任务范围来自信息流业务线全量任务接口；保存具体任务 ID，不自动包含未来新增任务。</div>
+          </div>
+        </div>
+      </div>
+      <footer class="ttd-modal-foot"><button class="ttd-secondary" id="ttd-cancel" type="button">取消</button><button class="ttd-primary" id="ttd-confirm" type="button">确认</button></footer>
+    </section>
+  </div>
+
+  <div class="ttd-popconfirm" id="ttd-popconfirm" hidden>
+    <section class="ttd-confirm-box" aria-label="确认保存并同步">
+      <div class="ttd-confirm-content"><h4>确认保存并同步？</h4><div class="ttd-confirm-lines"><div id="ttd-confirm-total">将同步到 0 个任务。</div><div id="ttd-confirm-types">机审 0 个，人审 0 个。</div></div><div class="ttd-confirm-warning" id="ttd-confirm-warning">未选择任务，本次仅保存标签定义。</div></div>
+      <footer class="ttd-modal-foot"><button class="ttd-secondary" id="ttd-back" type="button">返回检查</button><button class="ttd-primary" id="ttd-apply" type="button">确认保存</button></footer>
+    </section>
+  </div>
+
+  <div class="ttd-toast" id="ttd-toast" role="status" hidden>✓ 保存成功</div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('tag-task-tree-demo');
+      const shade = root.querySelector('#ttd-shade');
+      const popconfirm = root.querySelector('#ttd-popconfirm');
+      const treeTrigger = root.querySelector('#ttd-tree-trigger');
+      const treePopover = root.querySelector('#ttd-tree-popover');
+      const selectedValue = root.querySelector('#ttd-selected-value');
+      const taskBoxes = [...root.querySelectorAll('input[data-task-id]')];
+      const flowMasters = [...root.querySelectorAll('input[data-flow-master]')];
+      const groupMasters = [...root.querySelectorAll('input[data-group-master]')];
+      const toast = root.querySelector('#ttd-toast');
+
+      function selectedStats() {
+        const chosen = taskBoxes.filter(box => box.checked);
+        return {
+          total: chosen.length,
+          machine: chosen.filter(box => box.dataset.type === 'machine').length,
+          human: chosen.filter(box => box.dataset.type === 'human').length,
+          online: chosen.filter(box => box.dataset.status === 'online').length,
+          paused: chosen.filter(box => box.dataset.status !== 'online').length
+        };
+      }
+
+      function setMasterState(master, children) {
+        const checked = children.filter(box => box.checked).length;
+        master.checked = children.length > 0 && checked === children.length;
+        master.indeterminate = checked > 0 && checked < children.length;
+      }
+
+      function syncParents() {
+        groupMasters.forEach(master => {
+          const children = taskBoxes.filter(box => box.dataset.group === master.dataset.groupMaster);
+          setMasterState(master, children);
+        });
+        flowMasters.forEach(master => {
+          const children = taskBoxes.filter(box => box.dataset.flow === master.dataset.flowMaster);
+          setMasterState(master, children);
+        });
+      }
+
+      function updateSummary() {
+        const stats = selectedStats();
+        root.querySelector('#ttd-tree-count').textContent = `已选择 ${stats.total} 个任务（机审 ${stats.machine} / 人审 ${stats.human}）`;
+        selectedValue.textContent = stats.total ? `已选择 ${stats.total} 个任务（机审 ${stats.machine}、人审 ${stats.human}）` : '请选择需要同步的审核任务';
+        selectedValue.classList.toggle('ttd-placeholder', stats.total === 0);
+        syncParents();
+      }
+
+      function setChildren(selector, checked) {
+        taskBoxes.filter(selector).forEach(box => { box.checked = checked; });
+        updateSummary();
+      }
+
+      treeTrigger.addEventListener('click', () => {
+        const willOpen = treePopover.hidden;
+        treePopover.hidden = !willOpen;
+        treeTrigger.setAttribute('aria-expanded', String(willOpen));
+      });
+
+      flowMasters.forEach(master => master.addEventListener('change', () => setChildren(box => box.dataset.flow === master.dataset.flowMaster, master.checked)));
+      groupMasters.forEach(master => master.addEventListener('change', () => setChildren(box => box.dataset.group === master.dataset.groupMaster, master.checked)));
+      taskBoxes.forEach(box => box.addEventListener('change', updateSummary));
+
+      root.querySelectorAll('[data-expand-flow]').forEach(button => button.addEventListener('click', () => {
+        const content = root.querySelector(`[data-flow-content="${button.dataset.expandFlow}"]`);
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        content.classList.toggle('ttd-hidden-by-tree', expanded);
+        button.setAttribute('aria-expanded', String(!expanded));
+      }));
+      root.querySelectorAll('[data-expand-group]').forEach(button => button.addEventListener('click', () => {
+        const content = root.querySelector(`[data-group-content="${button.dataset.expandGroup}"]`);
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        content.classList.toggle('ttd-hidden-by-tree', expanded);
+        button.setAttribute('aria-expanded', String(!expanded));
+      }));
+
+      root.querySelector('#ttd-task-search').addEventListener('input', event => {
+        const query = event.target.value.trim().toLowerCase();
+        root.querySelectorAll('[data-search-row]').forEach(row => {
+          row.classList.toggle('ttd-hidden-by-search', Boolean(query) && !row.dataset.searchText.toLowerCase().includes(query));
+        });
+      });
+
+      root.querySelector('#ttd-clear').addEventListener('click', () => {
+        taskBoxes.forEach(box => { box.checked = false; });
+        updateSummary();
+      });
+
+      function closeEditor() { shade.hidden = true; treePopover.hidden = true; }
+      root.querySelector('#ttd-close').addEventListener('click', closeEditor);
+      root.querySelector('#ttd-cancel').addEventListener('click', closeEditor);
+      root.querySelector('#ttd-reopen').addEventListener('click', () => { shade.hidden = false; treePopover.hidden = false; treeTrigger.setAttribute('aria-expanded','true'); });
+
+      root.querySelector('#ttd-confirm').addEventListener('click', () => {
+        const stats = selectedStats();
+        root.querySelector('#ttd-confirm-total').textContent = stats.total ? `将同步到 ${stats.total} 个任务。` : '未选择覆盖任务。';
+        root.querySelector('#ttd-confirm-types').textContent = `机审 ${stats.machine} 个，人审 ${stats.human} 个。`;
+        root.querySelector('#ttd-confirm-warning').textContent = stats.total
+          ? `${stats.online} 个已上线任务将立即生效；${stats.paused} 个暂停/未上线任务只更新配置，需要主动上线后生效。仅同步本次标签增量，不影响历史已处理 case。`
+          : '本次仅保存标签定义，不修改任何任务。';
+        popconfirm.hidden = false;
+      });
+      root.querySelector('#ttd-back').addEventListener('click', () => { popconfirm.hidden = true; });
+      root.querySelector('#ttd-apply').addEventListener('click', () => {
+        const stats = selectedStats();
+        const labelName = root.querySelector('#ttd-label-name').value.trim() || '低俗色情';
+        root.querySelector('#ttd-background-label').textContent = labelName;
+        root.querySelector('#ttd-sync-state').textContent = stats.total ? `刚刚已同步 ${stats.total} 个任务` : '标签已保存，未同步任务';
+        shade.hidden = true;
+        popconfirm.hidden = true;
+        toast.textContent = stats.total
+          ? `✓ 保存成功：已同步 ${stats.total} 个任务；${stats.online} 个线上任务已生效，${stats.paused} 个任务需上线后生效`
+          : '✓ 标签已保存，未同步任何任务';
+        toast.hidden = false;
+        window.setTimeout(() => { toast.hidden = true; }, 4200);
+      });
+
+      updateSummary();
+    })();
+  </script>
+</div>
