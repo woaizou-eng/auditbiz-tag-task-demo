@@ -1,0 +1,1762 @@
+<div id="audit-separated-label-demo-20260901">
+  <style>
+    #audit-separated-label-demo-20260901 {
+      color-scheme: light dark;
+      --separated-audit-brand: #4f5ff5;
+      --separated-audit-brand-soft: light-dark(#eef0ff, #282e50);
+      --separated-audit-bg: light-dark(#f5f7fa, #111419);
+      --separated-audit-panel: light-dark(#ffffff, #1a1e25);
+      --separated-audit-soft: light-dark(#f8f9fb, #20252d);
+      --separated-audit-line: light-dark(#e5e8ef, #303641);
+      --separated-audit-line-strong: light-dark(#d0d6e0, #444c58);
+      --separated-audit-text: light-dark(#1d2129, #edf0f5);
+      --separated-audit-muted: light-dark(#667085, #a8b1bf);
+      --separated-audit-success: light-dark(#087443, #7bd7a5);
+      --separated-audit-warning: light-dark(#9c5a00, #ffc16f);
+      position: relative;
+      min-height: 760px;
+      overflow: hidden;
+      color: var(--separated-audit-text);
+      background: var(--separated-audit-bg);
+      font: 14px/1.45 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    #audit-separated-label-demo-20260901 * { box-sizing: border-box; }
+    #audit-separated-label-demo-20260901 [hidden] { display: none !important; }
+    #audit-separated-label-demo-20260901 button,
+    #audit-separated-label-demo-20260901 input,
+    #audit-separated-label-demo-20260901 select { font: inherit; }
+    #audit-separated-label-demo-20260901 button { cursor: pointer; }
+    #audit-separated-label-demo-20260901 .separated-audit-topbar {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--separated-audit-line);
+      background: var(--separated-audit-panel);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-brand,
+    #audit-separated-label-demo-20260901 .separated-audit-account { display: flex; align-items: center; gap: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-account { color: var(--separated-audit-muted); }
+    #audit-separated-label-demo-20260901 .separated-audit-logo {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      color: #fff;
+      background: var(--separated-audit-brand);
+      font-weight: 500;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-main { padding: 20px 24px 28px; }
+    #audit-separated-label-demo-20260901 .separated-audit-breadcrumb { margin-bottom: 13px; color: var(--separated-audit-muted); }
+    #audit-separated-label-demo-20260901 .separated-audit-pagehead {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-pagehead h1 { margin: 0 0 5px; font-size: 22px; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-pagehead p { margin: 0; color: var(--separated-audit-muted); }
+    #audit-separated-label-demo-20260901 .separated-audit-button {
+      min-height: 36px;
+      padding: 7px 14px;
+      border: 1px solid var(--separated-audit-line-strong);
+      border-radius: 6px;
+      color: var(--separated-audit-text);
+      background: var(--separated-audit-panel);
+      font-weight: 500;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-button:hover { border-color: var(--separated-audit-brand); color: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-button.is-primary { border-color: var(--separated-audit-brand); color: #fff; background: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-workspace {
+      display: grid;
+      gap: 14px;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-zone {
+      overflow: hidden;
+      border: 1px solid var(--separated-audit-line);
+      border-radius: 8px;
+      background: var(--separated-audit-panel);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-zone-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--separated-audit-line);
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-zone-index {
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--separated-audit-brand);
+      font-weight: 500;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-zone-title strong { display: block; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-zone-title span { display: block; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-split {
+      display: block;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-relations-pane { min-width: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-tabs {
+      display: flex;
+      align-items: stretch;
+      gap: 26px;
+      min-height: 52px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--separated-audit-line);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-tab {
+      position: relative;
+      padding: 0 2px;
+      border: 0;
+      color: var(--separated-audit-muted);
+      background: transparent;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-tab[aria-selected="true"] { color: var(--separated-audit-brand); font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-tab[aria-selected="true"]::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: -1px;
+      left: 0;
+      height: 2px;
+      background: var(--separated-audit-brand);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-selector {
+      min-width: 0;
+      background: var(--separated-audit-panel);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-selector-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 64px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--separated-audit-line);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-selector-copy { min-width: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-selector-actions { display: flex; align-items: center; justify-content: flex-end; gap: 9px; flex: 1; }
+    #audit-separated-label-demo-20260901 .separated-audit-selector-head strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-selector-head span { display: block; margin-top: 3px; color: var(--separated-audit-muted); font-size: 13px; }
+    #audit-separated-label-demo-20260901 .separated-audit-label-search { width: min(320px, 42%); }
+    #audit-separated-label-demo-20260901 .separated-audit-label-browser { padding: 14px; }
+    #audit-separated-label-demo-20260901 .separated-audit-label-controls {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--separated-audit-line);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-control-label { color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-segment { display: inline-flex; border: 1px solid var(--separated-audit-line-strong); border-radius: 6px; overflow: hidden; }
+    #audit-separated-label-demo-20260901 .separated-audit-segment button {
+      min-height: 34px;
+      padding: 6px 13px;
+      border: 0;
+      border-right: 1px solid var(--separated-audit-line-strong);
+      color: var(--separated-audit-muted);
+      background: var(--separated-audit-panel);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-segment button:last-child { border-right: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-segment button.is-selected { color: #fff; background: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-parent-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    #audit-separated-label-demo-20260901 .separated-audit-filter-chip {
+      min-height: 30px;
+      padding: 5px 10px;
+      border: 1px solid var(--separated-audit-line-strong);
+      border-radius: 999px;
+      color: var(--separated-audit-text);
+      background: var(--separated-audit-panel);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-filter-chip.is-selected { border-color: var(--separated-audit-brand); color: var(--separated-audit-brand); background: var(--separated-audit-brand-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-label-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(280px, .8fr);
+      gap: 14px;
+      padding-top: 12px;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-flat-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-content: start; }
+    #audit-separated-label-demo-20260901 .separated-audit-flat-item {
+      min-height: 64px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 11px;
+      border: 1px solid var(--separated-audit-line);
+      border-radius: 6px;
+      color: var(--separated-audit-text);
+      background: var(--separated-audit-panel);
+      text-align: left;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-flat-item:hover { border-color: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-flat-item.is-selected { border-color: var(--separated-audit-brand); background: var(--separated-audit-brand-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-flat-item strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-flat-item span { display: block; margin-top: 3px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-flat-count { color: var(--separated-audit-muted); white-space: nowrap; }
+    #audit-separated-label-demo-20260901 .separated-audit-label-detail {
+      min-width: 0;
+      padding: 12px;
+      border-left: 3px solid var(--separated-audit-brand);
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-label-detail h3 { margin: 0 0 2px; font-size: 16px; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-label-detail-code { color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-detail-block { margin-top: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-detail-block > span { display: block; margin-bottom: 6px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-parent-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    #audit-separated-label-demo-20260901 .separated-audit-parent-tag { padding: 3px 8px; border: 1px solid transparent; border-radius: 999px; color: var(--separated-audit-brand); background: var(--separated-audit-brand-soft); font: inherit; font-size: 12px; cursor: pointer; }
+    #audit-separated-label-demo-20260901 .separated-audit-parent-tag:hover { border-color: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-parent-tag.is-selected { color: #fff; background: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-path-row { margin-top: 5px; padding: 6px 8px; background: var(--separated-audit-panel); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-flat-empty { padding: 38px 12px; color: var(--separated-audit-muted); text-align: center; }
+    #audit-separated-label-demo-20260901 .separated-audit-levels {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-levels.is-machine { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #audit-separated-label-demo-20260901 .separated-audit-levels.is-manual { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    #audit-separated-label-demo-20260901 .separated-audit-level {
+      min-width: 0;
+      border-right: 1px solid var(--separated-audit-line);
+      background: var(--separated-audit-panel);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-level:last-child { border-right: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-level-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 38px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--separated-audit-line);
+      color: var(--separated-audit-muted);
+      background: var(--separated-audit-soft);
+      font-size: 13px;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-level-list { min-height: 360px; padding: 6px; }
+    #audit-separated-label-demo-20260901 .separated-audit-label-button {
+      width: 100%;
+      min-height: 38px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 9px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      color: var(--separated-audit-text);
+      background: transparent;
+      text-align: left;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-label-button:hover { background: var(--separated-audit-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-label-button.is-path { color: var(--separated-audit-brand); background: var(--separated-audit-brand-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-label-button.is-selected { border-color: var(--separated-audit-brand); color: var(--separated-audit-brand); background: var(--separated-audit-brand-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-label-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    #audit-separated-label-demo-20260901 .separated-audit-label-count { color: var(--separated-audit-muted); font-size: 12px; white-space: nowrap; }
+    #audit-separated-label-demo-20260901 .separated-audit-level-empty { padding: 32px 10px; color: var(--separated-audit-muted); text-align: center; }
+    #audit-separated-label-demo-20260901 .separated-audit-current {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 76px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--separated-audit-line);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-current-main { min-width: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-current-label { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    #audit-separated-label-demo-20260901 .separated-audit-current-label strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-current-label span { color: var(--separated-audit-muted); }
+    #audit-separated-label-demo-20260901 .separated-audit-current-meta { margin-top: 3px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: var(--separated-audit-brand);
+      background: var(--separated-audit-brand-soft);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-badge.is-success { color: var(--separated-audit-success); background: light-dark(#eaf8f1, #183b2b); }
+    #audit-separated-label-demo-20260901 .separated-audit-badge.is-draft { color: var(--separated-audit-muted); background: light-dark(#eef1f5, #2a3038); }
+    #audit-separated-label-demo-20260901 .separated-audit-badge.is-op { color: var(--separated-audit-warning); background: light-dark(#fff5df, #423119); }
+    #audit-separated-label-demo-20260901 .separated-audit-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--separated-audit-line);
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-search,
+    #audit-separated-label-demo-20260901 .separated-audit-select {
+      min-height: 36px;
+      padding: 7px 10px;
+      border: 1px solid var(--separated-audit-line-strong);
+      border-radius: 6px;
+      color: var(--separated-audit-text);
+      background: var(--separated-audit-panel);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-search { width: min(330px, 100%); }
+    #audit-separated-label-demo-20260901 .separated-audit-toolbar-note { margin-left: auto; color: var(--separated-audit-muted); }
+    #audit-separated-label-demo-20260901 .separated-audit-table-responsive { width: 100%; overflow-x: auto; }
+    #audit-separated-label-demo-20260901 .separated-audit-table { width: 100%; min-width: 720px; border-collapse: collapse; table-layout: fixed; }
+    #audit-separated-label-demo-20260901 .separated-audit-table th {
+      height: 43px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--separated-audit-line);
+      color: var(--separated-audit-muted);
+      background: var(--separated-audit-soft);
+      font-size: 13px;
+      font-weight: 500;
+      text-align: left;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-table td { padding: 12px; border-bottom: 1px solid var(--separated-audit-line); vertical-align: middle; }
+    #audit-separated-label-demo-20260901 .separated-audit-table tbody tr:hover { background: light-dark(#fafbff, #202532); }
+    #audit-separated-label-demo-20260901 .separated-audit-table tbody tr:last-child td { border-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-primary-text { display: block; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-secondary-text { display: block; margin-top: 3px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-link {
+      padding: 4px 0;
+      border: 0;
+      color: var(--separated-audit-brand);
+      background: transparent;
+      white-space: nowrap;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-empty { padding: 60px 20px; color: var(--separated-audit-muted); text-align: center; }
+    #audit-separated-label-demo-20260901 .separated-audit-footnote {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--separated-audit-line);
+      color: var(--separated-audit-muted);
+      background: light-dark(#fbfcff, #1c2129);
+      font-size: 13px;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-footnote strong { color: var(--separated-audit-brand); font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-groups { padding: 14px; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-view-tabs { display: flex; align-items: center; gap: 22px; padding: 0 2px 12px; border-bottom: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-view-tab { position: relative; min-height: 34px; padding: 4px 1px; border: 0; color: var(--separated-audit-muted); background: transparent; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-view-tab.is-selected { color: var(--separated-audit-brand); font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-view-tab.is-selected::after { content: ""; position: absolute; right: 0; bottom: -13px; left: 0; height: 2px; background: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-list-wrap { margin-top: 12px; overflow-x: auto; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-list { width: 100%; min-width: 820px; border-collapse: collapse; table-layout: fixed; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-list th { padding: 9px 11px; border-bottom: 1px solid var(--separated-audit-line); color: var(--separated-audit-muted); background: var(--separated-audit-soft); font-size: 12px; font-weight: 500; text-align: left; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-list td { padding: 12px 11px; border-bottom: 1px solid var(--separated-audit-line); vertical-align: top; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-list tbody tr:hover { background: light-dark(#fafbff, #202532); }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-list tbody tr:last-child td { border-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-parent-row { margin-bottom: 8px; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-parent-row:last-child { margin-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-parent-row strong { display: block; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-parent-meta { margin-top: 2px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-row-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-group {
+      margin-bottom: 12px;
+      overflow: hidden;
+      border: 1px solid var(--separated-audit-line);
+      border-radius: 7px;
+      background: var(--separated-audit-panel);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-group:last-child { margin-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-group-head {
+      display: grid;
+      grid-template-columns: minmax(220px, .9fr) minmax(0, 1.6fr);
+      gap: 18px;
+      align-items: center;
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--separated-audit-line);
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-condition-name { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-condition-name strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-condition-code { margin-top: 3px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-condition-tasks { min-width: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-condition-tasks > span { display: block; margin-bottom: 4px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-condition-task-list { display: flex; flex-wrap: wrap; gap: 5px 10px; }
+    #audit-separated-label-demo-20260901 .separated-audit-condition-task-list span { color: var(--separated-audit-text); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-relation-table { width: 100%; min-width: 720px; border-collapse: collapse; table-layout: fixed; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-relation-table th {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--separated-audit-line);
+      color: var(--separated-audit-muted);
+      background: var(--separated-audit-panel);
+      font-size: 12px;
+      font-weight: 500;
+      text-align: left;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-relation-table td { padding: 11px 12px; border-bottom: 1px solid var(--separated-audit-line); vertical-align: middle; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-relation-table tr:last-child td { border-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-relation-table tbody tr:hover { background: light-dark(#fafbff, #202532); }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-label-name { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-label-name strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-task { margin-bottom: 7px; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-task:last-child { margin-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-task-line { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 7px; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-task-line strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-task-meta { margin-top: 2px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-unconfigured { color: var(--separated-audit-warning); }
+    #audit-separated-label-demo-20260901 .separated-audit-machine-empty { padding: 52px 16px; color: var(--separated-audit-muted); text-align: center; }
+    #audit-separated-label-demo-20260901 .separated-audit-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 44px 20px;
+      background: light-dark(rgb(21 27 38 / 48%), rgb(0 0 0 / 68%));
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-overlay.is-open { display: flex; }
+    #audit-separated-label-demo-20260901 .separated-audit-modal {
+      width: min(920px, 100%);
+      overflow: hidden;
+      border-radius: 9px;
+      color: var(--separated-audit-text);
+      background: var(--separated-audit-panel);
+      box-shadow: 0 20px 70px rgb(0 0 0 / 24%);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-modal-head,
+    #audit-separated-label-demo-20260901 .separated-audit-modal-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 15px 18px;
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-modal-head { border-bottom: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-modal-head h2 { margin: 0; font-size: 18px; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-close { border: 0; color: var(--separated-audit-muted); background: transparent; font-size: 22px; }
+    #audit-separated-label-demo-20260901 .separated-audit-modal-body { max-height: 520px; padding: 16px 18px; overflow-y: auto; }
+    #audit-separated-label-demo-20260901 .separated-audit-scope {
+      margin-bottom: 14px;
+      padding: 11px 12px;
+      border: 1px solid var(--separated-audit-line);
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-scope-title { margin-bottom: 8px; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-scope-title span { margin-left: 6px; color: var(--separated-audit-muted); font-size: 12px; font-weight: 400; }
+    #audit-separated-label-demo-20260901 .separated-audit-scope-list { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+    #audit-separated-label-demo-20260901 .separated-audit-check { display: inline-flex; align-items: center; gap: 7px; min-height: 30px; }
+    #audit-separated-label-demo-20260901 .separated-audit-check input { width: 16px; height: 16px; accent-color: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-targets { overflow-x: auto; border: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-target-table { width: 100%; min-width: 760px; border-collapse: collapse; }
+    #audit-separated-label-demo-20260901 .separated-audit-target-table th,
+    #audit-separated-label-demo-20260901 .separated-audit-target-table td { padding: 10px 11px; border-bottom: 1px solid var(--separated-audit-line); text-align: left; }
+    #audit-separated-label-demo-20260901 .separated-audit-target-table th { color: var(--separated-audit-muted); background: var(--separated-audit-soft); font-size: 13px; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-target-table tr:last-child td { border-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-target-table tr.is-disabled { opacity: .6; background: var(--separated-audit-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-warning { color: var(--separated-audit-warning); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-display-intro {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-display-intro strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-display-intro span { display: block; margin-top: 2px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-record {
+      margin-bottom: 12px;
+      border: 1px solid var(--separated-audit-line);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-record:last-child { margin-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-record-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 46px;
+      padding: 8px 11px;
+      border-bottom: 1px solid var(--separated-audit-line);
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-record-head strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-record-fields { display: flex; align-items: center; gap: 8px; }
+    #audit-separated-label-demo-20260901 .separated-audit-record-fields label { color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-position {
+      min-height: 34px;
+      padding: 6px 28px 6px 9px;
+      border: 1px solid var(--separated-audit-line-strong);
+      border-radius: 5px;
+      color: var(--separated-audit-text);
+      background: var(--separated-audit-panel);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-remove-record { border: 0; color: var(--separated-audit-muted); background: transparent; }
+    #audit-separated-label-demo-20260901 .separated-audit-task-tree { padding: 8px 12px 11px; }
+    #audit-separated-label-demo-20260901 .separated-audit-task-flow { padding: 6px 0; border-bottom: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-task-flow:last-child { border-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-task-flow > strong { display: block; margin-bottom: 5px; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-task-group { margin-left: 14px; }
+    #audit-separated-label-demo-20260901 .separated-audit-task-group > span { display: block; margin-bottom: 4px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-task-options { display: flex; flex-wrap: wrap; gap: 5px 16px; }
+    #audit-separated-label-demo-20260901 .separated-audit-operation-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-operation-bar > div { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
+    #audit-separated-label-demo-20260901 .separated-audit-operation-bar strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-operation-note { color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-intro { margin-bottom: 12px; padding: 11px 12px; background: var(--separated-audit-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-intro strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-intro span { display: block; margin-top: 3px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-title { margin: 12px 0 7px; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-title span { margin-left: 6px; color: var(--separated-audit-muted); font-size: 12px; font-weight: 400; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-condition-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-condition-option { min-height: 68px; display: flex; align-items: flex-start; gap: 8px; padding: 9px 10px; border: 1px solid var(--separated-audit-line); background: var(--separated-audit-panel); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-condition-option input { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-condition-option.is-locked { background: var(--separated-audit-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-condition-option.is-locked input { cursor: not-allowed; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-condition-option strong { display: block; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-condition-option span { display: block; margin-top: 2px; color: var(--separated-audit-muted); font-size: 12px; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-target-group { margin-bottom: 10px; border: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-target-group:last-child { margin-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-target-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border-bottom: 1px solid var(--separated-audit-line); background: var(--separated-audit-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-target-head strong { font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-target-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-target-item { min-height: 60px; display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 7px; padding: 9px 10px; border-bottom: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-target-item:nth-child(odd) { border-right: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-target-item input { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-tree { display: block; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-tree .separated-audit-relation-flow { border-bottom: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-tree .separated-audit-relation-flow:last-child { border-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-tree .separated-audit-attach-target-item { border-right: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-relation-tree { border: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-relation-flow { border-bottom: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-relation-flow:last-child { border-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-relation-flow-head,
+    #audit-separated-label-demo-20260901 .separated-audit-relation-group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 40px;
+      padding: 7px 11px;
+      background: var(--separated-audit-soft);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-relation-group-head { padding-left: 30px; border-top: 1px solid var(--separated-audit-line); background: var(--separated-audit-panel); }
+    #audit-separated-label-demo-20260901 .separated-audit-relation-leaf {
+      display: grid;
+      grid-template-columns: 28px minmax(180px, 1fr) minmax(260px, 1.45fr) 82px;
+      align-items: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 8px 11px 8px 46px;
+      border-top: 1px solid var(--separated-audit-line);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-relation-leaf.is-disabled { color: var(--separated-audit-muted); background: var(--separated-audit-soft); }
+    #audit-separated-label-demo-20260901 .separated-audit-condition-summary { min-width: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-condition-tags { margin-top: 3px; color: var(--separated-audit-muted); font-size: 12px; white-space: normal; }
+    #audit-separated-label-demo-20260901 .separated-audit-current-tag { color: var(--separated-audit-brand); font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-confirm-view[hidden] { display: none; }
+    #audit-separated-label-demo-20260901 .separated-audit-confirm-title { margin: 0 0 10px; font-size: 17px; font-weight: 500; }
+    #audit-separated-label-demo-20260901 .separated-audit-impact-list { border: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-impact-row {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 12px;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--separated-audit-line);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-impact-row:last-child { border-bottom: 0; }
+    #audit-separated-label-demo-20260901 .separated-audit-impact-row > span:first-child { color: var(--separated-audit-muted); }
+    #audit-separated-label-demo-20260901 .separated-audit-impact-warning {
+      margin-top: 12px;
+      padding: 11px 12px;
+      color: var(--separated-audit-warning);
+      background: light-dark(#fff8ea, #392c1c);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-modal-foot { border-top: 1px solid var(--separated-audit-line); }
+    #audit-separated-label-demo-20260901 .separated-audit-modal-summary { color: var(--separated-audit-muted); }
+    #audit-separated-label-demo-20260901 .separated-audit-modal-buttons { display: flex; gap: 9px; }
+    #audit-separated-label-demo-20260901 .separated-audit-toast {
+      position: absolute;
+      right: 22px;
+      bottom: 22px;
+      z-index: 40;
+      display: none;
+      max-width: min(520px, calc(100% - 44px));
+      padding: 11px 15px;
+      border-radius: 7px;
+      color: #fff;
+      background: #293245;
+      box-shadow: 0 9px 28px rgb(0 0 0 / 22%);
+    }
+    #audit-separated-label-demo-20260901 .separated-audit-toast.is-showing { display: block; }
+    @media (max-width: 920px) {
+      #audit-separated-label-demo-20260901 .separated-audit-main { padding: 14px; }
+      #audit-separated-label-demo-20260901 .separated-audit-label-content { grid-template-columns: 1fr; }
+      #audit-separated-label-demo-20260901 .separated-audit-label-detail { border-top: 3px solid var(--separated-audit-brand); border-left: 0; }
+      #audit-separated-label-demo-20260901 .separated-audit-toolbar-note { width: 100%; margin-left: 0; }
+      #audit-separated-label-demo-20260901 .separated-audit-machine-group-head { grid-template-columns: 1fr; gap: 8px; }
+      #audit-separated-label-demo-20260901 .separated-audit-attach-condition-options { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      #audit-separated-label-demo-20260901 .separated-audit-topbar { padding: 0 14px; }
+      #audit-separated-label-demo-20260901 .separated-audit-account span:first-child { display: none; }
+      #audit-separated-label-demo-20260901 .separated-audit-pagehead,
+      #audit-separated-label-demo-20260901 .separated-audit-current,
+      #audit-separated-label-demo-20260901 .separated-audit-selector-head,
+      #audit-separated-label-demo-20260901 .separated-audit-selector-actions,
+      #audit-separated-label-demo-20260901 .separated-audit-selector-head { align-items: stretch; flex-direction: column; }
+      #audit-separated-label-demo-20260901 .separated-audit-pagehead .separated-audit-button,
+      #audit-separated-label-demo-20260901 .separated-audit-current .separated-audit-button,
+      #audit-separated-label-demo-20260901 .separated-audit-search,
+      #audit-separated-label-demo-20260901 .separated-audit-select,
+      #audit-separated-label-demo-20260901 .separated-audit-label-search { width: 100%; }
+      #audit-separated-label-demo-20260901 .separated-audit-flat-list { grid-template-columns: 1fr; }
+      #audit-separated-label-demo-20260901 .separated-audit-attach-target-list { grid-template-columns: 1fr; }
+      #audit-separated-label-demo-20260901 .separated-audit-attach-target-item:nth-child(odd) { border-right: 0; }
+      #audit-separated-label-demo-20260901 .separated-audit-segment { width: 100%; }
+      #audit-separated-label-demo-20260901 .separated-audit-segment button { flex: 1; padding-right: 7px; padding-left: 7px; }
+      #audit-separated-label-demo-20260901 .separated-audit-levels,
+      #audit-separated-label-demo-20260901 .separated-audit-levels.is-machine,
+      #audit-separated-label-demo-20260901 .separated-audit-levels.is-manual { grid-template-columns: 1fr; }
+      #audit-separated-label-demo-20260901 .separated-audit-level { border-right: 0; }
+      #audit-separated-label-demo-20260901 .separated-audit-level { border-bottom: 1px solid var(--separated-audit-line); }
+      #audit-separated-label-demo-20260901 .separated-audit-level:last-child { border-bottom: 0; }
+      #audit-separated-label-demo-20260901 .separated-audit-record-head,
+      #audit-separated-label-demo-20260901 .separated-audit-display-intro { align-items: stretch; flex-direction: column; }
+      #audit-separated-label-demo-20260901 .separated-audit-record-fields { align-items: stretch; flex-direction: column; }
+      #audit-separated-label-demo-20260901 .separated-audit-position { width: 100%; }
+      #audit-separated-label-demo-20260901 .separated-audit-impact-row { grid-template-columns: 1fr; gap: 4px; }
+      #audit-separated-label-demo-20260901 .separated-audit-operation-bar { align-items: flex-start; flex-direction: column; }
+      #audit-separated-label-demo-20260901 .separated-audit-relation-leaf { grid-template-columns: 28px minmax(0, 1fr); padding-left: 28px; }
+      #audit-separated-label-demo-20260901 .separated-audit-condition-summary,
+      #audit-separated-label-demo-20260901 .separated-audit-relation-leaf > .separated-audit-badge { grid-column: 2; }
+      #audit-separated-label-demo-20260901 .separated-audit-overlay { padding: 12px 8px; }
+      #audit-separated-label-demo-20260901 .separated-audit-modal-foot { align-items: stretch; flex-direction: column; }
+      #audit-separated-label-demo-20260901 .separated-audit-modal-buttons .separated-audit-button { flex: 1; }
+    }
+  </style>
+
+  <header class="separated-audit-topbar">
+    <div class="separated-audit-brand"><span class="separated-audit-logo">A</span><span>AuditBiz 审核管理</span></div>
+    <div class="separated-audit-account"><span>信息流 · feeds</span><span>米球</span></div>
+  </header>
+
+  <main class="separated-audit-main">
+    <div class="separated-audit-breadcrumb">主页 / 标签管理 / 标签应用管理</div>
+    <div class="separated-audit-pagehead">
+      <div><h1>标签应用管理</h1><p id="separated-audit-page-description">上方选择标签，下方查看并维护应用配置。</p></div>
+    </div>
+
+    <section class="separated-audit-workspace" aria-label="标签应用管理">
+      <section class="separated-audit-zone" id="separated-audit-primary-zone" aria-label="关系维护页">
+        <div class="separated-audit-zone-head"><span class="separated-audit-zone-index" id="separated-audit-primary-index">1</span><div class="separated-audit-zone-title"><strong id="separated-audit-primary-title">全局条件与对应标签</strong><span id="separated-audit-primary-note">直接查看标签关联了哪些任务，并在行内调整</span></div></div>
+        <div class="separated-audit-tabs" role="tablist" aria-label="标签类型">
+          <button class="separated-audit-tab" type="button" role="tab" aria-selected="true" data-separated-tab="machine">机审标签</button>
+          <button class="separated-audit-tab" type="button" role="tab" aria-selected="false" data-separated-tab="manual">人审标签</button>
+          <button class="separated-audit-tab" type="button" role="tab" aria-selected="false" data-separated-tab="display">展示组件</button>
+        </div>
+        <section class="separated-audit-selector" aria-label="上方标签选择区">
+          <div class="separated-audit-selector-head"><div class="separated-audit-selector-copy"><strong id="separated-audit-selector-title">标签列表</strong><span id="separated-audit-selector-note">按层级平铺检索，多父级标签不重复展示</span></div><div class="separated-audit-selector-actions"><input class="separated-audit-search separated-audit-label-search" id="separated-audit-label-search" type="search" placeholder="搜索标签名称、code 或上级标签" aria-label="搜索标签"><button class="separated-audit-button is-primary" type="button" id="separated-audit-add-machine-item" hidden>接入新标签</button></div></div>
+          <div class="separated-audit-levels" id="separated-audit-levels"></div>
+        </section>
+      </section>
+
+      <section class="separated-audit-zone" id="separated-audit-config-zone" aria-label="应用配置区">
+        <div class="separated-audit-zone-head"><span class="separated-audit-zone-index">2</span><div class="separated-audit-zone-title"><strong>应用配置</strong><span>查看当前标签实际应用，并通过差量操作调整关系</span></div></div>
+        <section class="separated-audit-relations-pane" aria-label="下方应用配置区">
+          <div class="separated-audit-current">
+            <div class="separated-audit-current-main">
+              <div class="separated-audit-current-label"><span id="separated-audit-current-caption">当前标签</span><strong id="separated-audit-current-name">正文图质量标签 / 通用低俗色情</strong><span class="separated-audit-badge" id="separated-audit-current-level">标签</span></div>
+              <div class="separated-audit-current-meta" id="separated-audit-current-meta">应用于 2 个任务 · 2 条任务条件关系</div>
+            </div>
+            <button class="separated-audit-button is-primary" type="button" id="separated-audit-edit">批量调整关联</button>
+          </div>
+          <div class="separated-audit-toolbar">
+            <input class="separated-audit-search" id="separated-audit-search" type="search" placeholder="搜索流程、分组、任务名称 / ID" aria-label="搜索任务关系">
+            <select class="separated-audit-select" id="separated-audit-status" aria-label="任务状态">
+              <option value="all">全部状态</option>
+              <option value="已上线">已上线</option>
+              <option value="草稿">草稿</option>
+            </select>
+            <span class="separated-audit-toolbar-note" id="separated-audit-toolbar-note">包含/不包含读取任务特征配置，本页不可修改</span>
+          </div>
+          <div class="separated-audit-table-responsive" id="separated-audit-table-wrap"></div>
+          <div class="separated-audit-footnote"><strong>生效说明</strong><span>已上线任务仅影响尚未生成快照的新 Case；已有快照与已处理 Case 不变。未上线任务仍保持未上线。</span></div>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <div class="separated-audit-overlay" id="separated-audit-overlay" aria-hidden="true">
+    <section class="separated-audit-modal" role="dialog" aria-modal="true" aria-labelledby="separated-audit-modal-title">
+      <div class="separated-audit-modal-head"><h2 id="separated-audit-modal-title">修改应用关系</h2><button class="separated-audit-close" type="button" id="separated-audit-close" aria-label="关闭">×</button></div>
+      <div class="separated-audit-modal-body">
+        <div id="separated-audit-editor-view"><div id="separated-audit-scope"></div><div class="separated-audit-targets" id="separated-audit-targets"></div></div>
+        <div class="separated-audit-confirm-view" id="separated-audit-confirm-view" hidden></div>
+      </div>
+      <div class="separated-audit-modal-foot"><span class="separated-audit-modal-summary" id="separated-audit-modal-summary">已选择 0 项</span><div class="separated-audit-modal-buttons"><button class="separated-audit-button" type="button" id="separated-audit-cancel">取消</button><button class="separated-audit-button is-primary" type="button" id="separated-audit-save">下一步：确认生效</button></div></div>
+    </section>
+  </div>
+  <div class="separated-audit-toast" id="separated-audit-toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const separatedAuditRoot = document.getElementById('audit-separated-label-demo-20260901');
+      const separatedAuditFind = (selector) => separatedAuditRoot.querySelector(selector);
+      const separatedAuditFindAll = (selector) => Array.from(separatedAuditRoot.querySelectorAll(selector));
+      const separatedAuditEscape = (value) => String(value).replace(/[&<>"']/g, (character) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
+
+      const separatedAuditLabels = {
+        machine: [
+          { id:'m-body', name:'正文图质量标签', code:'body_quality_label', level:1, valueType:'tag', valueTypeName:'标签集合', selectionMode:'multiple', acceptedItemKinds:['humanLabel','machineLabel'], parentIds:[], children:[
+            { id:'m-low', name:'通用低俗色情', code:'general_vulgar', level:2, sourceType:'humanLabel', parentIds:['m-body','m-cover'] },
+            { id:'m-pantyhose', name:'丝袜场景低俗', code:'pantyhose_vulgar', level:2, sourceType:'humanLabel', parentIds:['m-body'] },
+            { id:'m-sensitive', name:'人体敏感部位', code:'sensitive_body_part', level:2, sourceType:'humanLabel', parentIds:['m-body'] }
+          ]},
+          { id:'m-cover', name:'封面图质量标签', code:'cover_quality_label', level:1, valueType:'tag', valueTypeName:'标签集合', selectionMode:'multiple', acceptedItemKinds:['humanLabel','machineLabel'], parentIds:[], children:[
+            { id:'m-cover-low', name:'封面低俗', code:'cover_vulgar', level:2, sourceType:'humanLabel', parentIds:['m-cover'] },
+            { id:'m-cover-blur', name:'封面图模糊', code:'cover_blur', level:2, sourceType:'machineLabel', parentIds:['m-cover'] }
+          ]},
+          { id:'m-title', name:'标题质量标签', code:'title_quality_label', level:1, valueType:'tag', valueTypeName:'标签集合', selectionMode:'multiple', acceptedItemKinds:['humanLabel','machineLabel'], parentIds:[], children:[
+            { id:'m-title-ban', name:'标题违禁词', code:'title_prohibited', level:2, sourceType:'humanLabel', parentIds:['m-title'] },
+            { id:'m-meaningless', name:'无意义', code:'meaningless_title', level:2, sourceType:'machineLabel', parentIds:['m-title'] },
+            { id:'m-logic', name:'文案无逻辑', code:'illogical_copy', level:2, sourceType:'machineLabel', parentIds:['m-title'] }
+          ]},
+          { id:'m-prescription', name:'处方药内容特征', code:'prescription_feature', level:1, valueType:'enum', valueTypeName:'状态枚举', selectionMode:'single', acceptedItemKinds:['enum'], parentIds:[], children:[
+            { id:'m-prescription-none', name:'未命中处方药', code:'not_hit_prescription', level:2, sourceType:'enum', parentIds:['m-prescription'] }
+          ]},
+          { id:'m-dedup-score', name:'信息流内容去重内容特征', code:'content_dedup_score', level:1, valueType:'number', valueTypeName:'数值', selectionMode:'single', acceptedItemKinds:['number'], parentIds:[], children:[
+            { id:'m-dedup-09', name:'0.9', code:'value_0_9', level:2, sourceType:'number', parentIds:['m-dedup-score'] }
+          ]},
+          { id:'m-aesthetic', name:'基础美观不达标内容特征', code:'aesthetic_result', level:1, valueType:'enum', valueTypeName:'通过/未通过', selectionMode:'multiple', acceptedItemKinds:['enum'], parentIds:[], children:[
+            { id:'m-aesthetic-pass', name:'机审通过', code:'machine_pass', level:2, sourceType:'enum', parentIds:['m-aesthetic'] },
+            { id:'m-aesthetic-manual', name:'送人审', code:'send_manual', level:2, sourceType:'enum', parentIds:['m-aesthetic'] }
+          ]}
+        ],
+        manual: [
+          { id:'h-image', name:'图片', code:'image', level:1, parentIds:[], children:[
+            { id:'h-quality', name:'质量分', code:'quality_score', level:2, parentIds:['h-image','h-video'], children:[
+              { id:'h-low', name:'低俗色情', code:'vulgar_content', level:3, parentIds:['h-quality','h-content-risk'] },
+              { id:'h-sensitive', name:'敏感词', code:'sensitive_words', level:3, parentIds:['h-quality','h-content-risk'] },
+              { id:'h-cover', name:'封面图质量分低', code:'cover_low_quality', level:3, parentIds:['h-quality'] }
+            ]}
+          ]},
+          { id:'h-video', name:'视频', code:'video', level:1, parentIds:[], children:[
+            { id:'h-content-risk', name:'内容风险', code:'content_risk', level:2, parentIds:['h-video'], children:[] }
+          ]},
+          { id:'h-title', name:'标题', code:'title', level:1, parentIds:[], children:[
+            { id:'h-title-risk', name:'标题风险', code:'title_risk', level:2, parentIds:['h-title'], children:[] }
+          ]}
+        ]
+      };
+
+      let separatedAuditIncomingMachineItems = [
+        { id:'m-edge-new', name:'疑似擦边图文', code:'borderline_content', level:2, sourceType:'humanLabel', sourcePath:'图片 / 质量分 / 疑似擦边图文', parentIds:[], isNew:true }
+      ];
+
+      const separatedAuditTargets = {
+        machine: [
+          { id:'mt1', flow:'0730一审测试流程', group:'图文审核组', task:'图文质量机审', taskId:'2072025', status:'已上线', conditions:[
+            { id:'m-body', instance:'全4', op:'不包含', tagIds:['m-low','m-pantyhose','m-sensitive'] },
+            { id:'m-cover', instance:'全3', op:'不包含', tagIds:['m-cover-low','m-cover-blur'] }
+          ]},
+          { id:'mt2', flow:'0730一审测试流程', group:'图文审核组', task:'商品封面机审', taskId:'2072088', status:'已上线', conditions:[
+            { id:'m-body', instance:'全4', op:'不包含', tagIds:['m-low','m-pantyhose'] }
+          ]},
+          { id:'mt3', flow:'内容一审（未挂品）流程', group:'视频审核组', task:'视频封面质量机审', taskId:'2073110', status:'草稿', conditions:[
+            { id:'m-body', instance:'全2', op:'包含', tagIds:['m-sensitive'] },
+            { id:'m-dedup-score', instance:'全8', op:'小于', tagIds:['m-dedup-09'] }
+          ]},
+          { id:'mt4', flow:'内容一审（未挂品）流程', group:'图文审核组', task:'标题命中边机审', taskId:'2073142', status:'已上线', conditions:[
+            { id:'m-title', instance:'全2', op:'不包含', tagIds:['m-title-ban','m-meaningless','m-logic'] },
+            { id:'m-prescription', instance:'全7', op:'包含', tagIds:['m-prescription-none'] },
+            { id:'m-aesthetic', instance:'全13', op:'不包含', tagIds:['m-aesthetic-pass','m-aesthetic-manual'] }
+          ]},
+          { id:'mt5', flow:'内容一审（未挂品）流程', group:'直播审核组', task:'直播画面机审', taskId:'2073186', status:'已上线', conditions:[] }
+        ],
+        manual: [
+          { id:'ht1', flow:'0730一审测试流程', group:'图文审核组', task:'图文内容一审', taskId:'2072024', status:'已上线', component:'封面答题组件', componentType:'标签多选', componentId:'cover_question_1' },
+          { id:'ht2', flow:'0730一审测试流程', group:'图文审核组', task:'图文内容一审', taskId:'2072024', status:'已上线', component:'标题答题组件', componentType:'标签多选', componentId:'title_question_1' },
+          { id:'ht3', flow:'内容一审（未挂品）流程', group:'视频审核组', task:'视频内容一审', taskId:'2073056', status:'草稿', component:'视频答题组件', componentType:'标签树', componentId:'video_question_2' },
+          { id:'ht4', flow:'内容一审（未挂品）流程', group:'直播审核组', task:'直播内容一审', taskId:'2073166', status:'已上线', component:'直播画面答题组件', componentType:'标签树', componentId:'live_question_1' }
+        ]
+      };
+
+      const separatedAuditRelations = {
+        machine: {
+          'm-body':new Set(['mt1','mt2','mt3']), 'm-body::m-low':new Set(['mt1','mt2']), 'm-body::m-pantyhose':new Set(['mt1','mt2']),
+          'm-body::m-sensitive':new Set(['mt1','mt3']), 'm-cover':new Set(['mt1']), 'm-cover::m-low':new Set(), 'm-cover::m-cover-low':new Set(['mt1']), 'm-cover::m-cover-blur':new Set(['mt1']),
+          'm-title':new Set(['mt4']), 'm-title::m-title-ban':new Set(['mt4']), 'm-title::m-meaningless':new Set(['mt4']), 'm-title::m-logic':new Set(['mt4']),
+          'm-prescription':new Set(['mt4']), 'm-prescription::m-prescription-none':new Set(['mt4']),
+          'm-dedup-score':new Set(['mt3']), 'm-dedup-score::m-dedup-09':new Set(['mt3']),
+          'm-aesthetic':new Set(['mt4']), 'm-aesthetic::m-aesthetic-pass':new Set(['mt4']), 'm-aesthetic::m-aesthetic-manual':new Set(['mt4'])
+        },
+        manual: {
+          'h-image':new Set(['ht4']), 'h-quality':new Set(['ht1']), 'h-low':new Set(['ht1','ht2']),
+          'h-sensitive':new Set(['ht3']), 'h-cover':new Set(['ht1']), 'h-title':new Set(), 'h-title-risk':new Set(['ht2'])
+        }
+      };
+
+      const separatedAuditDisplayComponents = [
+        { id:'d-reference', name:'参考信息', code:'reference_info' },
+        { id:'d-live', name:'Live图', code:'live_image' },
+        { id:'d-product', name:'商品信息卡', code:'product_card' },
+        { id:'d-risk', name:'风险提示条', code:'risk_notice' }
+      ];
+      const separatedAuditDisplayTasks = [
+        { id:'dt1', flow:'0730一审测试流程', group:'图文审核组', task:'图文内容一审', taskId:'2072024', status:'已上线' },
+        { id:'dt2', flow:'0730一审测试流程', group:'图文审核组', task:'商品内容一审', taskId:'2072090', status:'已上线' },
+        { id:'dt3', flow:'内容一审（未挂品）流程', group:'视频审核组', task:'视频内容一审', taskId:'2073056', status:'草稿' },
+        { id:'dt4', flow:'内容一审（未挂品）流程', group:'直播审核组', task:'直播内容一审', taskId:'2073166', status:'已上线' }
+      ];
+      const separatedAuditFixedPosition = '审核页第二列最下方';
+      const separatedAuditDisplayConfigs = [
+        { id:'dc1', componentId:'d-reference', targetIds:['dt1','dt2','dt3'] },
+        { id:'dc2', componentId:'d-live', targetIds:['dt4'] }
+      ];
+
+      const separatedAuditState = {
+        tab:'machine', path:['m-body','m-low'], selected:'m-low', modalStep:'closed', modalKind:null,
+        selectorLevel:2, parentFilter:'m-body', modalEditorTitle:'', pending:null, relationMode:'add', displayDraftRecords:[], displayEditingId:null, nextConfigId:4,
+        attachMachineDraft:null, machineView:'connected'
+      };
+      const separatedAuditCurrentLabels = () => separatedAuditLabels[separatedAuditState.tab];
+      const separatedAuditCurrentTargets = () => separatedAuditTargets[separatedAuditState.tab];
+      const separatedAuditDisplayComponent = () => separatedAuditDisplayComponents.find((item) => item.id === separatedAuditState.selected) || separatedAuditDisplayComponents[0];
+
+      function separatedAuditFlatten(nodes, parentPath = []) {
+        return nodes.flatMap((node) => {
+          const path = [...parentPath, node.id];
+          return [{...node, path}, ...(node.children ? separatedAuditFlatten(node.children, path) : [])];
+        });
+      }
+
+      function separatedAuditFlatLabels() {
+        const seen = new Map();
+        separatedAuditFlatten(separatedAuditCurrentLabels()).forEach((label) => { if (!seen.has(label.id)) seen.set(label.id, label); });
+        return Array.from(seen.values());
+      }
+
+      function separatedAuditLabel(id) {
+        const labels = separatedAuditFlatLabels();
+        return labels.find((item) => item.id === id) || labels[0];
+      }
+
+      function separatedAuditParentIds(label) {
+        return [...(label.parentIds || [])];
+      }
+
+      function separatedAuditParentLabels(label) {
+        return separatedAuditParentIds(label).map((id) => separatedAuditLabel(id)).filter(Boolean);
+      }
+
+      function separatedAuditLabelPaths(labelId, visited = new Set()) {
+        if (visited.has(labelId)) return [];
+        const label = separatedAuditLabel(labelId);
+        const parents = separatedAuditParentIds(label);
+        if (!parents.length) return [[labelId]];
+        const nextVisited = new Set(visited);
+        nextVisited.add(labelId);
+        return parents.flatMap((parentId) => separatedAuditLabelPaths(parentId, nextVisited).map((path) => [...path, labelId]));
+      }
+
+      function separatedAuditActiveMachineParent(label = separatedAuditLabel(separatedAuditState.selected)) {
+        if (label.level === 1) return label.id;
+        const parents = separatedAuditParentIds(label);
+        return parents.includes(separatedAuditState.parentFilter) ? separatedAuditState.parentFilter : parents[0];
+      }
+
+      function separatedAuditMachineConditionFor(target, label = separatedAuditLabel(separatedAuditState.selected)) {
+        if (separatedAuditState.tab !== 'machine') return null;
+        const conditionId = separatedAuditActiveMachineParent(label);
+        return (target.conditions || []).find((condition) => condition.id === conditionId) || null;
+      }
+
+      function separatedAuditMachineConfiguredLabels(condition) {
+        if (!condition) return [];
+        return (condition.tagIds || []).map((id) => separatedAuditLabel(id)).filter(Boolean);
+      }
+
+      function separatedAuditMachineTagSummary(condition, currentId) {
+        const labels = separatedAuditMachineConfiguredLabels(condition);
+        if (!labels.length) return '<span class="separated-audit-secondary-text">暂无标签</span>';
+        return labels.map((item) => `<span class="${item.id === currentId ? 'separated-audit-current-tag' : ''}">${separatedAuditEscape(item.name)}</span>`).join('、');
+      }
+
+      function separatedAuditRelationKey(id) {
+        if (separatedAuditState.tab !== 'machine') return id;
+        const label = separatedAuditLabel(id);
+        return label.level === 1 ? id : `${separatedAuditActiveMachineParent(label)}::${id}`;
+      }
+
+      function separatedAuditRelationSet(id = separatedAuditState.selected) {
+        const key = separatedAuditRelationKey(id);
+        return separatedAuditRelations[separatedAuditState.tab][key] || (separatedAuditRelations[separatedAuditState.tab][key] = new Set());
+      }
+
+      function separatedAuditRelationCount(id) {
+        if (separatedAuditState.tab === 'machine') {
+          const label = separatedAuditLabel(id);
+          if (label.level > 1) {
+            const uniqueTargets = new Set();
+            separatedAuditParentIds(label).forEach((parentId) => {
+              const relation = separatedAuditRelations.machine[`${parentId}::${id}`] || new Set();
+              relation.forEach((targetId) => uniqueTargets.add(targetId));
+            });
+            return uniqueTargets.size;
+          }
+        }
+        return separatedAuditRelationSet(id).size;
+      }
+
+      function separatedAuditChooseVisibleLabel(labels) {
+        const current = labels.find((label) => label.id === separatedAuditState.selected);
+        if (current) return;
+        const next = labels[0];
+        if (!next) return;
+        separatedAuditState.selected = next.id;
+        separatedAuditState.path = separatedAuditLabelPaths(next.id)[0] || [next.id];
+      }
+
+      function separatedAuditRenderSelectorDetail(label) {
+        const parents = separatedAuditParentLabels(label);
+        const paths = separatedAuditLabelPaths(label.id);
+        const parentHtml = parents.length ? parents.map((parent) => `<button type="button" class="separated-audit-parent-tag ${separatedAuditState.tab === 'machine' && separatedAuditActiveMachineParent(label) === parent.id ? 'is-selected' : ''}" data-separated-detail-parent="${parent.id}">${separatedAuditEscape(parent.name)}</button>`).join('') : '<span class="separated-audit-secondary-text">无上级标签</span>';
+        const pathHtml = paths.length ? paths.map((path) => `<div class="separated-audit-path-row">${path.map((id) => separatedAuditEscape(separatedAuditLabel(id).name)).join(' › ')}</div>`).join('') : '<div class="separated-audit-path-row">当前节点无层级路径</div>';
+        const context = separatedAuditState.tab === 'machine' && label.level > 1 ? `<div class="separated-audit-detail-block"><span>当前配置视角</span><strong>${separatedAuditEscape(separatedAuditLabel(separatedAuditActiveMachineParent(label)).name)}</strong></div>` : '';
+        return `<aside class="separated-audit-label-detail"><h3>${separatedAuditEscape(label.name)}</h3><div class="separated-audit-label-detail-code">${separatedAuditState.tab === 'machine' && label.level === 1 ? '全局条件' : `${label.level}级标签`} · ${separatedAuditEscape(label.code)}</div><div class="separated-audit-detail-block"><span>所属上级（${parents.length}）</span><div class="separated-audit-parent-tags">${parentHtml}</div></div>${context}<div class="separated-audit-detail-block"><span>全部有效路径（${paths.length}）</span>${pathHtml}</div></aside>`;
+      }
+
+      function separatedAuditMachineConditionOnTask(target, conditionId) {
+        return (target.conditions || []).find((condition) => condition.id === conditionId) || null;
+      }
+
+      function separatedAuditMachineItemSource(item) {
+        return ({humanLabel:'引用人审标签',machineLabel:'机审专用标签',enum:'枚举值',number:'数值'})[item.sourceType] || '条件项';
+      }
+
+      function separatedAuditMachineConditionTasks(conditionId) {
+        return separatedAuditTargets.machine.filter((target) => separatedAuditMachineConditionOnTask(target, conditionId));
+      }
+
+      function separatedAuditMachineRelationTasks(conditionId, labelId) {
+        const relation = separatedAuditRelations.machine[`${conditionId}::${labelId}`] || new Set();
+        return separatedAuditTargets.machine.filter((target) => relation.has(target.id));
+      }
+
+      function separatedAuditMachineTaskRows(tasks, conditionId) {
+        if (!tasks.length) return '<span class="separated-audit-machine-unconfigured">尚未关联任务</span>';
+        return tasks.map((target) => {
+          const condition = separatedAuditMachineConditionOnTask(target, conditionId);
+          return `<div class="separated-audit-machine-task"><div class="separated-audit-machine-task-line"><strong>${separatedAuditEscape(target.task)}</strong><span class="separated-audit-badge is-op">${separatedAuditEscape(condition ? condition.op : '—')}</span>${separatedAuditStatus(target.status)}</div><div class="separated-audit-machine-task-meta">${separatedAuditEscape(target.flow)} / ${separatedAuditEscape(target.group)} · taskId ${separatedAuditEscape(target.taskId)}${condition ? ` · ${separatedAuditEscape(condition.instance)}` : ''}</div></div>`;
+        }).join('');
+      }
+
+      function separatedAuditRenderMachineRelations() {
+        const levels = separatedAuditFind('#separated-audit-levels');
+        const query = separatedAuditFind('#separated-audit-label-search').value.trim().toLowerCase();
+        const connected = separatedAuditFlatLabels().filter((item) => item.level === 2);
+        const tabs = `<div class="separated-audit-machine-view-tabs" role="tablist" aria-label="机审接入状态"><button type="button" role="tab" class="separated-audit-machine-view-tab ${separatedAuditState.machineView === 'connected' ? 'is-selected' : ''}" aria-selected="${separatedAuditState.machineView === 'connected'}" data-separated-machine-view="connected">已接入机审（${connected.length}）</button><button type="button" role="tab" class="separated-audit-machine-view-tab ${separatedAuditState.machineView === 'pending' ? 'is-selected' : ''}" aria-selected="${separatedAuditState.machineView === 'pending'}" data-separated-machine-view="pending">待接入标签（${separatedAuditIncomingMachineItems.length}）</button></div>`;
+        let content = '';
+
+        if (separatedAuditState.machineView === 'pending') {
+          const pendingItems = separatedAuditIncomingMachineItems.filter((item) => !query || [item.name,item.code,item.sourcePath].join(' ').toLowerCase().includes(query));
+          const rows = pendingItems.map((item) => `<tr><td><div class="separated-audit-machine-label-name"><strong>${separatedAuditEscape(item.name)}</strong><span class="separated-audit-badge is-op">新标签</span></div><span class="separated-audit-secondary-text">label code ${separatedAuditEscape(item.code)}</span></td><td><span class="separated-audit-primary-text">${separatedAuditEscape(item.sourcePath)}</span><span class="separated-audit-secondary-text">来自人审标签树，尚未加入任何全局条件池</span></td><td>${separatedAuditStatus('待配置')}</td><td><div class="separated-audit-machine-row-actions"><button type="button" class="separated-audit-link" data-separated-machine-configure="${item.id}" data-separated-incoming="true">配置机审应用</button><button type="button" class="separated-audit-link" data-separated-machine-ignore="${item.id}">无需用于机审</button></div></td></tr>`).join('');
+          content = pendingItems.length ? `<div class="separated-audit-machine-list-wrap"><table class="separated-audit-machine-list"><thead><tr><th style="width:24%">新增标签</th><th>人审标签路径</th><th style="width:90px">状态</th><th style="width:190px">操作</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<div class="separated-audit-machine-empty">当前没有待接入的标签</div>';
+        } else {
+          const items = connected.filter((item) => {
+            const parents = separatedAuditParentLabels(item);
+            const related = parents.flatMap((condition) => separatedAuditMachineRelationTasks(condition.id,item.id));
+            const haystack = [item.name,item.code,separatedAuditMachineItemSource(item),...parents.flatMap((condition) => [condition.name,condition.code]),...related.flatMap((target) => [target.flow,target.group,target.task,target.taskId])].join(' ').toLowerCase();
+            return !query || haystack.includes(query);
+          });
+          const rows = items.map((item) => {
+            const parents = separatedAuditParentLabels(item);
+            const conditionRows = parents.map((condition) => `<div class="separated-audit-machine-parent-row"><strong>${separatedAuditEscape(condition.name)}</strong><div class="separated-audit-machine-parent-meta">${separatedAuditEscape(condition.valueTypeName)} · condition code ${separatedAuditEscape(condition.code)}</div></div>`).join('');
+            const taskRows = parents.map((condition) => {
+              const targets = separatedAuditMachineRelationTasks(condition.id,item.id);
+              const details = targets.length ? targets.map((target) => { const configured = separatedAuditMachineConditionOnTask(target,condition.id); return `${target.task}（${configured ? configured.op : '—'}）`; }).join('、') : '尚未应用到任务';
+              return `<div class="separated-audit-machine-parent-row"><strong>${separatedAuditEscape(condition.name)}</strong><div class="separated-audit-machine-parent-meta">${separatedAuditEscape(details)}</div></div>`;
+            }).join('');
+            const taskCount = new Set(parents.flatMap((condition) => separatedAuditMachineRelationTasks(condition.id,item.id).map((target) => target.id))).size;
+            const status = taskCount ? '已应用' : '已接入未应用';
+            return `<tr><td><div class="separated-audit-machine-label-name"><strong>${separatedAuditEscape(item.name)}</strong><span class="separated-audit-badge is-draft">${separatedAuditEscape(separatedAuditMachineItemSource(item))}</span></div><span class="separated-audit-secondary-text">${item.sourceType === 'humanLabel' ? 'label' : 'value'} code ${separatedAuditEscape(item.code)}</span></td><td>${conditionRows}</td><td>${taskRows}</td><td>${separatedAuditStatus(status)}</td><td><button type="button" class="separated-audit-link" data-separated-machine-configure="${item.id}" data-separated-incoming="false">调整配置</button></td></tr>`;
+          }).join('');
+          content = items.length ? `<div class="separated-audit-machine-list-wrap"><table class="separated-audit-machine-list"><thead><tr><th style="width:22%">条件项</th><th style="width:24%">已加入全局条件池</th><th>当前应用任务</th><th style="width:100px">状态</th><th style="width:95px">操作</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<div class="separated-audit-machine-empty">没有匹配的机审条件项</div>';
+        }
+        levels.className = 'separated-audit-machine-groups';
+        levels.innerHTML = `${tabs}${content}`;
+        separatedAuditFindAll('[data-separated-machine-view]').forEach((button) => button.addEventListener('click', () => {
+          separatedAuditState.machineView = button.dataset.separatedMachineView;
+          separatedAuditFind('#separated-audit-label-search').value = '';
+          separatedAuditRender();
+        }));
+        separatedAuditFindAll('[data-separated-machine-configure]').forEach((button) => button.addEventListener('click', () => separatedAuditOpenMachineItemConfig(button.dataset.separatedMachineConfigure, button.dataset.separatedIncoming === 'true')));
+        separatedAuditFindAll('[data-separated-machine-ignore]').forEach((button) => button.addEventListener('click', () => {
+          separatedAuditIncomingMachineItems = separatedAuditIncomingMachineItems.filter((item) => item.id !== button.dataset.separatedMachineIgnore);
+          separatedAuditRender();
+          separatedAuditShowToast('已标记为无需用于机审');
+        }));
+      }
+
+      function separatedAuditRenderSelector() {
+        const levels = separatedAuditFind('#separated-audit-levels');
+        const query = separatedAuditFind('#separated-audit-label-search').value.trim().toLowerCase();
+        if (separatedAuditState.tab === 'machine') {
+          separatedAuditRenderMachineRelations();
+          return;
+        }
+        if (separatedAuditState.tab === 'display') {
+          const components = separatedAuditDisplayComponents.filter((component) => !query || `${component.name} ${component.code}`.toLowerCase().includes(query));
+          const rows = components.map((component) => {
+            const config = separatedAuditDisplayConfigs.find((item) => item.componentId === component.id);
+            const count = config ? config.targetIds.length : 0;
+            return `<button type="button" class="separated-audit-flat-item ${separatedAuditState.selected === component.id ? 'is-selected' : ''}" data-separated-display="${component.id}"><div><strong>${separatedAuditEscape(component.name)}</strong><span>展示组件 · ${separatedAuditEscape(component.code)}</span></div><span class="separated-audit-flat-count">${count} 个任务</span></button>`;
+          }).join('') || '<div class="separated-audit-flat-empty">没有匹配的展示组件</div>';
+          const component = separatedAuditDisplayComponent();
+          levels.className = 'separated-audit-label-browser';
+          levels.innerHTML = `<div class="separated-audit-label-content"><div class="separated-audit-flat-list">${rows}</div><aside class="separated-audit-label-detail"><h3>${separatedAuditEscape(component.name)}</h3><div class="separated-audit-label-detail-code">展示组件 · ${separatedAuditEscape(component.code)}</div><div class="separated-audit-detail-block"><span>固定展示位置</span><strong>审核页第二列最下方</strong></div><div class="separated-audit-detail-block"><span>位置规则</span><div class="separated-audit-path-row">系统固定，不需要运营选择</div></div></aside></div>`;
+          separatedAuditFindAll('[data-separated-display]').forEach((button) => button.addEventListener('click', () => {
+            separatedAuditState.selected = button.dataset.separatedDisplay;
+            separatedAuditResetFilters();
+            separatedAuditRender();
+          }));
+          return;
+        }
+
+        const all = separatedAuditFlatLabels();
+        const levelsConfig = separatedAuditState.tab === 'machine' ? [{value:1,label:'全局条件'},{value:2,label:'标签'}] : [{value:1,label:'一级标签'},{value:2,label:'二级标签'},{value:3,label:'三级标签'}];
+        const levelLabels = all.filter((label) => label.level === separatedAuditState.selectorLevel);
+        const parentOptions = separatedAuditState.selectorLevel > 1 ? all.filter((candidate) => candidate.level === separatedAuditState.selectorLevel - 1 && levelLabels.some((label) => separatedAuditParentIds(label).includes(candidate.id))) : [];
+        if (separatedAuditState.tab === 'machine' && separatedAuditState.selectorLevel > 1 && !parentOptions.some((parent) => parent.id === separatedAuditState.parentFilter)) separatedAuditState.parentFilter = parentOptions[0] ? parentOptions[0].id : 'all';
+        let visible = levelLabels.filter((label) => separatedAuditState.parentFilter === 'all' || separatedAuditParentIds(label).includes(separatedAuditState.parentFilter));
+        visible = visible.filter((label) => {
+          if (!query) return true;
+          const pathNames = separatedAuditLabelPaths(label.id).flatMap((path) => path.map((id) => separatedAuditLabel(id).name));
+          return [label.name,label.code,...pathNames].join(' ').toLowerCase().includes(query);
+        });
+        separatedAuditChooseVisibleLabel(visible);
+        const current = separatedAuditLabel(separatedAuditState.selected);
+        const levelButtons = levelsConfig.map((item) => `<button type="button" class="${separatedAuditState.selectorLevel === item.value ? 'is-selected' : ''}" data-separated-level="${item.value}">${item.label}</button>`).join('');
+        const allParent = separatedAuditState.tab === 'manual' && separatedAuditState.selectorLevel > 1 ? `<button type="button" class="separated-audit-filter-chip ${separatedAuditState.parentFilter === 'all' ? 'is-selected' : ''}" data-separated-parent-filter="all">全部上级</button>` : '';
+        const parentButtons = parentOptions.map((parent) => `<button type="button" class="separated-audit-filter-chip ${separatedAuditState.parentFilter === parent.id ? 'is-selected' : ''}" data-separated-parent-filter="${parent.id}">${separatedAuditEscape(parent.name)}</button>`).join('');
+        const rows = visible.map((label) => {
+          const parents = separatedAuditParentLabels(label);
+          const parentSummary = parents.length ? `${parents.slice(0,2).map((parent) => parent.name).join('、')}${parents.length > 2 ? ` +${parents.length - 2}` : ''}` : '无上级标签';
+          return `<button type="button" class="separated-audit-flat-item ${separatedAuditState.selected === label.id ? 'is-selected' : ''}" data-separated-label="${label.id}"><div><strong>${separatedAuditEscape(label.name)}</strong><span>上级：${separatedAuditEscape(parentSummary)}</span></div><span class="separated-audit-flat-count">已应用 ${separatedAuditRelationCount(label.id)}</span></button>`;
+        }).join('') || '<div class="separated-audit-flat-empty">当前筛选下没有标签</div>';
+        levels.className = 'separated-audit-label-browser';
+        levels.innerHTML = `<div class="separated-audit-label-controls"><span class="separated-audit-control-label">标签层级</span><div class="separated-audit-segment">${levelButtons}</div>${separatedAuditState.selectorLevel > 1 ? `<span class="separated-audit-control-label">上级筛选</span><div class="separated-audit-parent-filters">${allParent}${parentButtons}</div>` : ''}</div><div class="separated-audit-label-content"><div class="separated-audit-flat-list">${rows}</div>${separatedAuditRenderSelectorDetail(current)}</div>`;
+
+        separatedAuditFindAll('[data-separated-level]').forEach((button) => button.addEventListener('click', () => {
+          separatedAuditState.selectorLevel = Number(button.dataset.separatedLevel);
+          separatedAuditState.parentFilter = separatedAuditState.tab === 'machine' && separatedAuditState.selectorLevel > 1 ? (separatedAuditFlatLabels().find((label) => label.level === 1) || {}).id || 'all' : 'all';
+          const candidates = separatedAuditFlatLabels().filter((label) => label.level === separatedAuditState.selectorLevel && (separatedAuditState.parentFilter === 'all' || separatedAuditParentIds(label).includes(separatedAuditState.parentFilter)));
+          separatedAuditChooseVisibleLabel(candidates);
+          separatedAuditResetFilters();
+          separatedAuditRender();
+        }));
+        separatedAuditFindAll('[data-separated-parent-filter], [data-separated-detail-parent]').forEach((button) => button.addEventListener('click', () => {
+          separatedAuditState.parentFilter = button.dataset.separatedParentFilter || button.dataset.separatedDetailParent;
+          const candidates = separatedAuditFlatLabels().filter((label) => label.level === separatedAuditState.selectorLevel && (separatedAuditState.parentFilter === 'all' || separatedAuditParentIds(label).includes(separatedAuditState.parentFilter)));
+          separatedAuditChooseVisibleLabel(candidates);
+          separatedAuditResetFilters();
+          separatedAuditRender();
+        }));
+        separatedAuditFindAll('[data-separated-label]').forEach((button) => button.addEventListener('click', () => {
+          separatedAuditState.selected = button.dataset.separatedLabel;
+          separatedAuditState.path = separatedAuditLabelPaths(separatedAuditState.selected)[0] || [separatedAuditState.selected];
+          separatedAuditResetFilters();
+          separatedAuditRender();
+        }));
+      }
+
+      function separatedAuditResetFilters() {
+        separatedAuditFind('#separated-audit-search').value = '';
+        separatedAuditFind('#separated-audit-status').value = 'all';
+      }
+
+      function separatedAuditCurrentRows() {
+        const query = separatedAuditFind('#separated-audit-search').value.trim().toLowerCase();
+        const status = separatedAuditFind('#separated-audit-status').value;
+        if (separatedAuditState.tab === 'display') {
+          return separatedAuditDisplayConfigs.filter((config) => config.componentId === separatedAuditState.selected).filter((config) => {
+            const tasks = separatedAuditDisplayTasks.filter((task) => config.targetIds.includes(task.id));
+            const haystack = tasks.flatMap((task) => [task.flow,task.group,task.task,task.taskId]).join(' ').toLowerCase();
+            return (!query || haystack.includes(query)) && (status === 'all' || tasks.some((task) => task.status === status));
+          });
+        }
+        return separatedAuditCurrentTargets().filter((target) => separatedAuditRelationSet().has(target.id)).filter((target) => {
+          const conditionText = separatedAuditState.tab === 'machine' ? (target.conditions || []).flatMap((condition) => [condition.instance, condition.op, separatedAuditLabel(condition.id).name, ...separatedAuditMachineConfiguredLabels(condition).map((item) => item.name)]) : [];
+          const haystack = [target.flow,target.group,target.task,target.taskId,target.component,target.componentId,...conditionText].filter(Boolean).join(' ').toLowerCase();
+          return (!query || haystack.includes(query)) && (status === 'all' || target.status === status);
+        });
+      }
+
+      function separatedAuditStatus(status) {
+        return `<span class="separated-audit-badge ${status === '已上线' || status === '已生效' ? 'is-success' : 'is-draft'}">${separatedAuditEscape(status)}</span>`;
+      }
+
+      function separatedAuditRenderDisplayTable(rows) {
+        const head = '<th style="width:340px">生效任务范围</th><th style="width:190px">固定展示位置</th><th style="width:105px">状态</th><th style="width:100px">操作</th>';
+        const body = rows.map((config) => {
+          const tasks = separatedAuditDisplayTasks.filter((task) => config.targetIds.includes(task.id));
+          const online = tasks.filter((task) => task.status === '已上线').length;
+          const summary = tasks.map((task) => `${task.task}(${task.taskId})`).join('、');
+          const flowCount = new Set(tasks.map((task) => task.flow)).size;
+          const status = online === tasks.length ? '已生效' : '部分待上线';
+          return `<tr><td><span class="separated-audit-primary-text">${flowCount} 个流程 · ${tasks.length} 个任务</span><span class="separated-audit-secondary-text">${separatedAuditEscape(summary)}</span></td><td><span class="separated-audit-badge">${separatedAuditEscape(separatedAuditFixedPosition)}</span></td><td>${separatedAuditStatus(status)}</td><td><button class="separated-audit-link" type="button" data-separated-display-edit="${config.id}">调整生效任务</button></td></tr>`;
+        }).join('');
+        separatedAuditFind('#separated-audit-table-wrap').innerHTML = rows.length ? `<table class="separated-audit-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>` : '<div class="separated-audit-empty">当前展示组件尚未选择生效任务</div>';
+        separatedAuditFindAll('[data-separated-display-edit]').forEach((button) => button.addEventListener('click', () => separatedAuditOpenDisplayModal(button.dataset.separatedDisplayEdit)));
+      }
+
+      function separatedAuditRenderTable() {
+        const rows = separatedAuditCurrentRows();
+        if (separatedAuditState.tab === 'display') {
+          separatedAuditRenderDisplayTable(rows);
+          return;
+        }
+        const machineHead = '<th style="width:145px">流程 / 分组</th><th style="width:125px">机审任务</th><th style="width:140px">全局条件</th><th style="width:225px">任务内标签配置</th><th style="width:72px">状态</th>';
+        const manualHead = '<th style="width:145px">流程 / 分组</th><th style="width:130px">人审任务</th><th style="width:200px">答题组件实例</th><th style="width:100px">组件类型</th><th style="width:72px">状态</th>';
+        const currentLabel = separatedAuditLabel(separatedAuditState.selected);
+        const body = rows.map((target) => {
+          const path = `<td><span class="separated-audit-primary-text">${separatedAuditEscape(target.flow)}</span><span class="separated-audit-secondary-text">${separatedAuditEscape(target.group)}</span></td>`;
+          const task = `<td><span class="separated-audit-primary-text">${separatedAuditEscape(target.task)}</span><span class="separated-audit-secondary-text">taskId ${separatedAuditEscape(target.taskId)}</span></td>`;
+          const condition = separatedAuditState.tab === 'machine' ? separatedAuditMachineConditionFor(target, currentLabel) : null;
+          const conditionLabel = condition ? separatedAuditLabel(condition.id) : null;
+          const machine = condition ? `<td><span class="separated-audit-primary-text">${separatedAuditEscape(conditionLabel.name)}</span><span class="separated-audit-secondary-text">${separatedAuditEscape(condition.instance)} · condition code ${separatedAuditEscape(conditionLabel.code)}</span></td><td><span class="separated-audit-badge is-op">${separatedAuditEscape(condition.op)}</span><div class="separated-audit-condition-tags">${separatedAuditMachineTagSummary(condition, currentLabel.id)}</div></td>` : '<td colspan="2"><span class="separated-audit-warning">任务中的全局条件已移除</span></td>';
+          const manual = `<td><span class="separated-audit-primary-text">${separatedAuditEscape(target.component)}</span><span class="separated-audit-secondary-text">${separatedAuditEscape(target.componentId)}</span></td><td>${separatedAuditEscape(target.componentType)}</td>`;
+          return `<tr>${path}${task}${separatedAuditState.tab === 'machine' ? machine : manual}<td>${separatedAuditStatus(target.status)}</td></tr>`;
+        }).join('');
+        separatedAuditFind('#separated-audit-table-wrap').innerHTML = rows.length ? `<table class="separated-audit-table"><thead><tr>${separatedAuditState.tab === 'machine' ? machineHead : manualHead}</tr></thead><tbody>${body}</tbody></table>` : '<div class="separated-audit-empty">当前标签暂无符合条件的应用关系</div>';
+      }
+
+      function separatedAuditRenderCurrent() {
+        if (separatedAuditState.tab === 'display') {
+          const component = separatedAuditDisplayComponent();
+          const configs = separatedAuditDisplayConfigs.filter((config) => config.componentId === component.id);
+          const taskIds = new Set(configs.flatMap((config) => config.targetIds));
+          separatedAuditFind('#separated-audit-current-name').textContent = component.name;
+          separatedAuditFind('#separated-audit-current-level').textContent = '展示组件';
+          separatedAuditFind('#separated-audit-current-meta').textContent = `${taskIds.size} 个生效任务 · 固定位置：${separatedAuditFixedPosition} · code ${component.code}`;
+          separatedAuditFind('#separated-audit-edit').textContent = configs.length ? '调整生效任务' : '选择生效任务';
+          return;
+        }
+        const label = separatedAuditLabel(separatedAuditState.selected);
+        const names = separatedAuditState.tab === 'machine' && label.level > 1 ? [separatedAuditLabel(separatedAuditActiveMachineParent(label)).name, label.name] : [label.name];
+        const targets = separatedAuditCurrentTargets().filter((target) => separatedAuditRelationSet().has(target.id));
+        const taskCount = new Set(targets.map((target) => target.taskId)).size;
+        separatedAuditFind('#separated-audit-current-name').textContent = names.join(' / ');
+        separatedAuditFind('#separated-audit-current-level').textContent = separatedAuditState.tab === 'machine' ? (label.level === 1 ? '全局条件' : '标签') : `${label.level}级标签`;
+        separatedAuditFind('#separated-audit-current-meta').textContent = separatedAuditState.tab === 'machine' ? `应用于 ${taskCount} 个任务 · ${targets.length} 条任务条件关系 · ${label.level === 1 ? 'condition' : 'label'} code ${label.code}` : `应用于 ${targets.length} 个答题组件实例 · ${taskCount} 个人审任务 · ${separatedAuditLabelPaths(label.id).length} 条有效路径 · label code ${label.code}`;
+        separatedAuditFind('#separated-audit-edit').textContent = '批量调整关联';
+      }
+
+      function separatedAuditDescendants(label, visited = new Set()) {
+        if (visited.has(label.id)) return [];
+        const nextVisited = new Set(visited);
+        nextVisited.add(label.id);
+        const children = separatedAuditFlatLabels().filter((candidate) => separatedAuditParentIds(candidate).includes(label.id));
+        const descendants = children.flatMap((child) => separatedAuditDescendants(child, nextVisited));
+        const unique = new Map([[label.id,label]]);
+        descendants.forEach((item) => unique.set(item.id,item));
+        return Array.from(unique.values());
+      }
+
+      function separatedAuditRenderScope(label) {
+        const labels = separatedAuditDescendants(label);
+        if (separatedAuditState.tab !== 'manual' || labels.length <= 1) return '';
+        return `<div class="separated-audit-scope"><div class="separated-audit-scope-title">本次关联标签范围<span>默认包含当前全部二、三级子标签，可自行取消；未来新增子标签不自动关联</span></div><div class="separated-audit-scope-list">${labels.map((item) => `<label class="separated-audit-check"><input type="checkbox" data-separated-scope="${item.id}" checked><span>${separatedAuditEscape(item.name)}（${item.level}级）</span></label>`).join('')}</div></div>`;
+      }
+
+      function separatedAuditPrepareModal(title, kind) {
+        separatedAuditState.modalStep = 'edit';
+        separatedAuditState.modalKind = kind;
+        separatedAuditState.modalEditorTitle = title;
+        separatedAuditState.pending = null;
+        separatedAuditFind('#separated-audit-modal-title').textContent = title;
+        separatedAuditFind('#separated-audit-editor-view').hidden = false;
+        separatedAuditFind('#separated-audit-confirm-view').hidden = true;
+        separatedAuditFind('#separated-audit-cancel').textContent = '取消';
+        separatedAuditFind('#separated-audit-save').textContent = '下一步：确认生效';
+      }
+
+      function separatedAuditMachineItemById(itemId) {
+        const incoming = separatedAuditIncomingMachineItems.find((candidate) => candidate.id === itemId);
+        if (incoming) return incoming;
+        const seen = new Map();
+        separatedAuditFlatten(separatedAuditLabels.machine).forEach((item) => { if (!seen.has(item.id)) seen.set(item.id,item); });
+        return seen.get(itemId) || null;
+      }
+
+      function separatedAuditCompatibleMachineConditions(item) {
+        const roots = separatedAuditLabels.machine.filter((candidate) => candidate.level === 1);
+        if (item.sourceType !== 'humanLabel' && item.parentIds && item.parentIds.length) return roots.filter((candidate) => item.parentIds.includes(candidate.id));
+        return roots.filter((candidate) => (candidate.acceptedItemKinds || []).includes(item.sourceType));
+      }
+
+      function separatedAuditGroupedMachineConditionTasks(conditionId) {
+        const flows = [];
+        separatedAuditMachineConditionTasks(conditionId).forEach((target) => {
+          let flow = flows.find((item) => item.name === target.flow);
+          if (!flow) { flow = {name:target.flow,groups:[]}; flows.push(flow); }
+          let group = flow.groups.find((item) => item.name === target.group);
+          if (!group) { group = {name:target.group,targets:[]}; flow.groups.push(group); }
+          group.targets.push(target);
+        });
+        return flows;
+      }
+
+      function separatedAuditRenderAttachMachineEditor() {
+        const draft = separatedAuditState.attachMachineDraft;
+        const item = separatedAuditMachineItemById(draft.itemId);
+        if (!item) return;
+        const conditions = separatedAuditCompatibleMachineConditions(item);
+        const lockCondition = !draft.isIncoming && item.sourceType !== 'humanLabel';
+        const conditionOptions = conditions.map((condition) => {
+          const recommended = draft.isIncoming && (condition.id === 'm-body' || condition.id === 'm-cover');
+          const locked = lockCondition && draft.conditionIds.has(condition.id);
+          return `<label class="separated-audit-attach-condition-option ${locked ? 'is-locked' : ''}"><input type="checkbox" data-separated-attach-condition="${condition.id}" ${draft.conditionIds.has(condition.id) ? 'checked' : ''} ${locked ? 'disabled' : ''}><span><strong>${separatedAuditEscape(condition.name)}${recommended ? ' · 推荐' : ''}${locked ? ' · 固定归属' : ''}</strong><span>${separatedAuditEscape(condition.valueTypeName)} · 已配置于 ${separatedAuditMachineConditionTasks(condition.id).length} 个任务</span></span></label>`;
+        }).join('');
+        const sourceDetail = item.sourcePath ? `人审标签树 · ${item.sourcePath}` : separatedAuditMachineItemSource(item);
+        const itemTitle = draft.isIncoming ? '待接入标签' : '当前条件项';
+        separatedAuditFind('#separated-audit-scope').innerHTML = `<div class="separated-audit-attach-intro"><strong>${itemTitle}：${separatedAuditEscape(item.name)}</strong><span>来源：${separatedAuditEscape(sourceDetail)} · code ${separatedAuditEscape(item.code)}</span></div><div class="separated-audit-attach-title">1. 选择全局条件<span>${lockCondition ? '机审专用、枚举和数值项固定归属原全局条件' : '一个人审标签可以加入多个兼容的全局条件池'}</span></div><div class="separated-audit-attach-condition-options">${conditionOptions || '<div class="separated-audit-flat-empty">没有兼容的全局条件</div>'}</div>`;
+
+        const targetGroups = conditions.filter((condition) => draft.conditionIds.has(condition.id)).map((condition) => {
+          const selected = draft.targetMap[condition.id] || new Set();
+          const flows = separatedAuditGroupedMachineConditionTasks(condition.id);
+          const taskTree = flows.map((flow,flowIndex) => `<div class="separated-audit-relation-flow"><div class="separated-audit-relation-flow-head"><label class="separated-audit-check"><input type="checkbox" data-separated-attach-flow="${flowIndex}" data-condition-id="${condition.id}"><strong>${separatedAuditEscape(flow.name)}</strong></label><span class="separated-audit-secondary-text">${flow.groups.reduce((sum,group) => sum + group.targets.length,0)} 个机审任务</span></div>${flow.groups.map((group,groupIndex) => `<div><div class="separated-audit-relation-group-head"><label class="separated-audit-check"><input type="checkbox" data-separated-attach-group="${groupIndex}" data-flow-index="${flowIndex}" data-condition-id="${condition.id}"><span>${separatedAuditEscape(group.name)}</span></label><span class="separated-audit-secondary-text">${group.targets.length} 个任务</span></div>${group.targets.map((target) => { const taskCondition = separatedAuditMachineConditionOnTask(target,condition.id); return `<label class="separated-audit-attach-target-item"><input type="checkbox" data-separated-attach-target="${target.id}" data-condition-id="${condition.id}" data-flow-index="${flowIndex}" data-group-index="${groupIndex}" ${selected.has(target.id) ? 'checked' : ''}><span><strong>${separatedAuditEscape(target.task)}</strong><span class="separated-audit-secondary-text">taskId ${separatedAuditEscape(target.taskId)} · ${separatedAuditEscape(taskCondition.op)} · ${separatedAuditEscape(target.status)}</span></span></label>`; }).join('')}</div>`).join('')}</div>`).join('') || '<div class="separated-audit-flat-empty">暂无任务配置该全局条件</div>';
+          return `<section class="separated-audit-attach-target-group"><div class="separated-audit-attach-target-head"><label class="separated-audit-check"><input type="checkbox" data-separated-attach-all="${condition.id}"><strong>${separatedAuditEscape(condition.name)}</strong></label><span class="separated-audit-secondary-text">流程 → 分组 → 机审任务</span></div><div class="separated-audit-attach-target-list separated-audit-attach-tree">${taskTree}</div></section>`;
+        }).join('');
+        separatedAuditFind('#separated-audit-targets').className = '';
+        separatedAuditFind('#separated-audit-targets').innerHTML = `<div class="separated-audit-attach-title">2. 选择生效任务<span>可按全局条件、流程、分组批量勾选，也可只选单个任务 ID</span></div>${targetGroups || '<div class="separated-audit-flat-empty">请先选择至少一个全局条件</div>'}`;
+
+        separatedAuditFindAll('[data-separated-attach-condition]').forEach((input) => input.addEventListener('change', () => {
+          const conditionId = input.dataset.separatedAttachCondition;
+          if (input.checked) {
+            draft.conditionIds.add(conditionId);
+            if (!draft.targetMap[conditionId]) draft.targetMap[conditionId] = new Set();
+          } else {
+            draft.conditionIds.delete(conditionId);
+            delete draft.targetMap[conditionId];
+          }
+          separatedAuditRenderAttachMachineEditor();
+        }));
+        separatedAuditFindAll('[data-separated-attach-target]').forEach((input) => input.addEventListener('change', () => {
+          const conditionId = input.dataset.conditionId;
+          const targetId = input.dataset.separatedAttachTarget;
+          if (!draft.targetMap[conditionId]) draft.targetMap[conditionId] = new Set();
+          if (input.checked) draft.targetMap[conditionId].add(targetId);
+          else draft.targetMap[conditionId].delete(targetId);
+          separatedAuditUpdateModalSummary();
+          separatedAuditUpdateAttachParentStates();
+        }));
+        separatedAuditFindAll('[data-separated-attach-all]').forEach((input) => input.addEventListener('change', () => {
+          const conditionId = input.dataset.separatedAttachAll;
+          const targetIds = separatedAuditMachineConditionTasks(conditionId).map((target) => target.id);
+          draft.targetMap[conditionId] = input.checked ? new Set(targetIds) : new Set();
+          separatedAuditRenderAttachMachineEditor();
+        }));
+        separatedAuditFindAll('[data-separated-attach-flow]').forEach((input) => input.addEventListener('change', () => {
+          const conditionId = input.dataset.conditionId;
+          const leaves = separatedAuditFindAll('[data-separated-attach-target]').filter((leaf) => leaf.dataset.conditionId === conditionId && leaf.dataset.flowIndex === input.dataset.separatedAttachFlow);
+          if (!draft.targetMap[conditionId]) draft.targetMap[conditionId] = new Set();
+          leaves.forEach((leaf) => { if (input.checked) draft.targetMap[conditionId].add(leaf.dataset.separatedAttachTarget); else draft.targetMap[conditionId].delete(leaf.dataset.separatedAttachTarget); });
+          separatedAuditRenderAttachMachineEditor();
+        }));
+        separatedAuditFindAll('[data-separated-attach-group]').forEach((input) => input.addEventListener('change', () => {
+          const conditionId = input.dataset.conditionId;
+          const leaves = separatedAuditFindAll('[data-separated-attach-target]').filter((leaf) => leaf.dataset.conditionId === conditionId && leaf.dataset.flowIndex === input.dataset.flowIndex && leaf.dataset.groupIndex === input.dataset.separatedAttachGroup);
+          if (!draft.targetMap[conditionId]) draft.targetMap[conditionId] = new Set();
+          leaves.forEach((leaf) => { if (input.checked) draft.targetMap[conditionId].add(leaf.dataset.separatedAttachTarget); else draft.targetMap[conditionId].delete(leaf.dataset.separatedAttachTarget); });
+          separatedAuditRenderAttachMachineEditor();
+        }));
+        separatedAuditUpdateAttachParentStates();
+        separatedAuditUpdateModalSummary();
+      }
+
+      function separatedAuditUpdateAttachParentStates() {
+        const draft = separatedAuditState.attachMachineDraft;
+        const setState = (input,leaves) => {
+          const selected = leaves.filter((leaf) => (draft.targetMap[leaf.dataset.conditionId] || new Set()).has(leaf.dataset.separatedAttachTarget)).length;
+          input.checked = leaves.length > 0 && selected === leaves.length;
+          input.indeterminate = selected > 0 && selected < leaves.length;
+        };
+        separatedAuditFindAll('[data-separated-attach-all]').forEach((input) => setState(input,separatedAuditFindAll('[data-separated-attach-target]').filter((leaf) => leaf.dataset.conditionId === input.dataset.separatedAttachAll)));
+        separatedAuditFindAll('[data-separated-attach-flow]').forEach((input) => setState(input,separatedAuditFindAll('[data-separated-attach-target]').filter((leaf) => leaf.dataset.conditionId === input.dataset.conditionId && leaf.dataset.flowIndex === input.dataset.separatedAttachFlow)));
+        separatedAuditFindAll('[data-separated-attach-group]').forEach((input) => setState(input,separatedAuditFindAll('[data-separated-attach-target]').filter((leaf) => leaf.dataset.conditionId === input.dataset.conditionId && leaf.dataset.flowIndex === input.dataset.flowIndex && leaf.dataset.groupIndex === input.dataset.separatedAttachGroup)));
+      }
+
+      function separatedAuditOpenMachineItemConfig(itemId) {
+        const item = separatedAuditMachineItemById(itemId);
+        if (!item) return;
+        const isIncoming = separatedAuditIncomingMachineItems.some((candidate) => candidate.id === item.id);
+        const conditionIds = isIncoming ? [] : separatedAuditParentIds(item);
+        const targetMap = {};
+        conditionIds.forEach((conditionId) => { targetMap[conditionId] = new Set(separatedAuditRelations.machine[`${conditionId}::${item.id}`] || []); });
+        separatedAuditState.attachMachineDraft = {itemId:item.id,isIncoming,conditionIds:new Set(conditionIds),targetMap};
+        separatedAuditPrepareModal(`${isIncoming ? '配置新标签' : '调整机审应用'}“${item.name}”`, 'configure-machine-item');
+        separatedAuditRenderAttachMachineEditor();
+        separatedAuditShowOverlay();
+      }
+
+      function separatedAuditOpenAttachMachineItem() {
+        const item = separatedAuditIncomingMachineItems[0];
+        if (!item) { separatedAuditShowToast('暂无待接入的新标签'); return; }
+        separatedAuditOpenMachineItemConfig(item.id);
+      }
+
+      function separatedAuditShowOverlay() {
+        separatedAuditFind('#separated-audit-overlay').classList.add('is-open');
+        separatedAuditFind('#separated-audit-overlay').setAttribute('aria-hidden','false');
+        separatedAuditFind('#separated-audit-close').focus();
+      }
+
+      function separatedAuditRelationScopeIds() {
+        const scopeInputs = separatedAuditFindAll('[data-separated-scope]');
+        return scopeInputs.length ? scopeInputs.filter((input) => input.checked).map((input) => input.dataset.separatedScope) : [separatedAuditState.selected];
+      }
+
+      function separatedAuditGroupedRelationTargets() {
+        const flows = [];
+        separatedAuditCurrentTargets().forEach((target) => {
+          let flow = flows.find((item) => item.name === target.flow);
+          if (!flow) { flow = {name:target.flow, groups:[]}; flows.push(flow); }
+          let group = flow.groups.find((item) => item.name === target.group);
+          if (!group) { group = {name:target.group, targets:[]}; flow.groups.push(group); }
+          group.targets.push(target);
+        });
+        return flows;
+      }
+
+      function separatedAuditRelationState(targetId, labelIds) {
+        const hits = labelIds.filter((labelId) => separatedAuditRelationSet(labelId).has(targetId)).length;
+        if (!hits) return '未关联';
+        if (hits === labelIds.length) return '已关联';
+        return '部分关联';
+      }
+
+      function separatedAuditRenderRelationTargets() {
+        const label = separatedAuditLabel(separatedAuditState.selected);
+        const labelIds = separatedAuditRelationScopeIds();
+        const flows = separatedAuditGroupedRelationTargets();
+        const mode = separatedAuditState.relationMode;
+        const html = flows.map((flow, flowIndex) => `<section class="separated-audit-relation-flow"><div class="separated-audit-relation-flow-head"><label class="separated-audit-check"><input type="checkbox" data-separated-relation-flow="${flowIndex}"><strong>${separatedAuditEscape(flow.name)}</strong></label><span class="separated-audit-secondary-text">${flow.groups.reduce((sum, group) => sum + group.targets.length, 0)} 个应用对象</span></div>${flow.groups.map((group, groupIndex) => `<div><div class="separated-audit-relation-group-head"><label class="separated-audit-check"><input type="checkbox" data-separated-relation-group="${groupIndex}" data-flow-index="${flowIndex}"><span>${separatedAuditEscape(group.name)}</span></label><span class="separated-audit-secondary-text">${group.targets.length} 项</span></div>${group.targets.map((target) => {
+          const condition = separatedAuditState.tab === 'machine' ? separatedAuditMachineConditionFor(target, label) : null;
+          const relationState = separatedAuditRelationState(target.id, labelIds);
+          const actionable = separatedAuditState.tab !== 'machine' || Boolean(condition);
+          const noChange = mode === 'add' ? relationState === '已关联' : relationState === '未关联';
+          const disabled = !actionable || noChange || !labelIds.length;
+          const detail = separatedAuditState.tab === 'machine'
+            ? (condition ? `<div class="separated-audit-condition-summary"><span class="separated-audit-primary-text">${separatedAuditEscape(condition.instance)} · ${separatedAuditEscape(separatedAuditLabel(condition.id).name)} <span class="separated-audit-badge is-op">${separatedAuditEscape(condition.op)}</span></span><div class="separated-audit-condition-tags">${separatedAuditMachineTagSummary(condition, label.id)}</div></div>` : '<div class="separated-audit-warning">请先前往任务配置创建算法因子条件</div>')
+            : `<div class="separated-audit-condition-summary"><span class="separated-audit-primary-text">${separatedAuditEscape(target.component)}</span><div class="separated-audit-condition-tags">${separatedAuditEscape(target.componentType)} · ${separatedAuditEscape(target.componentId)}</div></div>`;
+          return `<div class="separated-audit-relation-leaf ${disabled ? 'is-disabled' : ''}"><input type="checkbox" data-separated-target="${target.id}" data-flow-index="${flowIndex}" data-group-index="${groupIndex}" ${disabled ? 'disabled' : ''} aria-label="选择${separatedAuditEscape(target.task)}"><div><span class="separated-audit-primary-text">${separatedAuditEscape(target.task)}</span><span class="separated-audit-secondary-text">taskId ${separatedAuditEscape(target.taskId)}</span></div>${detail}<div><span class="separated-audit-badge ${relationState === '已关联' ? 'is-success' : ''}">${relationState}</span><div class="separated-audit-secondary-text">${separatedAuditEscape(target.status)}</div></div></div>`;
+        }).join('')}</div>`).join('')}</section>`).join('');
+        separatedAuditFind('#separated-audit-targets').className = 'separated-audit-relation-tree';
+        separatedAuditFind('#separated-audit-targets').innerHTML = html;
+        separatedAuditBindRelationTree();
+        separatedAuditUpdateModalSummary();
+      }
+
+      function separatedAuditUpdateRelationParentStates() {
+        separatedAuditFindAll('[data-separated-relation-group]').forEach((groupInput) => {
+          const leaves = separatedAuditFindAll(`[data-separated-target][data-flow-index="${groupInput.dataset.flowIndex}"][data-group-index="${groupInput.dataset.separatedRelationGroup}"]:not(:disabled)`);
+          groupInput.disabled = !leaves.length;
+          groupInput.checked = leaves.length > 0 && leaves.every((leaf) => leaf.checked);
+          groupInput.indeterminate = !groupInput.checked && leaves.some((leaf) => leaf.checked);
+        });
+        separatedAuditFindAll('[data-separated-relation-flow]').forEach((flowInput) => {
+          const leaves = separatedAuditFindAll(`[data-separated-target][data-flow-index="${flowInput.dataset.separatedRelationFlow}"]:not(:disabled)`);
+          flowInput.disabled = !leaves.length;
+          flowInput.checked = leaves.length > 0 && leaves.every((leaf) => leaf.checked);
+          flowInput.indeterminate = !flowInput.checked && leaves.some((leaf) => leaf.checked);
+        });
+      }
+
+      function separatedAuditBindRelationTree() {
+        separatedAuditFindAll('[data-separated-relation-flow]').forEach((flowInput) => flowInput.addEventListener('change', () => {
+          separatedAuditFindAll(`[data-separated-target][data-flow-index="${flowInput.dataset.separatedRelationFlow}"]:not(:disabled)`).forEach((leaf) => { leaf.checked = flowInput.checked; });
+          separatedAuditUpdateRelationParentStates();
+          separatedAuditUpdateModalSummary();
+        }));
+        separatedAuditFindAll('[data-separated-relation-group]').forEach((groupInput) => groupInput.addEventListener('change', () => {
+          separatedAuditFindAll(`[data-separated-target][data-flow-index="${groupInput.dataset.flowIndex}"][data-group-index="${groupInput.dataset.separatedRelationGroup}"]:not(:disabled)`).forEach((leaf) => { leaf.checked = groupInput.checked; });
+          separatedAuditUpdateRelationParentStates();
+          separatedAuditUpdateModalSummary();
+        }));
+        separatedAuditFindAll('[data-separated-target]').forEach((leaf) => leaf.addEventListener('change', () => {
+          separatedAuditUpdateRelationParentStates();
+          separatedAuditUpdateModalSummary();
+        }));
+        separatedAuditUpdateRelationParentStates();
+      }
+
+      function separatedAuditOpenRelationModal() {
+        const label = separatedAuditLabel(separatedAuditState.selected);
+        const relationContext = separatedAuditState.tab === 'machine' ? `${separatedAuditLabel(separatedAuditActiveMachineParent(label)).name} / ${label.name}` : label.name;
+        separatedAuditState.relationMode = 'add';
+        separatedAuditPrepareModal(`调整“${relationContext}”任务关联`, 'relation');
+        separatedAuditFind('#separated-audit-scope').innerHTML = `<div class="separated-audit-operation-bar"><div><strong>操作方式</strong><label class="separated-audit-check"><input type="radio" name="separated-audit-relation-mode" value="add" checked><span>新增关联</span></label><label class="separated-audit-check"><input type="radio" name="separated-audit-relation-mode" value="remove"><span>解除关联</span></label></div><span class="separated-audit-operation-note">只增删条件项与任务条件实例的关系；全局条件、包含/不包含及失败策略保持不变</span></div>${separatedAuditRenderScope(label)}`;
+        separatedAuditFindAll('input[name="separated-audit-relation-mode"]').forEach((input) => input.addEventListener('change', () => {
+          separatedAuditState.relationMode = input.value;
+          separatedAuditRenderRelationTargets();
+        }));
+        separatedAuditFindAll('[data-separated-scope]').forEach((input) => input.addEventListener('change', separatedAuditRenderRelationTargets));
+        separatedAuditRenderRelationTargets();
+        separatedAuditShowOverlay();
+      }
+
+      function separatedAuditGroupedDisplayTasks() {
+        const flows = [];
+        separatedAuditDisplayTasks.forEach((task) => {
+          let flow = flows.find((item) => item.name === task.flow);
+          if (!flow) { flow = {name:task.flow, groups:[]}; flows.push(flow); }
+          let group = flow.groups.find((item) => item.name === task.group);
+          if (!group) { group = {name:task.group, tasks:[]}; flow.groups.push(group); }
+          group.tasks.push(task);
+        });
+        return flows;
+      }
+
+      function separatedAuditDisplayTaskTree(record, recordIndex) {
+        return separatedAuditGroupedDisplayTasks().map((flow, flowIndex) => `<div class="separated-audit-task-flow"><label class="separated-audit-check"><input type="checkbox" data-separated-display-flow="${flowIndex}"><strong>${separatedAuditEscape(flow.name)}</strong></label>${flow.groups.map((group, groupIndex) => `<div class="separated-audit-task-group"><label class="separated-audit-check"><input type="checkbox" data-separated-display-group="${groupIndex}" data-flow-index="${flowIndex}"><span>${separatedAuditEscape(group.name)}</span></label><div class="separated-audit-task-options">${group.tasks.map((task) => `<label class="separated-audit-check"><input type="checkbox" data-separated-display-target="${task.id}" data-record-index="${recordIndex}" data-flow-index="${flowIndex}" data-group-index="${groupIndex}" ${record.targetIds.includes(task.id) ? 'checked' : ''}><span>${separatedAuditEscape(task.task)} · ${task.taskId}</span></label>`).join('')}</div></div>`).join('')}</div>`).join('');
+      }
+
+      function separatedAuditCaptureDisplayRecords() {
+        const record = separatedAuditFind('[data-separated-record]');
+        separatedAuditState.displayDraftRecords = [{
+          targetIds: record ? Array.from(record.querySelectorAll('[data-separated-display-target]:checked')).map((input) => input.dataset.separatedDisplayTarget) : []
+        }];
+        return separatedAuditState.displayDraftRecords;
+      }
+
+      function separatedAuditUpdateDisplayParentStates(recordElement) {
+        recordElement.querySelectorAll('[data-separated-display-group]').forEach((groupInput) => {
+          const tasks = Array.from(recordElement.querySelectorAll(`[data-separated-display-target][data-flow-index="${groupInput.dataset.flowIndex}"][data-group-index="${groupInput.dataset.separatedDisplayGroup}"]`));
+          groupInput.checked = tasks.length > 0 && tasks.every((task) => task.checked);
+          groupInput.indeterminate = !groupInput.checked && tasks.some((task) => task.checked);
+        });
+        recordElement.querySelectorAll('[data-separated-display-flow]').forEach((flowInput) => {
+          const tasks = Array.from(recordElement.querySelectorAll(`[data-separated-display-target][data-flow-index="${flowInput.dataset.separatedDisplayFlow}"]`));
+          flowInput.checked = tasks.length > 0 && tasks.every((task) => task.checked);
+          flowInput.indeterminate = !flowInput.checked && tasks.some((task) => task.checked);
+        });
+      }
+
+      function separatedAuditBindDisplayRecord(recordElement) {
+        recordElement.querySelectorAll('[data-separated-display-flow]').forEach((flowInput) => flowInput.addEventListener('change', () => {
+          recordElement.querySelectorAll(`[data-separated-display-target][data-flow-index="${flowInput.dataset.separatedDisplayFlow}"]`).forEach((task) => { task.checked = flowInput.checked; });
+          separatedAuditUpdateDisplayParentStates(recordElement);
+          separatedAuditUpdateModalSummary();
+        }));
+        recordElement.querySelectorAll('[data-separated-display-group]').forEach((groupInput) => groupInput.addEventListener('change', () => {
+          recordElement.querySelectorAll(`[data-separated-display-target][data-flow-index="${groupInput.dataset.flowIndex}"][data-group-index="${groupInput.dataset.separatedDisplayGroup}"]`).forEach((task) => { task.checked = groupInput.checked; });
+          separatedAuditUpdateDisplayParentStates(recordElement);
+          separatedAuditUpdateModalSummary();
+        }));
+        recordElement.querySelectorAll('[data-separated-display-target]').forEach((task) => task.addEventListener('change', () => {
+          separatedAuditUpdateDisplayParentStates(recordElement);
+          separatedAuditUpdateModalSummary();
+        }));
+        separatedAuditUpdateDisplayParentStates(recordElement);
+      }
+
+      function separatedAuditRenderDisplayRecords() {
+        separatedAuditFind('#separated-audit-targets').className = 'separated-audit-targets';
+        const record = separatedAuditState.displayDraftRecords[0] || {targetIds:[]};
+        separatedAuditFind('#separated-audit-targets').innerHTML = `<section class="separated-audit-record" data-separated-record="0"><div class="separated-audit-record-head"><strong>选择生效任务</strong><span class="separated-audit-badge">固定位置：${separatedAuditEscape(separatedAuditFixedPosition)}</span></div><div class="separated-audit-task-tree">${separatedAuditDisplayTaskTree(record,0)}</div></section>`;
+        separatedAuditFindAll('[data-separated-record]').forEach(separatedAuditBindDisplayRecord);
+        separatedAuditUpdateModalSummary();
+      }
+
+      function separatedAuditOpenDisplayModal(configId = null) {
+        const component = separatedAuditDisplayComponent();
+        const existing = separatedAuditDisplayConfigs.find((config) => config.componentId === component.id) || (configId ? separatedAuditDisplayConfigs.find((config) => config.id === configId) : null);
+        separatedAuditState.displayEditingId = existing ? existing.id : null;
+        separatedAuditState.displayDraftRecords = existing ? [{targetIds:[...existing.targetIds]}] : [{targetIds:[]}];
+        separatedAuditPrepareModal(`调整“${component.name}”生效任务`, 'display');
+        separatedAuditFind('#separated-audit-scope').innerHTML = `<div class="separated-audit-display-intro"><div><strong>展示组件：${separatedAuditEscape(component.name)}</strong><span>勾选流程 → 分组 → 叶子任务；位置固定为${separatedAuditEscape(separatedAuditFixedPosition)}，无需选择</span></div></div>`;
+        separatedAuditRenderDisplayRecords();
+        separatedAuditShowOverlay();
+      }
+
+      function separatedAuditUpdateModalSummary() {
+        if (separatedAuditState.modalKind === 'configure-machine-item') {
+          const draft = separatedAuditState.attachMachineDraft;
+          const taskRelationCount = Array.from(draft.conditionIds).reduce((sum, conditionId) => sum + (draft.targetMap[conditionId] || new Set()).size, 0);
+          separatedAuditFind('#separated-audit-modal-summary').textContent = `${draft.conditionIds.size} 个全局条件池 · ${taskRelationCount} 个任务条件实例`;
+          return;
+        }
+        if (separatedAuditState.modalKind === 'display') {
+          const records = separatedAuditCaptureDisplayRecords();
+          const taskIds = new Set(records.flatMap((record) => record.targetIds));
+          separatedAuditFind('#separated-audit-modal-summary').textContent = `${taskIds.size} 个生效任务 · 位置固定为第二列最下方`;
+          return;
+        }
+        const targetCount = separatedAuditFindAll('[data-separated-target]:checked').length;
+        const scopeCount = separatedAuditRelationScopeIds().length;
+        const verb = separatedAuditState.relationMode === 'add' ? '新增' : '解除';
+        if (!scopeCount) separatedAuditFind('#separated-audit-modal-summary').textContent = '请至少保留一个标签';
+        else separatedAuditFind('#separated-audit-modal-summary').textContent = separatedAuditState.tab === 'manual' ? `${verb}：${scopeCount} 个标签 × ${targetCount} 个答题组件` : `${verb}：${targetCount} 条任务标签关系；任务内判定方式只读`;
+      }
+
+      function separatedAuditPrepareConfirmation() {
+        if (separatedAuditState.modalKind === 'configure-machine-item') {
+          const draft = separatedAuditState.attachMachineDraft;
+          const mappings = Array.from(draft.conditionIds).map((conditionId) => ({conditionId,targetIds:[...(draft.targetMap[conditionId] || new Set())]}));
+          const taskRelationCount = mappings.reduce((sum, mapping) => sum + mapping.targetIds.length, 0);
+          if (!mappings.length) {
+            separatedAuditFind('#separated-audit-modal-summary').textContent = '请至少选择一个全局条件';
+            return;
+          }
+          if (draft.isIncoming && !taskRelationCount) {
+            separatedAuditFind('#separated-audit-modal-summary').textContent = '请至少选择一个任务条件实例';
+            return;
+          }
+          separatedAuditState.pending = {kind:'configure-machine-item',itemId:draft.itemId,isIncoming:draft.isIncoming,mappings};
+        } else if (separatedAuditState.modalKind === 'display') {
+          const records = separatedAuditCaptureDisplayRecords();
+          if (records.some((record) => !record.targetIds.length)) {
+            separatedAuditFind('#separated-audit-modal-summary').textContent = '请至少选择一个叶子任务';
+            return;
+          }
+          separatedAuditState.pending = {kind:'display', records:records.map((record) => ({targetIds:[...record.targetIds]}))};
+        } else {
+          const targetIds = separatedAuditFindAll('[data-separated-target]:checked').map((input) => input.dataset.separatedTarget);
+          const labelIds = separatedAuditRelationScopeIds();
+          if (!labelIds.length) {
+            separatedAuditFind('#separated-audit-modal-summary').textContent = '请至少保留一个标签';
+            return;
+          }
+          if (!targetIds.length) {
+            separatedAuditFind('#separated-audit-modal-summary').textContent = '请至少选择一个应用对象';
+            return;
+          }
+          let added = 0;
+          let removed = 0;
+          const affectedIds = new Set();
+          labelIds.forEach((labelId) => {
+            const current = separatedAuditRelationSet(labelId);
+            targetIds.forEach((targetId) => {
+              if (separatedAuditState.relationMode === 'add' && !current.has(targetId)) { added += 1; affectedIds.add(targetId); }
+              if (separatedAuditState.relationMode === 'remove' && current.has(targetId)) { removed += 1; affectedIds.add(targetId); }
+            });
+          });
+          if (!added && !removed) {
+            separatedAuditFind('#separated-audit-modal-summary').textContent = '所选对象没有可生效的变化';
+            return;
+          }
+          separatedAuditState.pending = {kind:'relation', mode:separatedAuditState.relationMode, labelIds, targetIds, added, removed, affectedIds:[...affectedIds]};
+        }
+        separatedAuditRenderConfirmation();
+      }
+
+      function separatedAuditRenderConfirmation() {
+        const pending = separatedAuditState.pending;
+        let html = '';
+        let summary = '';
+        if (pending.kind === 'configure-machine-item') {
+          const item = separatedAuditMachineItemById(pending.itemId);
+          const conditionNames = pending.mappings.map((mapping) => separatedAuditLabel(mapping.conditionId).name);
+          const targetIds = new Set(pending.mappings.flatMap((mapping) => mapping.targetIds));
+          const targets = separatedAuditTargets.machine.filter((target) => targetIds.has(target.id));
+          const online = targets.filter((target) => target.status === '已上线').length;
+          const relationCount = pending.mappings.reduce((sum, mapping) => sum + mapping.targetIds.length, 0);
+          html = `<h3 class="separated-audit-confirm-title">${pending.isIncoming ? '确认新标签接入机审' : '确认机审应用调整'}</h3><div class="separated-audit-impact-list"><div class="separated-audit-impact-row"><span>${pending.isIncoming ? '新标签' : '条件项'}</span><strong>${separatedAuditEscape(item.name)}</strong></div><div class="separated-audit-impact-row"><span>全局条件池</span><span>${separatedAuditEscape(conditionNames.join('、'))}</span></div><div class="separated-audit-impact-row"><span>生效任务</span><span>${relationCount} 个任务条件实例，涉及 ${targets.length} 个任务（已上线 ${online}，未上线 ${targets.length - online}）</span></div><div class="separated-audit-impact-row"><span>后续任务</span><span>加入条件池只代表可选；后续新增任务不会自动勾选该标签</span></div><div class="separated-audit-impact-row"><span>版本校验</span><span>同时校验全局条件池与任务条件实例版本，冲突则整次阻止</span></div></div>`;
+          summary = `待生效：${pending.mappings.length} 个条件池 · ${relationCount} 条任务关系`;
+        } else if (pending.kind === 'display') {
+          const component = separatedAuditDisplayComponent();
+          const targetIds = new Set(pending.records.flatMap((record) => record.targetIds));
+          const targets = separatedAuditDisplayTasks.filter((task) => targetIds.has(task.id));
+          const online = targets.filter((task) => task.status === '已上线').length;
+          html = `<h3 class="separated-audit-confirm-title">确认展示组件配置生效</h3><div class="separated-audit-impact-list"><div class="separated-audit-impact-row"><span>展示组件</span><strong>${separatedAuditEscape(component.name)}</strong></div><div class="separated-audit-impact-row"><span>固定位置</span><span>${separatedAuditEscape(separatedAuditFixedPosition)}（系统固定）</span></div><div class="separated-audit-impact-row"><span>影响任务</span><span>${targets.length} 个叶子任务（已上线 ${online}，未上线 ${targets.length - online}）</span></div><div class="separated-audit-impact-row"><span>配置快照</span><span>保存本次明确勾选的任务 ID；后续新增任务不自动继承</span></div><div class="separated-audit-impact-row"><span>版本校验</span><span>确认时再次校验；冲突则整次阻止，不覆盖任务页修改</span></div></div>`;
+          summary = `待生效：${targets.length} 个任务`;
+        } else {
+          const targets = separatedAuditCurrentTargets().filter((target) => pending.affectedIds.includes(target.id));
+          const taskIds = new Set(targets.map((target) => target.taskId));
+          const onlineTaskIds = new Set(targets.filter((target) => target.status === '已上线').map((target) => target.taskId));
+          const changeText = pending.mode === 'add' ? `新增 ${pending.added} 条关联` : `解除 ${pending.removed} 条关联`;
+          const immutableText = separatedAuditState.tab === 'machine' ? '任务内全局条件、包含/不包含、失败策略均不修改' : '只修改答题组件实例与标签的关联';
+          html = `<h3 class="separated-audit-confirm-title">确认关联变更生效</h3><div class="separated-audit-impact-list"><div class="separated-audit-impact-row"><span>变更内容</span><strong>${changeText}</strong></div><div class="separated-audit-impact-row"><span>关联范围</span><span>${pending.labelIds.length} 个标签 · ${pending.targetIds.length} 个应用对象</span></div><div class="separated-audit-impact-row"><span>保持不变</span><span>${immutableText}</span></div><div class="separated-audit-impact-row"><span>影响任务</span><span>${taskIds.size} 个任务（已上线 ${onlineTaskIds.size}，未上线 ${taskIds.size - onlineTaskIds.size}）</span></div><div class="separated-audit-impact-row"><span>版本校验</span><span>确认时再次校验；冲突则整次阻止，不覆盖任务页修改</span></div></div>`;
+          summary = `待生效：新增 ${pending.added} 条 · 解除 ${pending.removed} 条`;
+        }
+        separatedAuditFind('#separated-audit-confirm-view').innerHTML = `${html}<div class="separated-audit-impact-warning">确认后，已上线任务立即影响尚未生成快照的新 Case；已有快照与已处理 Case 不变。未上线任务保持未上线。</div>`;
+        separatedAuditFind('#separated-audit-editor-view').hidden = true;
+        separatedAuditFind('#separated-audit-confirm-view').hidden = false;
+        separatedAuditFind('#separated-audit-modal-title').textContent = '确认生效';
+        separatedAuditFind('#separated-audit-modal-summary').textContent = summary;
+        separatedAuditFind('#separated-audit-cancel').textContent = '返回修改';
+        separatedAuditFind('#separated-audit-save').textContent = '确认生效';
+        separatedAuditState.modalStep = 'confirm';
+      }
+
+      function separatedAuditCommitPending() {
+        const pending = separatedAuditState.pending;
+        if (pending.kind === 'configure-machine-item') {
+          const item = separatedAuditMachineItemById(pending.itemId);
+          const currentConditionIds = separatedAuditParentIds(item);
+          const conditionIds = pending.mappings.map((mapping) => mapping.conditionId);
+          const allConditionIds = new Set([...currentConditionIds,...conditionIds]);
+          allConditionIds.forEach((conditionId) => {
+            const mapping = pending.mappings.find((candidate) => candidate.conditionId === conditionId);
+            const desiredTargets = new Set(mapping ? mapping.targetIds : []);
+            const key = `${conditionId}::${item.id}`;
+            const relations = separatedAuditRelations.machine[key] || (separatedAuditRelations.machine[key] = new Set());
+            separatedAuditMachineConditionTasks(conditionId).forEach((target) => {
+              const taskCondition = separatedAuditMachineConditionOnTask(target,conditionId);
+              if (desiredTargets.has(target.id)) {
+                relations.add(target.id);
+                if (taskCondition && !taskCondition.tagIds.includes(item.id)) taskCondition.tagIds.push(item.id);
+              } else {
+                relations.delete(target.id);
+                if (taskCondition) taskCondition.tagIds = taskCondition.tagIds.filter((id) => id !== item.id);
+              }
+            });
+          });
+          item.parentIds = [...conditionIds];
+          if (pending.isIncoming) {
+            const firstCondition = separatedAuditLabels.machine.find((condition) => condition.id === conditionIds[0]);
+            if (firstCondition && !firstCondition.children.some((candidate) => candidate.id === item.id)) firstCondition.children.push(item);
+            separatedAuditIncomingMachineItems = separatedAuditIncomingMachineItems.filter((candidate) => candidate.id !== item.id);
+          }
+          separatedAuditState.machineView = 'connected';
+          separatedAuditState.selected = item.id;
+          separatedAuditState.parentFilter = conditionIds[0];
+        } else if (pending.kind === 'display') {
+          let configId = `dc${separatedAuditState.nextConfigId++}`;
+          if (separatedAuditState.displayEditingId) {
+            const index = separatedAuditDisplayConfigs.findIndex((config) => config.id === separatedAuditState.displayEditingId);
+            if (index >= 0) {
+              configId = separatedAuditDisplayConfigs[index].id;
+              separatedAuditDisplayConfigs.splice(index,1);
+            }
+          }
+          separatedAuditDisplayConfigs.push({id:configId,componentId:separatedAuditState.selected,targetIds:[...pending.records[0].targetIds]});
+        } else {
+          pending.labelIds.forEach((labelId) => {
+            const relations = separatedAuditRelationSet(labelId);
+            const label = separatedAuditLabel(labelId);
+            pending.targetIds.forEach((targetId) => {
+              if (pending.mode === 'add') relations.add(targetId);
+              else relations.delete(targetId);
+              if (separatedAuditState.tab === 'machine' && label.level > 1) {
+                const target = separatedAuditCurrentTargets().find((item) => item.id === targetId);
+                const condition = target ? separatedAuditMachineConditionFor(target, label) : null;
+                if (condition) {
+                  if (pending.mode === 'add' && !condition.tagIds.includes(labelId)) condition.tagIds.push(labelId);
+                  if (pending.mode === 'remove') condition.tagIds = condition.tagIds.filter((id) => id !== labelId);
+                }
+              }
+            });
+          });
+        }
+        const message = pending.kind === 'configure-machine-item' ? (pending.isIncoming ? '新标签已加入全局条件池并应用到所选任务' : '机审条件项应用已调整') : (pending.kind === 'display' ? '展示组件配置已确认生效' : '关联变更已确认生效');
+        separatedAuditCloseModal();
+        separatedAuditRender();
+        separatedAuditShowToast(`${message}；已上线任务仅影响尚未生成快照的新 Case`);
+      }
+
+      function separatedAuditHandlePrimary() {
+        if (separatedAuditState.modalStep === 'confirm') separatedAuditCommitPending();
+        else separatedAuditPrepareConfirmation();
+      }
+
+      function separatedAuditHandleCancel() {
+        if (separatedAuditState.modalStep === 'confirm') {
+          separatedAuditState.modalStep = 'edit';
+          separatedAuditFind('#separated-audit-editor-view').hidden = false;
+          separatedAuditFind('#separated-audit-confirm-view').hidden = true;
+          separatedAuditFind('#separated-audit-modal-title').textContent = separatedAuditState.modalEditorTitle;
+          separatedAuditFind('#separated-audit-cancel').textContent = '取消';
+          separatedAuditFind('#separated-audit-save').textContent = '下一步：确认生效';
+          separatedAuditUpdateModalSummary();
+        } else separatedAuditCloseModal();
+      }
+
+      function separatedAuditCloseModal() {
+        separatedAuditFind('#separated-audit-overlay').classList.remove('is-open');
+        separatedAuditFind('#separated-audit-overlay').setAttribute('aria-hidden','true');
+        separatedAuditState.modalStep = 'closed';
+        separatedAuditState.pending = null;
+        separatedAuditState.attachMachineDraft = null;
+      }
+
+      function separatedAuditShowToast(message) {
+        const toast = separatedAuditFind('#separated-audit-toast');
+        toast.textContent = message;
+        toast.classList.add('is-showing');
+        window.setTimeout(() => toast.classList.remove('is-showing'), 2800);
+      }
+
+      function separatedAuditRender() {
+        const isMachine = separatedAuditState.tab === 'machine';
+        separatedAuditFind('#separated-audit-config-zone').hidden = isMachine;
+        separatedAuditRenderSelector();
+        if (!isMachine) {
+          separatedAuditRenderCurrent();
+          separatedAuditRenderTable();
+        }
+        const notes = {
+          machine:['每个全局条件统一维护可选条件项池，任务从池中选择','任务内全局条件、包含/不包含和失败策略只读，本页仅调整条件项关系'],
+          manual:['按层级平铺检索；多父级标签按 labelId 去重展示','关联对象为人审任务里的具体答题组件实例'],
+          display:['选择展示组件；展示位置由系统固定，不需要运营配置','固定展示位置：审核页第二列最下方']
+        };
+        separatedAuditFind('#separated-audit-selector-note').textContent = notes[separatedAuditState.tab][0];
+        separatedAuditFind('#separated-audit-toolbar-note').textContent = notes[separatedAuditState.tab][1];
+        separatedAuditFind('#separated-audit-selector-title').textContent = isMachine ? '全局条件与可选条件项' : (separatedAuditState.tab === 'display' ? '展示组件列表' : '标签列表');
+        separatedAuditFind('#separated-audit-primary-index').hidden = isMachine;
+        separatedAuditFind('#separated-audit-primary-title').textContent = isMachine ? '全局条件—条件项—任务关系' : (separatedAuditState.tab === 'display' ? '展示组件页' : '标签页');
+        separatedAuditFind('#separated-audit-primary-note').textContent = isMachine ? '条件项可引用人审标签，也可为机审专用标签、枚举或数值' : (separatedAuditState.tab === 'display' ? '选择展示组件并维护其生效任务' : '选择需要查看或配置的标签；同一标签只展示一次');
+        if (!isMachine) {
+          const currentNode = separatedAuditState.tab === 'display' ? null : separatedAuditLabel(separatedAuditState.selected);
+          separatedAuditFind('#separated-audit-current-caption').textContent = separatedAuditState.tab === 'display' ? '当前组件' : (currentNode.level === 1 ? '当前一级标签' : '当前标签');
+        }
+        separatedAuditFind('#separated-audit-page-description').textContent = separatedAuditState.tab === 'display' ? '上方选择展示组件，下方只维护生效任务；展示位置固定在审核页第二列最下方。' : (isMachine ? '全局条件维护统一可选池，各任务条件实例选择实际生效的条件项。' : '上方选择一、二、三级标签，下方关联到人审任务里的具体答题组件实例。');
+        separatedAuditFind('#separated-audit-search').placeholder = separatedAuditState.tab === 'display' ? '搜索应用任务名称 / ID' : '搜索流程、分组、任务、答题组件 / ID';
+        separatedAuditFind('#separated-audit-label-search').placeholder = separatedAuditState.tab === 'display' ? '搜索展示组件名称或 code' : (isMachine ? '搜索全局条件、条件项、流程、分组、任务名称或 ID' : '搜索标签名称、code 或上级标签');
+        const addMachineButton = separatedAuditFind('#separated-audit-add-machine-item');
+        addMachineButton.hidden = !isMachine || !separatedAuditIncomingMachineItems.length;
+        addMachineButton.textContent = separatedAuditIncomingMachineItems.length ? `接入新标签（${separatedAuditIncomingMachineItems.length}）` : '接入新标签';
+      }
+
+      function separatedAuditActivateTab(tabName) {
+        separatedAuditState.tab = tabName;
+        separatedAuditFind('#separated-audit-label-search').value = '';
+        if (tabName === 'machine') { separatedAuditState.path = ['m-body','m-low']; separatedAuditState.selected = 'm-low'; separatedAuditState.selectorLevel = 2; separatedAuditState.parentFilter = 'm-body'; }
+        if (tabName === 'manual') { separatedAuditState.path = ['h-image','h-quality','h-low']; separatedAuditState.selected = 'h-low'; separatedAuditState.selectorLevel = 3; separatedAuditState.parentFilter = 'all'; }
+        if (tabName === 'display') { separatedAuditState.path = []; separatedAuditState.selected = 'd-reference'; separatedAuditState.parentFilter = 'all'; }
+        separatedAuditFindAll('[data-separated-tab]').forEach((item) => item.setAttribute('aria-selected', String(item.dataset.separatedTab === tabName)));
+        separatedAuditResetFilters();
+        separatedAuditRender();
+      }
+
+      separatedAuditFindAll('[data-separated-tab]').forEach((tab) => tab.addEventListener('click', () => separatedAuditActivateTab(tab.dataset.separatedTab)));
+      separatedAuditFind('#separated-audit-label-search').addEventListener('input', separatedAuditRender);
+      separatedAuditFind('#separated-audit-add-machine-item').addEventListener('click', separatedAuditOpenAttachMachineItem);
+      separatedAuditFind('#separated-audit-search').addEventListener('input', separatedAuditRenderTable);
+      separatedAuditFind('#separated-audit-status').addEventListener('change', separatedAuditRenderTable);
+      separatedAuditFind('#separated-audit-edit').addEventListener('click', () => separatedAuditState.tab === 'display' ? separatedAuditOpenDisplayModal() : separatedAuditOpenRelationModal());
+      separatedAuditFind('#separated-audit-close').addEventListener('click', separatedAuditCloseModal);
+      separatedAuditFind('#separated-audit-cancel').addEventListener('click', separatedAuditHandleCancel);
+      separatedAuditFind('#separated-audit-save').addEventListener('click', separatedAuditHandlePrimary);
+      separatedAuditFind('#separated-audit-overlay').addEventListener('click', (event) => { if (event.target === separatedAuditFind('#separated-audit-overlay')) separatedAuditCloseModal(); });
+      separatedAuditRender();
+    })();
+  </script>
+</div>
