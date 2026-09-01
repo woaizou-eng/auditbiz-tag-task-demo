@@ -2190,9 +2190,15 @@ html&gt;body{padding:0}&lt;/style&gt;
       function separatedAuditMachineItemById(itemId) {
         const incoming = separatedAuditIncomingMachineItems.find((candidate) =&gt; candidate.id === itemId);
         if (incoming) return incoming;
-        const seen = new Map();
-        separatedAuditFlatten(separatedAuditLabels.machine).forEach((item) =&gt; { if (!seen.has(item.id)) seen.set(item.id,item); });
-        return seen.get(itemId) || null;
+        const findOriginal = (nodes) =&gt; {
+          for (const node of nodes) {
+            if (node.id === itemId) return node;
+            const child = node.children ? findOriginal(node.children) : null;
+            if (child) return child;
+          }
+          return null;
+        };
+        return findOriginal(separatedAuditLabels.machine);
       }
 
       function separatedAuditCompatibleMachineConditions(item) {
@@ -2519,7 +2525,27 @@ html&gt;body{padding:0}&lt;/style&gt;
             separatedAuditFind(&#x27;#separated-audit-modal-summary&#x27;).textContent = &#x27;请至少选择一个任务条件实例&#x27;;
             return;
           }
-          separatedAuditState.pending = {kind:&#x27;configure-machine-item&#x27;,itemId:draft.itemId,isIncoming:draft.isIncoming,mappings};
+          const item = separatedAuditMachineItemById(draft.itemId);
+          const currentConditionIds = new Set(separatedAuditParentIds(item));
+          const nextConditionIds = new Set(mappings.map((mapping) =&gt; mapping.conditionId));
+          const diff = {
+            poolAdded:[...nextConditionIds].filter((id) =&gt; !currentConditionIds.has(id)).length,
+            poolRemoved:[...currentConditionIds].filter((id) =&gt; !nextConditionIds.has(id)).length,
+            relationAdded:0,
+            relationRemoved:0
+          };
+          new Set([...currentConditionIds,...nextConditionIds]).forEach((conditionId) =&gt; {
+            const currentTargets = separatedAuditRelations.machine[`${conditionId}::${item.id}`] || new Set();
+            const mapping = mappings.find((candidate) =&gt; candidate.conditionId === conditionId);
+            const nextTargets = new Set(mapping ? mapping.targetIds : []);
+            nextTargets.forEach((id) =&gt; { if (!currentTargets.has(id)) diff.relationAdded += 1; });
+            currentTargets.forEach((id) =&gt; { if (!nextTargets.has(id)) diff.relationRemoved += 1; });
+          });
+          if (!draft.isIncoming &amp;&amp; !diff.poolAdded &amp;&amp; !diff.poolRemoved &amp;&amp; !diff.relationAdded &amp;&amp; !diff.relationRemoved) {
+            separatedAuditFind(&#x27;#separated-audit-modal-summary&#x27;).textContent = &#x27;当前配置没有变化&#x27;;
+            return;
+          }
+          separatedAuditState.pending = {kind:&#x27;configure-machine-item&#x27;,itemId:draft.itemId,isIncoming:draft.isIncoming,mappings,diff};
         } else if (separatedAuditState.modalKind === &#x27;display&#x27;) {
           const records = separatedAuditCaptureDisplayRecords();
           if (records.some((record) =&gt; !record.targetIds.length)) {
@@ -2568,8 +2594,9 @@ html&gt;body{padding:0}&lt;/style&gt;
           const targets = separatedAuditTargets.machine.filter((target) =&gt; targetIds.has(target.id));
           const online = targets.filter((target) =&gt; target.status === &#x27;已上线&#x27;).length;
           const relationCount = pending.mappings.reduce((sum, mapping) =&gt; sum + mapping.targetIds.length, 0);
-          html = `&lt;h3 class=&quot;separated-audit-confirm-title&quot;&gt;${pending.isIncoming ? &#x27;确认新标签接入机审&#x27; : &#x27;确认机审应用调整&#x27;}&lt;/h3&gt;&lt;div class=&quot;separated-audit-impact-list&quot;&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;${pending.isIncoming ? &#x27;新标签&#x27; : &#x27;条件项&#x27;}&lt;/span&gt;&lt;strong&gt;${separatedAuditEscape(item.name)}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;全局条件池&lt;/span&gt;&lt;span&gt;${separatedAuditEscape(conditionNames.join(&#x27;、&#x27;))}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;生效任务&lt;/span&gt;&lt;span&gt;${relationCount} 个任务条件实例，涉及 ${targets.length} 个任务（已上线 ${online}，未上线 ${targets.length - online}）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;后续任务&lt;/span&gt;&lt;span&gt;加入条件池只代表可选；后续新增任务不会自动勾选该标签&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;版本校验&lt;/span&gt;&lt;span&gt;同时校验全局条件池与任务条件实例版本，冲突则整次阻止&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`;
-          summary = `待生效：${pending.mappings.length} 个条件池 · ${relationCount} 条任务关系`;
+          const diffText = `条件池 +${pending.diff.poolAdded} / -${pending.diff.poolRemoved}；任务关系 +${pending.diff.relationAdded} / -${pending.diff.relationRemoved}`;
+          html = `&lt;h3 class=&quot;separated-audit-confirm-title&quot;&gt;${pending.isIncoming ? &#x27;确认新标签接入机审&#x27; : &#x27;确认机审应用调整&#x27;}&lt;/h3&gt;&lt;div class=&quot;separated-audit-impact-list&quot;&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;${pending.isIncoming ? &#x27;新标签&#x27; : &#x27;条件项&#x27;}&lt;/span&gt;&lt;strong&gt;${separatedAuditEscape(item.name)}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;本次变更&lt;/span&gt;&lt;strong&gt;${diffText}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;全局条件池&lt;/span&gt;&lt;span&gt;${separatedAuditEscape(conditionNames.join(&#x27;、&#x27;))}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;生效任务&lt;/span&gt;&lt;span&gt;${relationCount} 个任务条件实例，涉及 ${targets.length} 个任务（已上线 ${online}，未上线 ${targets.length - online}）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;后续任务&lt;/span&gt;&lt;span&gt;加入条件池只代表可选；后续新增任务不会自动勾选该标签&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;版本校验&lt;/span&gt;&lt;span&gt;同时校验全局条件池与任务条件实例版本，冲突则整次阻止&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`;
+          summary = `待生效：${diffText}`;
         } else if (pending.kind === &#x27;display&#x27;) {
           const component = separatedAuditDisplayComponent();
           const targetIds = new Set(pending.records.flatMap((record) =&gt; record.targetIds));
