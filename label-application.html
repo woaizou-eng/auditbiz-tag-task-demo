@@ -1836,7 +1836,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         machine: [
           { id:&#x27;mt1&#x27;, flow:&#x27;0730一审测试流程&#x27;, group:&#x27;图文审核组&#x27;, task:&#x27;图文质量机审&#x27;, taskId:&#x27;2072025&#x27;, status:&#x27;已上线&#x27;, conditions:[
             { id:&#x27;m-body&#x27;, instance:&#x27;全4&#x27;, op:&#x27;不包含&#x27;, tagIds:[&#x27;m-low&#x27;,&#x27;m-pantyhose&#x27;,&#x27;m-sensitive&#x27;] },
-            { id:&#x27;m-cover&#x27;, instance:&#x27;全3&#x27;, op:&#x27;不包含&#x27;, tagIds:[&#x27;m-cover-low&#x27;,&#x27;m-cover-blur&#x27;] }
+            { id:&#x27;m-cover&#x27;, instance:&#x27;全3&#x27;, op:&#x27;不包含&#x27;, tagIds:[&#x27;m-low&#x27;,&#x27;m-cover-low&#x27;,&#x27;m-cover-blur&#x27;] }
           ]},
           { id:&#x27;mt2&#x27;, flow:&#x27;0730一审测试流程&#x27;, group:&#x27;图文审核组&#x27;, task:&#x27;商品封面机审&#x27;, taskId:&#x27;2072088&#x27;, status:&#x27;已上线&#x27;, conditions:[
             { id:&#x27;m-body&#x27;, instance:&#x27;全4&#x27;, op:&#x27;不包含&#x27;, tagIds:[&#x27;m-low&#x27;,&#x27;m-pantyhose&#x27;] }
@@ -1863,7 +1863,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       const separatedAuditRelations = {
         machine: {
           &#x27;m-body&#x27;:new Set([&#x27;mt1&#x27;,&#x27;mt2&#x27;,&#x27;mt3&#x27;]), &#x27;m-body::m-low&#x27;:new Set([&#x27;mt1&#x27;,&#x27;mt2&#x27;]), &#x27;m-body::m-pantyhose&#x27;:new Set([&#x27;mt1&#x27;,&#x27;mt2&#x27;]),
-          &#x27;m-body::m-sensitive&#x27;:new Set([&#x27;mt1&#x27;,&#x27;mt3&#x27;]), &#x27;m-cover&#x27;:new Set([&#x27;mt1&#x27;]), &#x27;m-cover::m-low&#x27;:new Set(), &#x27;m-cover::m-cover-low&#x27;:new Set([&#x27;mt1&#x27;]), &#x27;m-cover::m-cover-blur&#x27;:new Set([&#x27;mt1&#x27;]),
+          &#x27;m-body::m-sensitive&#x27;:new Set([&#x27;mt1&#x27;,&#x27;mt3&#x27;]), &#x27;m-cover&#x27;:new Set([&#x27;mt1&#x27;]), &#x27;m-cover::m-low&#x27;:new Set([&#x27;mt1&#x27;]), &#x27;m-cover::m-cover-low&#x27;:new Set([&#x27;mt1&#x27;]), &#x27;m-cover::m-cover-blur&#x27;:new Set([&#x27;mt1&#x27;]),
           &#x27;m-title&#x27;:new Set([&#x27;mt4&#x27;]), &#x27;m-title::m-title-ban&#x27;:new Set([&#x27;mt4&#x27;]), &#x27;m-title::m-meaningless&#x27;:new Set([&#x27;mt4&#x27;]), &#x27;m-title::m-logic&#x27;:new Set([&#x27;mt4&#x27;]),
           &#x27;m-prescription&#x27;:new Set([&#x27;mt4&#x27;]), &#x27;m-prescription::m-prescription-none&#x27;:new Set([&#x27;mt4&#x27;]),
           &#x27;m-dedup-score&#x27;:new Set([&#x27;mt3&#x27;]), &#x27;m-dedup-score::m-dedup-risk&#x27;:new Set([&#x27;mt3&#x27;]),
@@ -2065,7 +2065,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           const current = connected.find((item) =&gt; item.id === separatedAuditState.selected) || connected[0];
           const currentParents = current ? separatedAuditParentLabels(current) : [];
           const currentTaskCount = current ? new Set(currentParents.flatMap((condition) =&gt; separatedAuditMachineRelationTasks(condition.id,current.id).map((target) =&gt; target.id))).size : 0;
-          const detail = current ? `&lt;aside class=&quot;separated-audit-label-detail&quot;&gt;&lt;h3&gt;${separatedAuditEscape(current.name)}&lt;/h3&gt;&lt;div class=&quot;separated-audit-label-detail-code&quot;&gt;机审标签 · ${separatedAuditEscape(current.code)}&lt;/div&gt;&lt;div class=&quot;separated-audit-detail-block&quot;&gt;&lt;span&gt;对应全局条件（${currentParents.length}）&lt;/span&gt;&lt;div class=&quot;separated-audit-parent-tags&quot;&gt;${currentParents.length ? currentParents.map((condition) =&gt; `&lt;span class=&quot;separated-audit-parent-tag&quot;&gt;${separatedAuditEscape(condition.name)}&lt;/span&gt;`).join(&#x27;&#x27;) : &#x27;&lt;span class=&quot;separated-audit-warning&quot;&gt;尚未配置&lt;/span&gt;&#x27;}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-detail-block&quot;&gt;&lt;span&gt;关系说明&lt;/span&gt;&lt;div class=&quot;separated-audit-path-row&quot;&gt;全局条件是任务侧聚合容器，不是标签层级&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-detail-block&quot;&gt;&lt;span&gt;应用情况&lt;/span&gt;&lt;strong&gt;${currentTaskCount} 个机审任务&lt;/strong&gt;&lt;div class=&quot;separated-audit-path-row&quot;&gt;下方按“全局条件 → 任务 → 条件表达式”展示&lt;/div&gt;&lt;/div&gt;&lt;/aside&gt;` : &#x27;&#x27;;
+          const detail = current ? `&lt;aside class=&quot;separated-audit-label-detail&quot;&gt;&lt;h3&gt;${separatedAuditEscape(current.name)}&lt;/h3&gt;&lt;div class=&quot;separated-audit-label-detail-code&quot;&gt;机审标签 · ${separatedAuditEscape(current.code)}&lt;/div&gt;&lt;div class=&quot;separated-audit-detail-block&quot;&gt;&lt;span&gt;对应全局条件（${currentParents.length}）· 可多选&lt;/span&gt;&lt;div class=&quot;separated-audit-parent-tags&quot;&gt;${currentParents.length ? currentParents.map((condition) =&gt; `&lt;span class=&quot;separated-audit-parent-tag&quot;&gt;${separatedAuditEscape(condition.name)}&lt;/span&gt;`).join(&#x27;&#x27;) : &#x27;&lt;span class=&quot;separated-audit-warning&quot;&gt;尚未配置&lt;/span&gt;&#x27;}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-detail-block&quot;&gt;&lt;span&gt;关系说明&lt;/span&gt;&lt;div class=&quot;separated-audit-path-row&quot;&gt;标签与全局条件是多对多；全局条件不是标签层级&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-detail-block&quot;&gt;&lt;span&gt;应用情况&lt;/span&gt;&lt;strong&gt;${currentTaskCount} 个机审任务&lt;/strong&gt;&lt;div class=&quot;separated-audit-path-row&quot;&gt;下方按“全局条件 → 任务 → 条件表达式”展示&lt;/div&gt;&lt;/div&gt;&lt;/aside&gt;` : &#x27;&#x27;;
           content = items.length ? `&lt;div class=&quot;separated-audit-label-content&quot;&gt;&lt;div class=&quot;separated-audit-flat-list&quot;&gt;${rows}&lt;/div&gt;${detail}&lt;/div&gt;` : &#x27;&lt;div class=&quot;separated-audit-machine-empty&quot;&gt;没有匹配的机审标签&lt;/div&gt;&#x27;;
         }
         levels.className = &#x27;separated-audit-machine-groups&#x27;;
@@ -2311,7 +2311,6 @@ html&gt;body{padding:0}&lt;/style&gt;
 
       function separatedAuditCompatibleMachineConditions(item) {
         const roots = separatedAuditLabels.machine.filter((candidate) =&gt; candidate.level === 1);
-        if (item.sourceType !== &#x27;humanLabel&#x27; &amp;&amp; item.parentIds &amp;&amp; item.parentIds.length) return roots.filter((candidate) =&gt; item.parentIds.includes(candidate.id));
         return roots.filter((candidate) =&gt; (candidate.acceptedItemKinds || []).includes(item.sourceType));
       }
 
@@ -2332,15 +2331,13 @@ html&gt;body{padding:0}&lt;/style&gt;
         const item = separatedAuditMachineItemById(draft.itemId);
         if (!item) return;
         const conditions = separatedAuditCompatibleMachineConditions(item);
-        const lockCondition = !draft.isIncoming &amp;&amp; item.sourceType !== &#x27;humanLabel&#x27;;
         const conditionOptions = conditions.map((condition) =&gt; {
           const recommended = draft.isIncoming &amp;&amp; (condition.id === &#x27;m-body&#x27; || condition.id === &#x27;m-cover&#x27;);
-          const locked = lockCondition &amp;&amp; draft.conditionIds.has(condition.id);
-          return `&lt;label class=&quot;separated-audit-attach-condition-option ${locked ? &#x27;is-locked&#x27; : &#x27;&#x27;}&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-attach-condition=&quot;${condition.id}&quot; ${draft.conditionIds.has(condition.id) ? &#x27;checked&#x27; : &#x27;&#x27;} ${locked ? &#x27;disabled&#x27; : &#x27;&#x27;}&gt;&lt;span&gt;&lt;strong&gt;${separatedAuditEscape(condition.name)}${recommended ? &#x27; · 推荐&#x27; : &#x27;&#x27;}${locked ? &#x27; · 固定归属&#x27; : &#x27;&#x27;}&lt;/strong&gt;&lt;span&gt;${separatedAuditEscape(condition.valueTypeName)} · 已配置于 ${separatedAuditMachineConditionTasks(condition.id).length} 个任务&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;`;
+          return `&lt;label class=&quot;separated-audit-attach-condition-option&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-attach-condition=&quot;${condition.id}&quot; ${draft.conditionIds.has(condition.id) ? &#x27;checked&#x27; : &#x27;&#x27;}&gt;&lt;span&gt;&lt;strong&gt;${separatedAuditEscape(condition.name)}${recommended ? &#x27; · 推荐&#x27; : &#x27;&#x27;}&lt;/strong&gt;&lt;span&gt;${separatedAuditEscape(condition.valueTypeName)} · 已配置于 ${separatedAuditMachineConditionTasks(condition.id).length} 个任务&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;`;
         }).join(&#x27;&#x27;);
         const sourceDetail = item.sourcePath ? `人审标签树 · ${item.sourcePath}` : separatedAuditMachineItemSource(item);
         const itemTitle = draft.isIncoming ? &#x27;待配置新标签&#x27; : &#x27;当前机审标签&#x27;;
-        separatedAuditFind(&#x27;#separated-audit-scope&#x27;).innerHTML = `&lt;div class=&quot;separated-audit-attach-intro&quot;&gt;&lt;strong&gt;${itemTitle}：${separatedAuditEscape(item.name)}&lt;/strong&gt;&lt;span&gt;来源：${separatedAuditEscape(sourceDetail)} · code ${separatedAuditEscape(item.code)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-attach-title&quot;&gt;1. 选择对应全局条件&lt;span&gt;${lockCondition ? &#x27;机审专用标签保持原全局条件归属&#x27; : &#x27;同一个人审标签可对应多个兼容的全局条件&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-attach-condition-options&quot;&gt;${conditionOptions || &#x27;&lt;div class=&quot;separated-audit-flat-empty&quot;&gt;没有兼容的全局条件&lt;/div&gt;&#x27;}&lt;/div&gt;`;
+        separatedAuditFind(&#x27;#separated-audit-scope&#x27;).innerHTML = `&lt;div class=&quot;separated-audit-attach-intro&quot;&gt;&lt;strong&gt;${itemTitle}：${separatedAuditEscape(item.name)}&lt;/strong&gt;&lt;span&gt;来源：${separatedAuditEscape(sourceDetail)} · code ${separatedAuditEscape(item.code)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-attach-title&quot;&gt;1. 选择对应全局条件（可多选）&lt;span&gt;标签与全局条件为多对多关系；同一标签可被多个兼容的全局条件使用&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-attach-condition-options&quot;&gt;${conditionOptions || &#x27;&lt;div class=&quot;separated-audit-flat-empty&quot;&gt;没有兼容的全局条件&lt;/div&gt;&#x27;}&lt;/div&gt;`;
 
         const targetGroups = conditions.filter((condition) =&gt; draft.conditionIds.has(condition.id)).map((condition) =&gt; {
           const selected = draft.targetMap[condition.id] || new Set();
@@ -2654,7 +2651,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         if (separatedAuditState.modalKind === &#x27;configure-machine-item&#x27;) {
           const draft = separatedAuditState.attachMachineDraft;
           const taskRelationCount = Array.from(draft.conditionIds).reduce((sum, conditionId) =&gt; sum + (draft.targetMap[conditionId] || new Set()).size, 0);
-          separatedAuditFind(&#x27;#separated-audit-modal-summary&#x27;).textContent = `${draft.conditionIds.size} 个全局条件池 · ${taskRelationCount} 个任务条件实例`;
+          separatedAuditFind(&#x27;#separated-audit-modal-summary&#x27;).textContent = `${draft.conditionIds.size} 个对应全局条件 · ${taskRelationCount} 个任务条件实例`;
           return;
         }
         if (separatedAuditState.modalKind === &#x27;display&#x27;) {
@@ -2761,7 +2758,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           const targets = separatedAuditTargets.machine.filter((target) =&gt; targetIds.has(target.id));
           const online = targets.filter((target) =&gt; target.status === &#x27;已上线&#x27;).length;
           const relationCount = pending.mappings.reduce((sum, mapping) =&gt; sum + mapping.targetIds.length, 0);
-          const diffText = `条件池 +${pending.diff.poolAdded} / -${pending.diff.poolRemoved}；任务关系 +${pending.diff.relationAdded} / -${pending.diff.relationRemoved}`;
+          const diffText = `全局条件关联 +${pending.diff.poolAdded} / -${pending.diff.poolRemoved}；任务关系 +${pending.diff.relationAdded} / -${pending.diff.relationRemoved}`;
           html = `&lt;h3 class=&quot;separated-audit-confirm-title&quot;&gt;${pending.isIncoming ? &#x27;确认新标签接入机审&#x27; : &#x27;确认机审应用调整&#x27;}&lt;/h3&gt;&lt;div class=&quot;separated-audit-impact-list&quot;&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;${pending.isIncoming ? &#x27;新标签&#x27; : &#x27;机审标签&#x27;}&lt;/span&gt;&lt;strong&gt;${separatedAuditEscape(item.name)}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;本次变更&lt;/span&gt;&lt;strong&gt;${diffText}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;对应全局条件&lt;/span&gt;&lt;span&gt;${separatedAuditEscape(conditionNames.join(&#x27;、&#x27;))}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;应用任务&lt;/span&gt;&lt;span&gt;${relationCount} 个任务条件实例，涉及 ${targets.length} 个任务（已上线 ${online}，未上线 ${targets.length - online}）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;任务侧条件&lt;/span&gt;&lt;span&gt;包含/不包含、枚举、数值阈值和失败策略均保持原配置&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;版本校验&lt;/span&gt;&lt;span&gt;同时校验标签关系与任务条件实例版本，冲突则整次阻止&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`;
           summary = `待生效：${diffText}`;
         } else if (pending.kind === &#x27;display&#x27;) {
@@ -2907,7 +2904,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         separatedAuditFind(&#x27;#separated-audit-selector-title&#x27;).textContent = isMachine ? &#x27;机审标签列表&#x27; : (separatedAuditState.tab === &#x27;display&#x27; ? &#x27;展示组件列表&#x27; : &#x27;标签列表&#x27;);
         separatedAuditFind(&#x27;#separated-audit-primary-index&#x27;).hidden = false;
         separatedAuditFind(&#x27;#separated-audit-primary-title&#x27;).textContent = isMachine ? &#x27;机审标签&#x27; : (separatedAuditState.tab === &#x27;display&#x27; ? &#x27;展示组件&#x27; : &#x27;人审标签&#x27;);
-        separatedAuditFind(&#x27;#separated-audit-primary-note&#x27;).textContent = isMachine ? &#x27;先选标签，再查看其对应全局条件与实际应用任务&#x27; : (separatedAuditState.tab === &#x27;display&#x27; ? &#x27;选择展示组件并维护其应用任务&#x27; : &#x27;选择一、二、三级标签；同一标签只展示一次&#x27;);
+        separatedAuditFind(&#x27;#separated-audit-primary-note&#x27;).textContent = isMachine ? &#x27;先选标签，再查看其对应的一个或多个全局条件与实际应用任务&#x27; : (separatedAuditState.tab === &#x27;display&#x27; ? &#x27;选择展示组件并维护其应用任务&#x27; : &#x27;选择一、二、三级标签；同一标签只展示一次&#x27;);
         const configTitles = {
           machine:[&#x27;机审任务应用明细&#x27;,&#x27;一行对应一个任务内全局条件实例；任务条件表达式只读&#x27;],
           manual:[&#x27;答题组件应用明细&#x27;,&#x27;关系落到具体答题组件实例，同一任务下的多个组件分别展示&#x27;],
@@ -2919,7 +2916,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           const currentNode = separatedAuditState.tab === &#x27;display&#x27; ? null : separatedAuditLabel(separatedAuditState.selected);
           separatedAuditFind(&#x27;#separated-audit-current-caption&#x27;).textContent = separatedAuditState.tab === &#x27;display&#x27; ? &#x27;当前展示组件&#x27; : (isMachine ? &#x27;当前机审标签&#x27; : (currentNode.level === 1 ? &#x27;当前一级标签&#x27; : &#x27;当前标签&#x27;));
         }
-        separatedAuditFind(&#x27;#separated-audit-page-description&#x27;).textContent = separatedAuditState.tab === &#x27;display&#x27; ? &#x27;展示组件直接维护已应用任务；展示位置固定在审核页第二列最下方。&#x27; : (isMachine ? &#x27;机审按“标签 → 全局条件 → 任务条件实例”查看和调整应用关系。&#x27; : &#x27;人审按“标签 → 人审任务 → 具体答题组件实例”维护应用关系。&#x27;);
+        separatedAuditFind(&#x27;#separated-audit-page-description&#x27;).textContent = separatedAuditState.tab === &#x27;display&#x27; ? &#x27;展示组件直接维护已应用任务；展示位置固定在审核页第二列最下方。&#x27; : (isMachine ? &#x27;机审按“标签 → 一个或多个全局条件 → 任务条件实例”查看和调整应用关系。&#x27; : &#x27;人审按“标签 → 人审任务 → 具体答题组件实例”维护应用关系。&#x27;);
         separatedAuditFind(&#x27;#separated-audit-search&#x27;).placeholder = separatedAuditState.tab === &#x27;display&#x27; ? &#x27;搜索流程、分组、任务名称 / ID&#x27; : (isMachine ? &#x27;搜索全局条件、流程、分组、机审任务 / ID&#x27; : &#x27;搜索流程、分组、人审任务、答题组件 / ID&#x27;);
         separatedAuditFind(&#x27;#separated-audit-label-search&#x27;).placeholder = separatedAuditState.tab === &#x27;display&#x27; ? &#x27;搜索展示组件名称或 code&#x27; : (isMachine ? &#x27;搜索标签、全局条件、流程、分组、任务名称或 ID&#x27; : &#x27;搜索标签名称、code 或上级标签&#x27;);
         const addMachineButton = separatedAuditFind(&#x27;#separated-audit-add-machine-item&#x27;);
