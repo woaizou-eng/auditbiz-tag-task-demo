@@ -1583,6 +1583,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     #audit-separated-label-demo-20260901 .separated-audit-attach-target-item { min-height: 60px; display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 7px; padding: 9px 10px; border-bottom: 1px solid var(--separated-audit-line); }
     #audit-separated-label-demo-20260901 .separated-audit-attach-target-item:nth-child(odd) { border-right: 1px solid var(--separated-audit-line); }
     #audit-separated-label-demo-20260901 .separated-audit-attach-target-item input { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--separated-audit-brand); }
+    #audit-separated-label-demo-20260901 .separated-audit-attach-target-item.is-disabled { color: var(--separated-audit-muted); background: var(--separated-audit-soft); }
     #audit-separated-label-demo-20260901 .separated-audit-attach-tree { display: block; }
     #audit-separated-label-demo-20260901 .separated-audit-attach-tree .separated-audit-relation-flow { border-bottom: 1px solid var(--separated-audit-line); }
     #audit-separated-label-demo-20260901 .separated-audit-attach-tree .separated-audit-relation-flow:last-child { border-bottom: 0; }
@@ -2316,7 +2317,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 
       function separatedAuditGroupedMachineConditionTasks(conditionId) {
         const flows = [];
-        separatedAuditMachineConditionTasks(conditionId).forEach((target) =&gt; {
+        separatedAuditTargets.machine.forEach((target) =&gt; {
           let flow = flows.find((item) =&gt; item.name === target.flow);
           if (!flow) { flow = {name:target.flow,groups:[]}; flows.push(flow); }
           let group = flow.groups.find((item) =&gt; item.name === target.group);
@@ -2344,7 +2345,17 @@ html&gt;body{padding:0}&lt;/style&gt;
         const targetGroups = conditions.filter((condition) =&gt; draft.conditionIds.has(condition.id)).map((condition) =&gt; {
           const selected = draft.targetMap[condition.id] || new Set();
           const flows = separatedAuditGroupedMachineConditionTasks(condition.id);
-          const taskTree = flows.map((flow,flowIndex) =&gt; `&lt;div class=&quot;separated-audit-relation-flow&quot;&gt;&lt;div class=&quot;separated-audit-relation-flow-head&quot;&gt;&lt;label class=&quot;separated-audit-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-attach-flow=&quot;${flowIndex}&quot; data-condition-id=&quot;${condition.id}&quot;&gt;&lt;strong&gt;${separatedAuditEscape(flow.name)}&lt;/strong&gt;&lt;/label&gt;&lt;span class=&quot;separated-audit-secondary-text&quot;&gt;${flow.groups.reduce((sum,group) =&gt; sum + group.targets.length,0)} 个机审任务&lt;/span&gt;&lt;/div&gt;${flow.groups.map((group,groupIndex) =&gt; `&lt;div&gt;&lt;div class=&quot;separated-audit-relation-group-head&quot;&gt;&lt;label class=&quot;separated-audit-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-attach-group=&quot;${groupIndex}&quot; data-flow-index=&quot;${flowIndex}&quot; data-condition-id=&quot;${condition.id}&quot;&gt;&lt;span&gt;${separatedAuditEscape(group.name)}&lt;/span&gt;&lt;/label&gt;&lt;span class=&quot;separated-audit-secondary-text&quot;&gt;${group.targets.length} 个任务&lt;/span&gt;&lt;/div&gt;${group.targets.map((target) =&gt; { const taskCondition = separatedAuditMachineConditionOnTask(target,condition.id); const expression = taskCondition.threshold ? `${taskCondition.op} ${taskCondition.threshold}` : `${taskCondition.op} 当前标签`; return `&lt;label class=&quot;separated-audit-attach-target-item&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-attach-target=&quot;${target.id}&quot; data-condition-id=&quot;${condition.id}&quot; data-flow-index=&quot;${flowIndex}&quot; data-group-index=&quot;${groupIndex}&quot; ${selected.has(target.id) ? &#x27;checked&#x27; : &#x27;&#x27;}&gt;&lt;span&gt;&lt;strong&gt;${separatedAuditEscape(target.task)}&lt;/strong&gt;&lt;span class=&quot;separated-audit-secondary-text&quot;&gt;taskId ${separatedAuditEscape(target.taskId)} · ${separatedAuditEscape(expression)} · ${separatedAuditEscape(target.status)}&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;`; }).join(&#x27;&#x27;)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`).join(&#x27;&#x27;) || &#x27;&lt;div class=&quot;separated-audit-flat-empty&quot;&gt;暂无任务配置该全局条件；请先前往任务配置创建算法因子条件&lt;/div&gt;&#x27;;
+          const taskTree = flows.map((flow,flowIndex) =&gt; {
+            const flowEligible = flow.groups.reduce((sum,group) =&gt; sum + group.targets.filter((target) =&gt; separatedAuditMachineConditionOnTask(target,condition.id)).length,0);
+            return `&lt;div class=&quot;separated-audit-relation-flow&quot;&gt;&lt;div class=&quot;separated-audit-relation-flow-head&quot;&gt;&lt;label class=&quot;separated-audit-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-attach-flow=&quot;${flowIndex}&quot; data-condition-id=&quot;${condition.id}&quot;&gt;&lt;strong&gt;${separatedAuditEscape(flow.name)}&lt;/strong&gt;&lt;/label&gt;&lt;span class=&quot;separated-audit-secondary-text&quot;&gt;可选 ${flowEligible} / 全部 ${flow.groups.reduce((sum,group) =&gt; sum + group.targets.length,0)} 个机审任务&lt;/span&gt;&lt;/div&gt;${flow.groups.map((group,groupIndex) =&gt; {
+              const groupEligible = group.targets.filter((target) =&gt; separatedAuditMachineConditionOnTask(target,condition.id)).length;
+              return `&lt;div&gt;&lt;div class=&quot;separated-audit-relation-group-head&quot;&gt;&lt;label class=&quot;separated-audit-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-attach-group=&quot;${groupIndex}&quot; data-flow-index=&quot;${flowIndex}&quot; data-condition-id=&quot;${condition.id}&quot;&gt;&lt;span&gt;${separatedAuditEscape(group.name)}&lt;/span&gt;&lt;/label&gt;&lt;span class=&quot;separated-audit-secondary-text&quot;&gt;可选 ${groupEligible} / 全部 ${group.targets.length} 个任务&lt;/span&gt;&lt;/div&gt;${group.targets.map((target) =&gt; {
+                const taskCondition = separatedAuditMachineConditionOnTask(target,condition.id);
+                const expression = taskCondition ? (taskCondition.threshold ? `${taskCondition.op} ${taskCondition.threshold}` : `${taskCondition.op} 当前标签`) : &#x27;&#x27;;
+                return `&lt;label class=&quot;separated-audit-attach-target-item ${taskCondition ? &#x27;&#x27; : &#x27;is-disabled&#x27;}&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-attach-target=&quot;${target.id}&quot; data-condition-id=&quot;${condition.id}&quot; data-flow-index=&quot;${flowIndex}&quot; data-group-index=&quot;${groupIndex}&quot; ${taskCondition &amp;&amp; selected.has(target.id) ? &#x27;checked&#x27; : &#x27;&#x27;} ${taskCondition ? &#x27;&#x27; : &#x27;disabled&#x27;}&gt;&lt;span&gt;&lt;strong&gt;${separatedAuditEscape(target.task)}&lt;/strong&gt;${taskCondition ? `&lt;span class=&quot;separated-audit-secondary-text&quot;&gt;taskId ${separatedAuditEscape(target.taskId)} · ${separatedAuditEscape(expression)} · ${separatedAuditEscape(target.status)}&lt;/span&gt;` : `&lt;span class=&quot;separated-audit-warning&quot;&gt;taskId ${separatedAuditEscape(target.taskId)} · 请先前往任务配置创建算法因子条件&lt;/span&gt;`}&lt;/span&gt;&lt;/label&gt;`;
+              }).join(&#x27;&#x27;)}&lt;/div&gt;`;
+            }).join(&#x27;&#x27;)}&lt;/div&gt;`;
+          }).join(&#x27;&#x27;);
           return `&lt;section class=&quot;separated-audit-attach-target-group&quot;&gt;&lt;div class=&quot;separated-audit-attach-target-head&quot;&gt;&lt;label class=&quot;separated-audit-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-attach-all=&quot;${condition.id}&quot;&gt;&lt;strong&gt;${separatedAuditEscape(condition.name)}&lt;/strong&gt;&lt;/label&gt;&lt;span class=&quot;separated-audit-secondary-text&quot;&gt;流程 → 分组 → 机审任务&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-attach-target-list separated-audit-attach-tree&quot;&gt;${taskTree}&lt;/div&gt;&lt;/section&gt;`;
         }).join(&#x27;&#x27;);
         separatedAuditFind(&#x27;#separated-audit-targets&#x27;).className = &#x27;&#x27;;
@@ -2378,14 +2389,14 @@ html&gt;body{padding:0}&lt;/style&gt;
         }));
         separatedAuditFindAll(&#x27;[data-separated-attach-flow]&#x27;).forEach((input) =&gt; input.addEventListener(&#x27;change&#x27;, () =&gt; {
           const conditionId = input.dataset.conditionId;
-          const leaves = separatedAuditFindAll(&#x27;[data-separated-attach-target]&#x27;).filter((leaf) =&gt; leaf.dataset.conditionId === conditionId &amp;&amp; leaf.dataset.flowIndex === input.dataset.separatedAttachFlow);
+          const leaves = separatedAuditFindAll(&#x27;[data-separated-attach-target]&#x27;).filter((leaf) =&gt; !leaf.disabled &amp;&amp; leaf.dataset.conditionId === conditionId &amp;&amp; leaf.dataset.flowIndex === input.dataset.separatedAttachFlow);
           if (!draft.targetMap[conditionId]) draft.targetMap[conditionId] = new Set();
           leaves.forEach((leaf) =&gt; { if (input.checked) draft.targetMap[conditionId].add(leaf.dataset.separatedAttachTarget); else draft.targetMap[conditionId].delete(leaf.dataset.separatedAttachTarget); });
           separatedAuditRenderAttachMachineEditor();
         }));
         separatedAuditFindAll(&#x27;[data-separated-attach-group]&#x27;).forEach((input) =&gt; input.addEventListener(&#x27;change&#x27;, () =&gt; {
           const conditionId = input.dataset.conditionId;
-          const leaves = separatedAuditFindAll(&#x27;[data-separated-attach-target]&#x27;).filter((leaf) =&gt; leaf.dataset.conditionId === conditionId &amp;&amp; leaf.dataset.flowIndex === input.dataset.flowIndex &amp;&amp; leaf.dataset.groupIndex === input.dataset.separatedAttachGroup);
+          const leaves = separatedAuditFindAll(&#x27;[data-separated-attach-target]&#x27;).filter((leaf) =&gt; !leaf.disabled &amp;&amp; leaf.dataset.conditionId === conditionId &amp;&amp; leaf.dataset.flowIndex === input.dataset.flowIndex &amp;&amp; leaf.dataset.groupIndex === input.dataset.separatedAttachGroup);
           if (!draft.targetMap[conditionId]) draft.targetMap[conditionId] = new Set();
           leaves.forEach((leaf) =&gt; { if (input.checked) draft.targetMap[conditionId].add(leaf.dataset.separatedAttachTarget); else draft.targetMap[conditionId].delete(leaf.dataset.separatedAttachTarget); });
           separatedAuditRenderAttachMachineEditor();
@@ -2397,7 +2408,9 @@ html&gt;body{padding:0}&lt;/style&gt;
       function separatedAuditUpdateAttachParentStates() {
         const draft = separatedAuditState.attachMachineDraft;
         const setState = (input,leaves) =&gt; {
+          leaves = leaves.filter((leaf) =&gt; !leaf.disabled);
           const selected = leaves.filter((leaf) =&gt; (draft.targetMap[leaf.dataset.conditionId] || new Set()).has(leaf.dataset.separatedAttachTarget)).length;
+          input.disabled = !leaves.length;
           input.checked = leaves.length &gt; 0 &amp;&amp; selected === leaves.length;
           input.indeterminate = selected &gt; 0 &amp;&amp; selected &lt; leaves.length;
         };
@@ -2697,7 +2710,16 @@ html&gt;body{padding:0}&lt;/style&gt;
             separatedAuditFind(&#x27;#separated-audit-modal-summary&#x27;).textContent = &#x27;请至少选择一个任务&#x27;;
             return;
           }
-          separatedAuditState.pending = {kind:&#x27;display&#x27;, records:records.map((record) =&gt; ({targetIds:[...record.targetIds]}))};
+          const currentConfig = separatedAuditDisplayConfigs.find((config) =&gt; config.componentId === separatedAuditState.selected);
+          const currentTargets = new Set(currentConfig ? currentConfig.targetIds : []);
+          const nextTargets = new Set(records[0].targetIds);
+          const added = [...nextTargets].filter((id) =&gt; !currentTargets.has(id)).length;
+          const removed = [...currentTargets].filter((id) =&gt; !nextTargets.has(id)).length;
+          if (!added &amp;&amp; !removed) {
+            separatedAuditFind(&#x27;#separated-audit-modal-summary&#x27;).textContent = &#x27;当前任务范围没有变化&#x27;;
+            return;
+          }
+          separatedAuditState.pending = {kind:&#x27;display&#x27;, records:records.map((record) =&gt; ({targetIds:[...record.targetIds]})), added, removed};
         } else {
           const targetIds = separatedAuditFindAll(&#x27;[data-separated-target]:checked&#x27;).map((input) =&gt; input.dataset.separatedTarget);
           const labelIds = separatedAuditRelationScopeIds();
@@ -2747,8 +2769,8 @@ html&gt;body{padding:0}&lt;/style&gt;
           const targetIds = new Set(pending.records.flatMap((record) =&gt; record.targetIds));
           const targets = separatedAuditDisplayTasks.filter((task) =&gt; targetIds.has(task.id));
           const online = targets.filter((task) =&gt; task.status === &#x27;已上线&#x27;).length;
-          html = `&lt;h3 class=&quot;separated-audit-confirm-title&quot;&gt;确认展示组件配置生效&lt;/h3&gt;&lt;div class=&quot;separated-audit-impact-list&quot;&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;展示组件&lt;/span&gt;&lt;strong&gt;${separatedAuditEscape(component.name)}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;固定位置&lt;/span&gt;&lt;span&gt;${separatedAuditEscape(separatedAuditFixedPosition)}（系统固定）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;影响任务&lt;/span&gt;&lt;span&gt;${targets.length ? `${targets.length} 个任务（已上线 ${online}，未上线 ${targets.length - online}）` : &#x27;解除当前组件的全部任务应用&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;配置快照&lt;/span&gt;&lt;span&gt;保存本次明确勾选的任务 ID；后续新增任务不自动继承&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;版本校验&lt;/span&gt;&lt;span&gt;确认时再次校验；冲突则整次阻止，不覆盖任务页修改&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`;
-          summary = `待生效：${targets.length} 个任务`;
+          html = `&lt;h3 class=&quot;separated-audit-confirm-title&quot;&gt;确认展示组件配置生效&lt;/h3&gt;&lt;div class=&quot;separated-audit-impact-list&quot;&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;展示组件&lt;/span&gt;&lt;strong&gt;${separatedAuditEscape(component.name)}&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;本次变更&lt;/span&gt;&lt;strong&gt;新增 ${pending.added} 个任务 · 解除 ${pending.removed} 个任务&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;固定位置&lt;/span&gt;&lt;span&gt;${separatedAuditEscape(separatedAuditFixedPosition)}（系统固定）&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;生效后范围&lt;/span&gt;&lt;span&gt;${targets.length ? `${targets.length} 个任务（已上线 ${online}，未上线 ${targets.length - online}）` : &#x27;解除当前组件的全部任务应用&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;配置快照&lt;/span&gt;&lt;span&gt;保存本次明确勾选的任务 ID；后续新增任务不自动继承&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-impact-row&quot;&gt;&lt;span&gt;版本校验&lt;/span&gt;&lt;span&gt;确认时再次校验；冲突则整次阻止，不覆盖任务页修改&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`;
+          summary = `待生效：新增 ${pending.added} · 解除 ${pending.removed}`;
         } else {
           const targets = separatedAuditCurrentTargets().filter((target) =&gt; pending.affectedIds.includes(target.id));
           const taskIds = new Set(targets.map((target) =&gt; target.taskId));
