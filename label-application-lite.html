@@ -1502,9 +1502,73 @@ html&gt;body{padding:0}&lt;/style&gt;
       border: 1px solid var(--separated-audit-line);
       background: var(--separated-audit-soft);
     }
-    #audit-lite-label-demo-20260902 .separated-audit-scope-title { margin-bottom: 8px; font-weight: 500; }
-    #audit-lite-label-demo-20260902 .separated-audit-scope-title span { margin-left: 6px; color: var(--separated-audit-muted); font-size: 12px; font-weight: 400; }
-    #audit-lite-label-demo-20260902 .separated-audit-scope-list { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-title { margin-bottom: 10px; font-weight: 500; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-title span { display: block; margin-top: 3px; color: var(--separated-audit-muted); font-size: 12px; font-weight: 400; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-tree {
+      overflow: hidden;
+      border: 1px solid var(--separated-audit-line);
+      border-radius: 8px;
+      background: var(--separated-audit-panel);
+    }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node { position: relative; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node-row {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 6px 12px;
+      border-bottom: 1px solid var(--separated-audit-line);
+    }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node.is-root &gt; .separated-audit-scope-node-row {
+      background: var(--separated-audit-brand-faint);
+      font-weight: 600;
+    }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node-children {
+      position: relative;
+      margin-left: 21px;
+      padding-left: 20px;
+      border-left: 1px solid var(--separated-audit-line-strong);
+    }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node-children &gt; .separated-audit-scope-node::before {
+      content: &quot;&quot;;
+      position: absolute;
+      top: 21px;
+      left: -20px;
+      width: 16px;
+      border-top: 1px solid var(--separated-audit-line-strong);
+    }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node:last-child &gt; .separated-audit-scope-node-row { border-bottom: 0; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node-children + * { border-top: 0; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node-label { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node-label strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-level {
+      flex: 0 0 auto;
+      padding: 2px 7px;
+      border: 1px solid var(--separated-audit-line);
+      border-radius: 999px;
+      color: var(--separated-audit-muted);
+      background: var(--separated-audit-soft);
+      font-size: 11px;
+    }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-current { color: var(--separated-audit-brand); font-size: 11px; font-weight: 500; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-node-row .separated-audit-check { min-width: 0; }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-branch-select {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 28px;
+      padding: 0 8px;
+      border: 1px solid var(--separated-audit-line);
+      border-radius: 6px;
+      color: var(--separated-audit-muted);
+      background: var(--separated-audit-soft);
+      font-size: 12px;
+      cursor: pointer;
+    }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-branch-select input { width: 14px; height: 14px; accent-color: var(--separated-audit-brand); }
+    #audit-lite-label-demo-20260902 .separated-audit-scope-branch-select small { color: var(--separated-audit-muted); }
     #audit-lite-label-demo-20260902 .separated-audit-check { display: inline-flex; align-items: center; gap: 7px; min-height: 30px; }
     #audit-lite-label-demo-20260902 .separated-audit-check input { width: 16px; height: 16px; accent-color: var(--separated-audit-brand); }
     #audit-lite-label-demo-20260902 .separated-audit-targets { overflow-x: auto; border: 1px solid var(--separated-audit-line); }
@@ -2616,7 +2680,50 @@ html&gt;body{padding:0}&lt;/style&gt;
       function separatedAuditRenderScope(label) {
         const labels = separatedAuditDescendants(label);
         if (separatedAuditState.tab !== &#x27;manual&#x27; || labels.length &lt;= 1) return &#x27;&#x27;;
-        return `&lt;div class=&quot;separated-audit-scope&quot;&gt;&lt;div class=&quot;separated-audit-scope-title&quot;&gt;本次关联标签范围&lt;span&gt;默认包含当前全部二、三级子标签，可自行取消；未来新增子标签不自动关联&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-scope-list&quot;&gt;${labels.map((item) =&gt; `&lt;label class=&quot;separated-audit-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-scope=&quot;${item.id}&quot; checked&gt;&lt;span&gt;${separatedAuditEscape(item.name)}（${item.level}级）&lt;/span&gt;&lt;/label&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;&lt;/div&gt;`;
+        const renderBranch = (item, path = [], isRoot = false) =&gt; {
+          if (path.includes(item.id)) return &#x27;&#x27;;
+          const nextPath = [...path,item.id];
+          const children = separatedAuditFlatLabels().filter((candidate) =&gt; separatedAuditParentIds(candidate).includes(item.id));
+          const childrenHtml = children.map((child) =&gt; renderBranch(child,nextPath,false)).join(&#x27;&#x27;);
+          return `&lt;div class=&quot;separated-audit-scope-node ${isRoot ? &#x27;is-root&#x27; : &#x27;&#x27;}&quot; role=&quot;treeitem&quot; aria-level=&quot;${item.level}&quot;&gt;&lt;div class=&quot;separated-audit-scope-node-row&quot;&gt;&lt;label class=&quot;separated-audit-check&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-scope=&quot;${item.id}&quot; ${isRoot ? &#x27;data-separated-scope-root=&quot;true&quot;&#x27; : &#x27;&#x27;} checked&gt;&lt;span class=&quot;separated-audit-scope-node-label&quot;&gt;&lt;strong&gt;${separatedAuditEscape(item.name)}&lt;/strong&gt;&lt;span class=&quot;separated-audit-scope-level&quot;&gt;${item.level}级&lt;/span&gt;${isRoot ? &#x27;&lt;span class=&quot;separated-audit-scope-current&quot;&gt;当前标签&lt;/span&gt;&#x27; : &#x27;&#x27;}&lt;/span&gt;&lt;/label&gt;${children.length ? `&lt;label class=&quot;separated-audit-scope-branch-select&quot; title=&quot;仅批量控制当前分支内的子标签，不改变“${separatedAuditEscape(item.name)}”自身&quot;&gt;&lt;input type=&quot;checkbox&quot; data-separated-scope-branch=&quot;${item.id}&quot; checked&gt;&lt;span&gt;子标签全选&lt;/span&gt;&lt;small&gt;${separatedAuditDescendants(item).length - 1} 项&lt;/small&gt;&lt;/label&gt;` : &#x27;&#x27;}&lt;/div&gt;${childrenHtml ? `&lt;div class=&quot;separated-audit-scope-node-children&quot; role=&quot;group&quot;&gt;${childrenHtml}&lt;/div&gt;` : &#x27;&#x27;}&lt;/div&gt;`;
+        };
+        return `&lt;div class=&quot;separated-audit-scope&quot;&gt;&lt;div class=&quot;separated-audit-scope-title&quot;&gt;本次关联标签范围&lt;span&gt;每个标签可独立勾选；默认包含当前全部二、三级子标签，可自行取消。右侧“子标签全选”仅批量控制当前分支，未来新增子标签不自动关联。&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separated-audit-scope-tree&quot; role=&quot;tree&quot;&gt;${renderBranch(label,[],true)}&lt;/div&gt;&lt;/div&gt;`;
+      }
+
+      function separatedAuditUpdateScopeParentStates() {
+        separatedAuditFindAll(&#x27;.separated-audit-scope-node&#x27;).forEach((node) =&gt; {
+          const branchInput = node.querySelector(&#x27;:scope &gt; .separated-audit-scope-node-row [data-separated-scope-branch]&#x27;);
+          const childWrap = node.querySelector(&#x27;:scope &gt; .separated-audit-scope-node-children&#x27;);
+          if (!branchInput || !childWrap) return;
+          const descendants = Array.from(childWrap.querySelectorAll(&#x27;[data-separated-scope]&#x27;));
+          const allSelected = descendants.length &gt; 0 &amp;&amp; descendants.every((input) =&gt; input.checked);
+          const anySelected = descendants.some((input) =&gt; input.checked);
+          branchInput.checked = allSelected;
+          branchInput.indeterminate = !allSelected &amp;&amp; anySelected;
+        });
+      }
+
+      function separatedAuditBindScopeTree() {
+        const syncLabelInstances = (labelId, checked) =&gt; {
+          separatedAuditFindAll(&#x27;[data-separated-scope]&#x27;).filter((input) =&gt; input.dataset.separatedScope === labelId).forEach((input) =&gt; {
+            input.checked = checked;
+            input.indeterminate = false;
+          });
+        };
+        separatedAuditFindAll(&#x27;[data-separated-scope]&#x27;).forEach((input) =&gt; input.addEventListener(&#x27;change&#x27;, () =&gt; {
+          syncLabelInstances(input.dataset.separatedScope,input.checked);
+          separatedAuditUpdateScopeParentStates();
+          separatedAuditRenderRelationTargets();
+        }));
+        separatedAuditFindAll(&#x27;[data-separated-scope-branch]&#x27;).forEach((branchInput) =&gt; branchInput.addEventListener(&#x27;change&#x27;, () =&gt; {
+          const node = branchInput.closest(&#x27;.separated-audit-scope-node&#x27;);
+          const childWrap = node.querySelector(&#x27;:scope &gt; .separated-audit-scope-node-children&#x27;);
+          const descendantIds = childWrap ? [...new Set(Array.from(childWrap.querySelectorAll(&#x27;[data-separated-scope]&#x27;)).map((input) =&gt; input.dataset.separatedScope))] : [];
+          descendantIds.forEach((labelId) =&gt; syncLabelInstances(labelId,branchInput.checked));
+          separatedAuditUpdateScopeParentStates();
+          separatedAuditRenderRelationTargets();
+        }));
+        separatedAuditUpdateScopeParentStates();
       }
 
       function separatedAuditPrepareModal(title, kind) {
@@ -2788,7 +2895,8 @@ html&gt;body{padding:0}&lt;/style&gt;
 
       function separatedAuditRelationScopeIds() {
         const scopeInputs = separatedAuditFindAll(&#x27;[data-separated-scope]&#x27;);
-        return scopeInputs.length ? scopeInputs.filter((input) =&gt; input.checked).map((input) =&gt; input.dataset.separatedScope) : [separatedAuditState.selected];
+        if (!scopeInputs.length) return [separatedAuditState.selected];
+        return [...new Set(scopeInputs.filter((input) =&gt; input.checked || input.indeterminate).map((input) =&gt; input.dataset.separatedScope))];
       }
 
       function separatedAuditGroupedRelationTargets() {
@@ -2889,7 +2997,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           separatedAuditState.relationMode = input.value;
           separatedAuditRenderRelationTargets();
         }));
-        separatedAuditFindAll(&#x27;[data-separated-scope]&#x27;).forEach((input) =&gt; input.addEventListener(&#x27;change&#x27;, separatedAuditRenderRelationTargets));
+        separatedAuditBindScopeTree();
         separatedAuditRenderRelationTargets();
         separatedAuditShowOverlay();
       }
